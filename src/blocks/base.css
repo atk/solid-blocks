@@ -1,0 +1,60 @@
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+input,
+textarea,
+select {
+  font: inherit;
+}
+a {
+  color: var(--text);
+}
+
+body,
+.light-mode {
+  --text: #333;
+  --negative-text: #eee;
+  --background: #fff;
+  --border-radius: 0.25em;
+  --border-color: #ccc;
+  --round-border-radius: 50%;
+  --hair-line: 0.05em;
+  --normal-line: 0.125em;
+  --wide-line: 0.25em;
+  --primary: #37c;
+  --primary-text: #eee;
+  --success: #dfd;
+  --info: #ddf;
+  --warning: #ffd;
+  --error: #fdd;
+  --breadcrumb-icon: " > ";
+  --random-color1: #89d;
+  --random-color2: #9bd;
+  --random-color3: #adb;
+  --random-color4: #cc9;
+  --random-color5: #db9;
+  --random-color6: #d99;
+  --random-color7: #c9a;
+  --random-color8: #b9a;
+}
+
+.dark-mode {
+  --text: #eee;
+  --negative-text: #333;
+  --background: #222;
+  --border-color: #555;
+  --success: #232;
+  --info: #224;
+  --warning: #442;
+  --error: #422;
+  --random-color1: #238;
+  --random-color2: #278;
+  --random-color3: #487;
+  --random-color4: #683;
+  --random-color5: #862;
+  --random-color6: #933;
+  --random-color7: #827;
+  --random-color8: #729;
+}

@@ -1,0 +1,28 @@
+.sb-tabs > [role="tablist"] {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.sb-tabs > [role="tablist"][aria-orientation="horizontal"] {
+  border-bottom: 0.025em solid var(--border-color);
+}
+.sb-tabs > [role="tablist"][aria-orientation="vertical"] {
+  float: left;
+  border-right: 0.025em solid var(--border-color);
+}
+.sb-tabs > [role="tablist"][aria-orientation="horizontal"] > [role="tab"] {
+  display: inline-block;
+}
+.sb-tabs > [role="tablist"] > [role="tab"] {
+  cursor: pointer;
+  padding: 0 0.5em;
+}
+.sb-tabs > [role="tablist"] > [role="tab"][aria-selected="true"] {
+  font-weight: 700;
+  cursor: default;
+}
+.sb-tabs
+  > [role="tablist"][aria-orientation="horizontal"]
+  > [role="tab"][aria-selected="true"] {
+  border-bottom: 0.125em solid var(--primary);
+}

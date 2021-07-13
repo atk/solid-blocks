@@ -1,0 +1,49 @@
+button.sb-button,
+[role="button"].sb-button {
+  appearance: none;
+  border: 0.125em solid;
+  border-radius: var(--border-radius);
+  font-size: inherit;
+  padding: 0.25em 0.75em;
+}
+button.primary.sb-button,
+[role="button"].primary.sb-button {
+  border-color: var(--primary);
+  background: var(--primary);
+  color: var(--primary-text);
+}
+button.sb-button:hover:not(:active),
+button.sb-button:focus:not(:active),
+[role="button"].sb-button:hover:not(:active),
+[role="button"].sb-button:focus:not(:active) {
+  box-shadow: 0 0 0 0.125em var(--background), 0 0 0 0.25em var(--primary);
+  text-decoration: none;
+}
+button.secondary.sb-button,
+[role="button"].secondary.sb-button {
+  background: transparent;
+  border-color: var(--primary);
+  color: var(--text);
+}
+button.link.sb-button,
+[role="button"].link.sb-button {
+  background: transparent;
+  border-color: transparent;
+  color: var(--text);
+  text-decoration: underline;
+}
+button.link.sb-button:hover:not(:active),
+button.link.sb-button:focus:not(:active),
+[role="button"].link.sb-button:hover:not(:active),
+[role="button"].link.sb-button:hover:not(:active) {
+  border-color: var(--primary);
+  color: var(--primary);
+}
+button.sb-button:not(:first-child),
+[role="button"].sb-button:not(:first-child) {
+  margin-left: 0.25em;
+}
+button.sb-button:not(:last-child),
+[role="button"].sb-button:not(:last-child) {
+  margin-right: 0.25em;
+}

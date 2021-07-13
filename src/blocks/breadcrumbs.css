@@ -1,0 +1,10 @@
+nav.sb-breadcrumbs > ol {
+  list-style: none;
+  padding-left: 0;
+}
+nav.sb-breadcrumbs > ol > li {
+  display: inline;
+}
+nav.sb-breadcrumbs > ol > li + li:before {
+  content: var(--breadcrumb-icon);
+}

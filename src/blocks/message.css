@@ -1,0 +1,16 @@
+.sb-message {
+  padding: 0.5em 1em;
+  border-radius: var(--border-radius);
+}
+.sb-message.success {
+  background: var(--success);
+}
+.sb-message.info {
+  background: var(--info);
+}
+.sb-message.warning {
+  background: var(--warning);
+}
+.sb-message.error {
+  background: var(--error);
+}

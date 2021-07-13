@@ -1,0 +1,27 @@
+@keyframes spin {
+  from {
+    transform: rotate(-360deg);
+  }
+  to {
+    transform: rotate(0deg);
+  }
+}
+
+progress.sb-spinner:not([value]):not([aria-orientation]) {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 0.825em;
+  height: 0.825em;
+  background: none;
+  border: var(--normal-line) solid;
+  border-color: var(--primary) var(--border-color) var(--border-color)
+    var(--border-color);
+  border-radius: var(--round-border-radius);
+  vertical-align: -0.05em;
+  color: transparent;
+  animation: spin 1s linear infinite;
+}
+progress.sb-spinner:not([value]):not([aria-orientation])::-webkit-progress-bar,
+progress.sb-spinner:not([value]):not([aria-orientation])::-webkit-progress-value {
+  display: none;
+}

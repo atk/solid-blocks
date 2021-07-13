@@ -1,0 +1,16 @@
+# TODO
+
+Road to 1.0:
+
+- Improved package structure
+- Styles:
+  - extend + improve theme
+  - basic spacings + sizes
+  - vertical tabs
+- Components:
+  - State: progress, meter
+  - Orientation: tag
+  - Layout: menu, toast, modal, (top/bottom/side)-bar, popover, tooltip
+  - Forms
+  - Icons
+- Documentation
