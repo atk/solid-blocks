@@ -36,8 +36,6 @@ const setPanelState = (panel: HTMLElement, nr, index) => {
   }
 };
 
-type TabsAndPanels = [JSX.Element[], JSX.Element[]];
-
 type TabChild =
   | HTMLElement
   | HTMLElement[]
