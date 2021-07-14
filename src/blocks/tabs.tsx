@@ -1,10 +1,16 @@
-import type { Component, JSX } from "solid-js";
-import { createSignal, createEffect } from "solid-js";
+import {
+  createSignal,
+  createEffect,
+  Component,
+  JSX,
+  createMemo,
+  For,
+} from "solid-js";
 import { getNearestNode } from "./tools";
 import "./tabs.css";
 
 export type TabsProps = {
-  children: (ReturnType<typeof Tab> | ReturnType<typeof TabContainer>)[];
+  children: (ReturnType<typeof Tab> | ReturnType<typeof TabContainer> | null)[];
   index?: number;
   vertical?: boolean;
   onChange?: (index: number) => void;
@@ -12,14 +18,17 @@ export type TabsProps = {
 
 const setTabState = (tab: HTMLElement, nr: number, index: number) => {
   const selected = nr === index;
-  if ((tab.getAttribute("aria-selected") === "true") !== selected) {
+  if (
+    tab?.getAttribute &&
+    (tab.getAttribute("aria-selected") === "true") !== selected
+  ) {
     tab.setAttribute("aria-selected", selected ? "true" : "false");
     tab.setAttribute("tabIndex", selected ? "-1" : "0");
   }
 };
 
 const setPanelState = (panel: HTMLElement, nr, index) => {
-  if (panel.hasAttribute("hidden") === (nr === index)) {
+  if (panel?.hasAttribute && panel.hasAttribute("hidden") === (nr === index)) {
     panel[nr === index ? "removeAttribute" : "setAttribute"](
       "hidden",
       "hidden"
@@ -27,35 +36,51 @@ const setPanelState = (panel: HTMLElement, nr, index) => {
   }
 };
 
+type TabsAndPanels = [JSX.Element[], JSX.Element[]];
+
+type TabChild =
+  | HTMLElement
+  | HTMLElement[]
+  | null
+  | (() =>
+      | HTMLElement
+      | HTMLElement[]
+      | null
+      | (() => HTMLElement | HTMLElement[] | null));
+
+const getElements = (
+  children: TabChild,
+  nodeName: string,
+  result = []
+): HTMLElement[] => {
+  if (children === null) {
+    return;
+  }
+  if (Array.isArray(children)) {
+    children.forEach((child) => getElements(child, nodeName, result));
+  } else if (typeof children === "function") {
+    getElements(children(), nodeName, result);
+  } else if (children.nodeName === nodeName) {
+    result.push(children);
+  }
+  return result;
+};
+
 export const Tabs: Component<TabsProps> = (props) => {
   const [selected, setSelected] = createSignal(props.index ?? 0);
-  const [tabs, panels] = (props.children as JSX.Element[]).reduce<
-    [JSX.Element[], JSX.Element[]]
-  >(
-    (items, item) => {
-      const elem = item as HTMLLIElement | HTMLDivElement;
-      if (elem.nodeName === "LI") {
-        const nr = items[0].length;
-        setTabState(elem, nr, props.index);
-        elem.setAttribute("data-index", nr.toString());
-        items[0].push(item);
-      } else {
-        setPanelState(elem, items[1].length, props.index);
-        items[1].push(item);
-      }
-      return items;
-    },
-    [[], []]
+  const tabs = createMemo(() => getElements(props.children as TabChild, "LI"));
+  const panels = createMemo(() =>
+    getElements(props.children as TabChild, "DIV")
   );
 
   createEffect(() => {
-    const index = selected();
+    const index = selected() % tabs().length;
     props.onChange?.(index);
-    tabs.forEach((tab, nr) => {
+    tabs().forEach((tab, nr) => {
       const elem = tab as HTMLLIElement;
       setTabState(elem, nr, index);
     });
-    panels.forEach((panel, nr) => {
+    panels().forEach((panel, nr) => {
       const elem = panel as HTMLDivElement;
       setPanelState(elem, nr, index);
     });
@@ -63,24 +88,27 @@ export const Tabs: Component<TabsProps> = (props) => {
 
   const clickHandler = (ev: MouseEvent) => {
     const tab = getNearestNode(ev.target, "LI") as HTMLLIElement | undefined;
-    const index = tab?.getAttribute?.("data-index");
-    if (index) {
+    if (!tab) {
+      return;
+    }
+    const index = Array.prototype.indexOf.call(tab.parentNode.childNodes, tab);
+    if (index !== -1) {
       setSelected(Number(index));
     }
   };
   const keyupHandler = (ev: KeyboardEvent) => {
     const tab = getNearestNode(ev.target, "LI") as HTMLLIElement | undefined;
-    const index = tab?.getAttribute?.("data-index");
-    if (index) {
-      const nr = Number(index);
+    const tabs = tab.parentElement.childNodes;
+    const index = Array.prototype.indexOf.call(tabs, tab);
+    if (index !== -1) {
       if (ev.key === " ") {
-        setSelected(nr);
-      } else if (ev.key === "ArrowLeft" && nr !== 0) {
-        setSelected(nr - 1);
-        (tabs[nr - 1] as HTMLLIElement).focus();
-      } else if (ev.key === "ArrowRight" && nr < tabs.length) {
-        setSelected(nr + 1);
-        (tabs[nr + 1] as HTMLLIElement).focus();
+        setSelected(index);
+      } else if (ev.key === "ArrowLeft" && index !== 0) {
+        setSelected(index - 1);
+        (tabs[index - 1] as HTMLLIElement).focus();
+      } else if (ev.key === "ArrowRight" && index + 1 < tabs.length) {
+        setSelected(index + 1);
+        (tabs[index + 1] as HTMLLIElement).focus();
       }
     }
   };
@@ -93,9 +121,9 @@ export const Tabs: Component<TabsProps> = (props) => {
         onClick={clickHandler}
         onKeyUp={keyupHandler}
       >
-        {tabs}
+        {tabs()}
       </ul>
-      {panels}
+      {panels()}
     </section>
   );
 };
