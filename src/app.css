@@ -9,6 +9,7 @@ body {
   color: var(--text);
   background: var(--background);
   font-size: calc(1em + 1vmin);
+  line-height: 1.5em;
   padding: 0em 1em 3em 1em;
   height: 100%;
 }

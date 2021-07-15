@@ -1,0 +1,25 @@
+.sb-textfield > .sb-textfield-label + input,
+.sb-textfield > .sb-textfield-label + textarea {
+  border: var(--hair-line) solid var(--border-color);
+  border-radius: var(--border-radius);
+  height: 1.9em;
+  vertical-align: -0.05em;
+  padding: 0.25em 0.5em;
+}
+.sb-textfield > .sb-textfield-label + textarea {
+  vertical-align: -0.6em;
+}
+.sb-textfield:not([aria-orientation="vertical"]) .sb-textfield-label {
+  display: inline-block;
+  margin-right: 0.5em;
+  min-width: 4em;
+  text-align: right;
+}
+.sb-textfield[aria-orientation="vertical"] .sb-textfield-label {
+  font-size: 0.85em;
+}
+.sb-textfield[aria-orientation="vertical"] .sb-textfield-label:after {
+  content: "";
+  height: 0;
+  display: block;
+}

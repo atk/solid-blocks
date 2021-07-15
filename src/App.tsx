@@ -11,6 +11,7 @@ import {
   TabContainer,
   Radio,
   RadioGroup,
+  TextField,
 } from "./blocks";
 
 import "./app.css";
@@ -138,6 +139,7 @@ const App: Component = () => {
         <Message type="error">Error Message</Message>
       </div>
       <div>
+        <TextField label="Test" placeholder="test" aria-orientation="vertical" />
         <Button>Button</Button> <Button variant="secondary">Secondary</Button>{" "}
         <Button variant="link">Link</Button> <span>Text</span> <Spinner />
       </div>
