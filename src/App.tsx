@@ -16,6 +16,7 @@ import {
 
 import "./app.css";
 import { Checkbox } from "./blocks/checkbox";
+import { Select } from "./blocks/select";
 
 const App: Component = () => {
   const [showLastTab, setShowLastTab] = createSignal(true);
@@ -56,7 +57,9 @@ const App: Component = () => {
             <li>Loading Spinner</li>
             <li>Messages (needs icons)</li>
             <li>Radio/-Group</li>
+            <li>Select</li>
             <li>Tabs/Tab/TabContainer</li>
+            <li>TextField</li>
             <li>Improved CSS: theme-ability using CSS variables, dark mode</li>
           </ul>
         </TabContainer>
@@ -72,8 +75,7 @@ const App: Component = () => {
                   Layout: Menu, Toast, Modal, Sidebar/Drawer, Popover, Tooltip
                 </li>
                 <li>
-                  Form controls: input, textarea,
-                  select/option, stars rating?, date picker?
+                  Form controls: stars rating?, date picker?
                 </li>
                 <li>Icons</li>
               </ul>
@@ -154,7 +156,11 @@ const App: Component = () => {
       <RadioGroup value="1">
         <Radio name="radio-test" value="1"> 1</Radio>
         <Radio name="radio-test" value="2"> 2</Radio>
-      </RadioGroup>
+      </RadioGroup><br/>
+      <Select label="Test Select" value="2">
+        <option value="1">1</option>
+        <option value="2">2</option>
+      </Select>
     </div>
   );
 };

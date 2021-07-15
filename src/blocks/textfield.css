@@ -5,6 +5,7 @@
   height: 1.9em;
   vertical-align: -0.05em;
   padding: 0.25em 0.5em;
+  background: transparent;
 }
 .sb-textfield > .sb-textfield-label + textarea {
   vertical-align: -0.6em;

@@ -1,0 +1,22 @@
+.sb-select > select {
+  background: transparent;
+  border: var(--hair-line) solid var(--border-color);
+  border-radius: var(--border-radius);
+  height: 1.9em;
+  vertical-align: -0.05em;
+  padding: 0.25em 0.5em;
+}
+.sb-select:not([aria-orientation="vertical"]) .sb-select-label {
+  display: inline-block;
+  margin-right: 0.5em;
+  min-width: 4em;
+  text-align: right;
+}
+.sb-select[aria-orientation="vertical"] .sb-select-label {
+  font-size: 0.85em;
+}
+.sb-select[aria-orientation="vertical"] .sb-select-label:after {
+  content: "";
+  height: 0;
+  display: block;
+}
