@@ -37,7 +37,6 @@ button.link.sb-button:focus:not(:active),
 [role="button"].link.sb-button:hover:not(:active),
 [role="button"].link.sb-button:hover:not(:active) {
   border-color: var(--primary);
-  color: var(--primary);
 }
 button.sb-button:not(:first-child),
 [role="button"].sb-button:not(:first-child) {
