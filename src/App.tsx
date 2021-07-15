@@ -75,55 +75,53 @@ const App: Component = () => {
             <li>Documentation</li>
           </ul>
         </TabContainer>
-        {showLastTab() ? (
-          <>
-            <Tab>Concepts</Tab>
-            <TabContainer>
-              <h2>
-                Valuable components instead of components without added value
-              </h2>
+        <Show when={showLastTab()}>
+          <Tab>Concepts</Tab>
+          <TabContainer>
+            <h2>
+              Valuable components instead of components without added value
+            </h2>
 
-              <p>
-                Wrapping elements like headers, text, or images in custom
-                Components is just wasteful. Components will only be provided if
-                they have added value over their native elements. The added
-                value may be
-              </p>
-              <ul>
-                <li>user experience</li>
-                <li>accessibility</li>
-                <li>developer experience</li>
-              </ul>
+            <p>
+              Wrapping elements like headers, text, or images in custom
+              Components is just wasteful. Components will only be provided if
+              they have added value over their native elements. The added
+              value may be
+            </p>
+            <ul>
+              <li>user experience</li>
+              <li>accessibility</li>
+              <li>developer experience</li>
+            </ul>
 
-              <p>
-                If none of these advantages can be provided, it is preferable to
-                use native HTML elements or SolidJS' abilities like Portal
-                effectively.
-              </p>
+            <p>
+              If none of these advantages can be provided, it is preferable to
+              use native HTML elements or SolidJS' abilities like Portal
+              effectively.
+            </p>
 
-              <h2>Components with style instead of styled components</h2>
+            <h2>Components with style instead of styled components</h2>
 
-              <p>
-                Directly using CSS is frowned upon nowadays, but not rightfully
-                so. Well crafted CSS will easily outperform styled components.
-                It should do so with
-              </p>
-              <ul>
-                <li>
-                  minimal bleeding (class prefix <code>sb-[component]</code>,
-                  CSS reset, basic styles)
-                </li>
-                <li>
-                  semantic class names, i.e. <code>.primary.sb-button</code>
-                </li>
-                <li>careful consideration of a11y</li>
-                <li>components styles work in non-JS environments (SSR)</li>
-                <li>responsive layout</li>
-                <li>theme-able, dark mode</li>
-              </ul>
-            </TabContainer>
-          </>
-        ) : null}
+            <p>
+              Directly using CSS is frowned upon nowadays, but not rightfully
+              so. Well crafted CSS will easily outperform styled components.
+              It should do so with
+            </p>
+            <ul>
+              <li>
+                minimal bleeding (class prefix <code>sb-[component]</code>,
+                CSS reset, basic styles)
+              </li>
+              <li>
+                semantic class names, i.e. <code>.primary.sb-button</code>
+              </li>
+              <li>careful consideration of a11y</li>
+              <li>components styles work in non-JS environments (SSR)</li>
+              <li>responsive layout</li>
+              <li>theme-able, dark mode</li>
+            </ul>
+          </TabContainer>
+        </Show>
       </Tabs>
       <Breadcrumbs>
         <a href="">You</a> <a href="">are</a> <span>Here</span>

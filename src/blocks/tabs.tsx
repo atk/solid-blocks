@@ -51,7 +51,7 @@ const getElements = (
   nodeName: string,
   result = []
 ): HTMLElement[] => {
-  if (children === null) {
+  if (!children) {
     return;
   }
   if (Array.isArray(children)) {
