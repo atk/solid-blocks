@@ -1,4 +1,4 @@
-import { Component, JSX, splitProps, Show } from "solid-js";
+import { Component, JSX, splitProps, Show, onMount } from "solid-js";
 
 import "./radio.css";
 
@@ -31,7 +31,34 @@ export const Radio: Component<RadioProps> = (props) => {
   </label>
 }
 
-export type RadioGroupProps = JSX.HTMLAttributes<HTMLDivElement>;
+export type RadioGroupProps = JSX.HTMLAttributes<HTMLDivElement> & {
+  onchange?: (value?: string) => void;
+  value?: string;
+};
 
-export const RadioGroup: Component<RadioGroupProps> = (props) =>
-  <div role="radiogroup" {...props} />;
+export const RadioGroup: Component<RadioGroupProps> = (props) => {
+  const [local, divProps] = splitProps(props, ['onchange', 'value', 'children']);
+
+  let group;
+  onMount(() => {
+    if (local.value) {
+      const items = group.querySelectorAll('input[type="radio"]');
+      Array.prototype.forEach.call(items, (item) => {
+        item.checked = item.value === local.value;
+      });
+    }
+  })
+  
+  let value = local.value;
+  const changeHandler = () => {
+    const newValue = group?.querySelector('input[type="radio"]:checked')?.value
+    if (value !== newValue) {
+      local.onchange?.(newValue);
+      value = newValue;
+    }
+  }
+
+  return <div ref={group} role="radiogroup" onkeyup={changeHandler} onclick={changeHandler} {...divProps}>
+    {local.children}
+  </div>;
+}

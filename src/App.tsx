@@ -149,7 +149,7 @@ const App: Component = () => {
         <Avatar />
       </AvatarGroup>{" "}
       <Checkbox align="right" checked={showLastTab()} onclick={() => setShowLastTab((show) => !show)}>Show last tab: </Checkbox>
-      <RadioGroup>
+      <RadioGroup value="1">
         <Radio name="radio-test" value="1"> 1</Radio>
         <Radio name="radio-test" value="2"> 2</Radio>
       </RadioGroup>
