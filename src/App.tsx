@@ -9,6 +9,8 @@ import {
   Tabs,
   Tab,
   TabContainer,
+  Radio,
+  RadioGroup,
 } from "./blocks";
 
 import "./app.css";
@@ -52,6 +54,7 @@ const App: Component = () => {
             <li>Checkbox</li>
             <li>Loading Spinner</li>
             <li>Messages (needs icons)</li>
+            <li>Radio/-Group</li>
             <li>Tabs/Tab/TabContainer</li>
             <li>Improved CSS: theme-ability using CSS variables, dark mode</li>
           </ul>
@@ -68,7 +71,7 @@ const App: Component = () => {
                   Layout: Menu, Toast, Modal, Sidebar/Drawer, Popover, Tooltip
                 </li>
                 <li>
-                  Form controls: input, textarea, radio/-group,
+                  Form controls: input, textarea,
                   select/option, stars rating?, date picker?
                 </li>
                 <li>Icons</li>
@@ -145,7 +148,11 @@ const App: Component = () => {
         <Avatar />
         <Avatar />
       </AvatarGroup>{" "}
-      <Checkbox align="right" checked={showLastTab()} onclick={() => setShowLastTab((show) => !show)}>Show last tab: </Checkbox>      
+      <Checkbox align="right" checked={showLastTab()} onclick={() => setShowLastTab((show) => !show)}>Show last tab: </Checkbox>
+      <RadioGroup>
+        <Radio name="radio-test" value="1"> 1</Radio>
+        <Radio name="radio-test" value="2"> 2</Radio>
+      </RadioGroup>
     </div>
   );
 };

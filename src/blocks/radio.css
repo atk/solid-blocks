@@ -1,19 +1,18 @@
-.sb-checkbox {
+.sb-radio {
   cursor: pointer;
 }
-.sb-checkbox input[type="checkbox"] {
-  display: inline-block;
+.sb-radio input[type="radio"] {
   appearance: none;
   cursor: pointer;
   border: var(--hair-line) solid var(--border-color);
-  border-radius: var(--border-radius);
+  border-radius: var(--round-border-radius);
   width: 1.125em;
   height: 1.125em;
   vertical-align: -0.25em;
   line-height: 1.125em;
   position: relative;
 }
-.sb-checkbox input[type="checkbox"]:before {
+.sb-radio input[type="radio"]:before {
   content: ' ';
   position: absolute;
   line-height: 1.5em;
@@ -22,6 +21,6 @@
   transform: translate(-50%, -50%);
   color: var(--primary);
 }
-.sb-checkbox input[type="checkbox"]:checked:before {
-  content: '\2714';
+.sb-radio input[type="radio"]:checked:before {
+  content: '\25cf';
 }
