@@ -1,4 +1,4 @@
-import { Component, JSX, splitProps, Show, createSignal } from 'solid-js';
+import { Component, JSX, splitProps, Show } from 'solid-js';
 
 import "./checkbox.css";
 
@@ -23,9 +23,6 @@ export const Checkbox: Component<CheckboxProps> = (props) => {
     'disabled', 'id', 'name', 'onchange', 'onclick', 'onkeydown', 'onkeypress',
     'onkeyup', 'oninvalid', 'required', 'value'
   ], ['align', 'children']);
-  const checked = createSignal(inputProps.checked)
-
-  
 
   return <label class={`${content.align || "left"} sb-checkbox`} {...labelProps}>
     <Show when={content.align === 'right'}>{content.children}</Show>
