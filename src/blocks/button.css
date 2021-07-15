@@ -3,6 +3,7 @@ button.sb-button,
   appearance: none;
   border: 0.125em solid;
   border-radius: var(--border-radius);
+  cursor: pointer;
   font-size: inherit;
   padding: 0.25em 0.75em;
 }

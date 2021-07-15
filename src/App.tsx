@@ -12,6 +12,7 @@ import {
 } from "./blocks";
 
 import "./app.css";
+import { Checkbox } from "./blocks/checkbox";
 
 const App: Component = () => {
   const [showLastTab, setShowLastTab] = createSignal(true);
@@ -48,6 +49,7 @@ const App: Component = () => {
             <li>Avatar/-Group</li>
             <li>Breadcrumbs</li>
             <li>Button (needs icons)</li>
+            <li>Checkbox</li>
             <li>Loading Spinner</li>
             <li>Messages (needs icons)</li>
             <li>Tabs/Tab/TabContainer</li>
@@ -143,14 +145,7 @@ const App: Component = () => {
         <Avatar />
         <Avatar />
       </AvatarGroup>
-      <label>
-        Show last tab:{" "}
-        <input
-          type="checkbox"
-          checked={showLastTab()}
-          onclick={() => setShowLastTab((show) => !show)}
-        />
-      </label>
+      <Checkbox align="right" checked={showLastTab()} onclick={() => setShowLastTab((show) => !show)}>Show last tab: </Checkbox>      
     </div>
   );
 };
