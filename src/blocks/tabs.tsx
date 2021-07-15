@@ -72,6 +72,9 @@ export const Tabs: Component<TabsProps> = (props) => {
   );
 
   createEffect(() => {
+    if (tabs().length !== panels().length) {
+      console.warn(`solid-blocks tabs: items count mismatch: ${tabs().length} tabs and ${panels().length}`);
+    }
     const index = selected() % tabs().length;
     props.onChange?.(index);
     tabs().forEach((tab, nr) => {
