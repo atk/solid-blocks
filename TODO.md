@@ -11,6 +11,5 @@ Road to 1.0:
   - State: progress, meter
   - Orientation: tag
   - Layout: menu, toast, modal, (top/bottom/side)-bar, popover, tooltip
-  - Forms
   - Icons
 - Documentation

@@ -74,9 +74,6 @@ const App: Component = () => {
                 <li>
                   Layout: Menu, Toast, Modal, Sidebar/Drawer, Popover, Tooltip
                 </li>
-                <li>
-                  Form controls: stars rating?, date picker?
-                </li>
                 <li>Icons</li>
               </ul>
             </li>
@@ -152,7 +149,7 @@ const App: Component = () => {
         <Avatar />
         <Avatar />
       </AvatarGroup>{" "}
-      <Checkbox align="right" checked={showLastTab()} onclick={() => setShowLastTab((show) => !show)}>Show last tab: </Checkbox>
+      <Checkbox align="right" switch checked={showLastTab()} onclick={() => setShowLastTab((show) => !show)}>Show last tab: </Checkbox>
       <RadioGroup value="1">
         <Radio name="radio-test" value="1"> 1</Radio>
         <Radio name="radio-test" value="2"> 2</Radio>

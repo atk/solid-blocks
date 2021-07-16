@@ -2,9 +2,18 @@
   background: transparent;
   border: var(--hair-line) solid var(--border-color);
   border-radius: var(--border-radius);
+  color: inherit;
   height: 1.9em;
   vertical-align: -0.05em;
   padding: 0.25em 0.5em;
+  position: relative;
+}
+.sb-select > select:disabled {
+  color: var(--border-color);
+}
+.sb-select > select > option {
+  background: var(--background);
+  color: var(--text);
 }
 .sb-select:not([aria-orientation="vertical"]) .sb-select-label {
   display: inline-block;

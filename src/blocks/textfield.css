@@ -2,10 +2,15 @@
 .sb-textfield > .sb-textfield-label + textarea {
   border: var(--hair-line) solid var(--border-color);
   border-radius: var(--border-radius);
+  color: inherit;
   height: 1.9em;
   vertical-align: -0.05em;
   padding: 0.25em 0.5em;
   background: transparent;
+}
+.sb-textfield > .sb-textfield-label + input:disabled,
+.sb-textfield > .sb-textfield-label + textarea:disabled {
+  color: var(--border-color);
 }
 .sb-textfield > .sb-textfield-label + textarea {
   vertical-align: -0.6em;

@@ -25,3 +25,33 @@
 .sb-checkbox input[type="checkbox"]:checked:before {
   content: '\2714';
 }
+.sb-checkbox input[type="checkbox"]:disabled {
+  cursor: not-allowed;
+}
+.sb-checkbox input[type="checkbox"]:disabled:before {
+  color: var(--border-color);
+}
+.switch.sb-checkbox input[type="checkbox"] {
+  border-radius: 0.5125em;
+  width: 2em;
+}
+.switch.sb-checkbox input[type="checkbox"]:before {
+  content: '';
+  top: 0.1em;
+  left: 0.125em;
+  width: 0.85em;
+  height: 0.85em;
+  transform: translateX(0);
+  transition: all 0.1s linear;
+  background: var(--primary);
+  opacity: 0.5;
+  border-radius: var(--round-border-radius);
+  color: var(--primary-text);
+}
+.switch.sb-checkbox input[type="checkbox"]:checked:before {
+  transform: translateX(0.85em);
+  opacity: 1;
+}
+.switch.sb-checkbox input[type="checkbox"]:disabled:before {
+  background: var(--border-color);
+}

@@ -15,6 +15,7 @@ export type CheckboxProps = JSX.HTMLAttributes<HTMLLabelElement> & JSX.HTMLAttri
   onchange?: (checked: boolean) => void;
   oninvalid?: JSX.EventHandler<HTMLInputElement, Event>;
   required?: boolean;
+  switch?: boolean;
   value?: string;
 }
 
@@ -23,12 +24,12 @@ export const Checkbox: Component<CheckboxProps> = (props) => {
     'accessKey', 'align', 'aria-disabled', 'autofocus', 'checked', 'class',
     'disabled', 'id', 'name', 'onclick', 'onkeydown', 'onkeypress',
     'onkeyup', 'oninvalid', 'required', 'value'
-  ], ['align', 'children', 'onchange']);
+  ], ['align', 'children', 'onchange', 'switch']);
 
   let input;
   const changeHandler = () => content.onchange?.(input?.checked);
 
-  return <label class={`${content.align || "left"} sb-checkbox`} {...labelProps}>
+  return <label class={`${content.align || "left"} ${content.switch ? ' switch' : ''} sb-checkbox`} {...labelProps}>
     <Show when={content.align === 'right'}>{content.children}</Show>
     <input ref={input} type="checkbox" {...inputProps} onchange={changeHandler} />
     <Show when={content.align !== 'right'}>{content.children}</Show>
