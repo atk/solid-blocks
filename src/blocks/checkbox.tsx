@@ -2,7 +2,7 @@ import { Component, JSX, splitProps, Show } from 'solid-js';
 
 import "./checkbox.css";
 
-export type CheckboxProps = JSX.HTMLAttributes<HTMLLabelElement> & JSX.HTMLAttributes<HTMLInputElement> & {
+export type CheckboxProps = Omit<JSX.HTMLAttributes<HTMLLabelElement> & JSX.HTMLAttributes<HTMLInputElement>, 'onchange'> & {
   /**
    * align the checkbox inside its label
    * can be 'left' or 'right; default is 'left'

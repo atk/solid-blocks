@@ -26,9 +26,13 @@ body,
   --primary: #37c;
   --primary-text: #eee;
   --success: #dfd;
+  --success-text: #060;
   --info: #ddf;
+  --info-text: #00a;
   --warning: #ffd;
+  --warning-text: #bb0;
   --error: #fdd;
+  --error-text: #800;
   --breadcrumb-icon: " > ";
   --random-color1: #89d;
   --random-color2: #9bd;
@@ -46,9 +50,13 @@ body,
   --background: #222;
   --border-color: #555;
   --success: #232;
+  --success-text: #0c0;
   --info: #224;
+  --info-text: #22f;
   --warning: #442;
+  --warning-text: #ff0;
   --error: #422;
+  --error-text: #b00;
   --random-color1: #238;
   --random-color2: #278;
   --random-color3: #487;

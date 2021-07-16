@@ -8,7 +8,7 @@ Road to 1.0:
   - basic spacings + sizes
   - vertical tabs
 - Components:
-  - State: progress, meter
+  - State: meter (WIP)
   - Layout: menu, toast, modal, (top/bottom/side)-bar, popover, tooltip
   - Icons
 - Documentation

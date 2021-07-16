@@ -13,7 +13,7 @@ export type TabsProps = {
   children: (ReturnType<typeof Tab> | ReturnType<typeof TabContainer> | null)[];
   index?: number;
   vertical?: boolean;
-  onChange?: (index: number) => void;
+  onchange?: (index: number) => void;
 };
 
 const setTabState = (tab: HTMLElement, nr: number, index: number) => {
@@ -76,7 +76,7 @@ export const Tabs: Component<TabsProps> = (props) => {
       console.warn(`solid-blocks tabs: items count mismatch: ${tabs().length} tabs and ${panels().length}`);
     }
     const index = selected() % tabs().length;
-    props.onChange?.(index);
+    props.onchange?.(index);
     tabs().forEach((tab, nr) => {
       const elem = tab as HTMLLIElement;
       setTabState(elem, nr, index);

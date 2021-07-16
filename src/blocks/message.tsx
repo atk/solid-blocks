@@ -4,13 +4,14 @@ import "./message.css";
 
 export type MessageProps = {
   type: "success" | "info" | "warning" | "error";
+  inline?: boolean;
 } & JSX.HTMLAttributes<HTMLDivElement>;
 
 export const Message: Component<MessageProps> = (props) => {
-  const [messageProps, divProps] = splitProps(props, ["type", "class"]);
+  const [messageProps, divProps] = splitProps(props, ["type", "class", "inline"]);
   const className = [
     ...new Set(
-      ["sb-message", messageProps.type, messageProps.class].filter(Boolean)
+      ["sb-message", messageProps.type, messageProps.class, messageProps.inline && "inline"].filter(Boolean)
     ),
   ].join(" ");
 

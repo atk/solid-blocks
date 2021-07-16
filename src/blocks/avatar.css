@@ -73,6 +73,7 @@
   + .sb-avatar
   + .sb-avatar:last-child:before {
   content: "+" counter(items);
+  background: var(--border-color);
   border: inherit;
   width: inherit;
   text-indent: 0;
@@ -89,36 +90,28 @@
   font-size: 0.6em;
   text-indent: 0.2em;
 }
-.sb-avatar[data-random="1"],
-.sb-avatar[data-random="1"]:before {
+.sb-avatar[data-random="1"] {
   background: var(--random-color1);
 }
-.sb-avatar[data-random="2"],
-.sb-avatar[data-random="2"]:before {
+.sb-avatar[data-random="2"] {
   background: var(--random-color2);
 }
-.sb-avatar[data-random="3"],
-.sb-avatar[data-random="3"]:before {
+.sb-avatar[data-random="3"] {
   background: var(--random-color3);
 }
-.sb-avatar[data-random="4"],
-.sb-avatar[data-random="4"]:before {
+.sb-avatar[data-random="4"] {
   background: var(--random-color4);
 }
-.sb-avatar[data-random="5"],
-.sb-avatar[data-random="5"]:before {
+.sb-avatar[data-random="5"] {
   background: var(--random-color5);
 }
-.sb-avatar[data-random="6"],
-.sb-avatar[data-random="6"]:before {
+.sb-avatar[data-random="6"] {
   background: var(--random-color6);
 }
-.sb-avatar[data-random="7"],
-.sb-avatar[data-random="7"]:before {
+.sb-avatar[data-random="7"] {
   background: var(--random-color7);
 }
-.sb-avatar[data-random="8"],
-.sb-avatar[data-random="8"]:before {
+.sb-avatar[data-random="8"] {
   background: var(--random-color8);
 }
 .sb-avatar > .sb-badge {

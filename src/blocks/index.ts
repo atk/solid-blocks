@@ -5,6 +5,8 @@ export * from "./breadcrumbs";
 export * from "./button";
 export * from "./checkbox";
 export * from "./message";
+export * from "./meter";
+export * from "./progress";
 export * from "./radio";
 export * from "./spinner";
 export * from "./tabs";

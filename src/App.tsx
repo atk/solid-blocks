@@ -1,10 +1,11 @@
-import { Component, Show, createSignal } from "solid-js";
+import { Component, Show, createSignal, createEffect } from "solid-js";
 import {
   Avatar,
   AvatarGroup,
   Breadcrumbs,
   Button,
   Message,
+  Progress,
   Spinner,
   Tabs,
   Tab,
@@ -14,6 +15,7 @@ import {
   Radio,
   RadioGroup,
   TextField,
+  Meter,
 } from "./blocks";
 
 import "./app.css";
@@ -21,10 +23,19 @@ import { Checkbox } from "./blocks/checkbox";
 import { Select } from "./blocks/select";
 
 const App: Component = () => {
-  const [showLastTab, setShowLastTab] = createSignal(true);
+  const [darkMode, setDarkMode] = createSignal(false);
+  
+  createEffect(() => {
+    document.body.classList.toggle('dark-mode', darkMode());
+  })
+
   return (
     <div class="app">
-      <h1 onClick={() => document.body.classList.toggle("dark-mode")}>
+      <Checkbox style={{ float: 'right' }} switch onchange={(on) => setDarkMode(on)}>
+          <Show when={darkMode()} fallback=" Dark Mode"> Light Mode</Show>
+      </Checkbox>
+      <h1>
+        
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="1em"
@@ -58,6 +69,7 @@ const App: Component = () => {
             <li>Checkbox</li>
             <li>Loading Spinner</li>
             <li>Messages (needs icons)</li>
+            <li>Progress</li>
             <li>Radio/-Group</li>
             <li>Select</li>
             <li>Tabs/Tab/TabContainer</li>
@@ -72,7 +84,7 @@ const App: Component = () => {
             <li>
               More components:
               <ul>
-                <li>State: Progress, Meter</li>
+                <li>State: Meter (wip)</li>
                 <li>
                   Layout: Menu, Toast, Modal, Sidebar/Drawer, Popover, Tooltip
                 </li>
@@ -82,53 +94,47 @@ const App: Component = () => {
             <li>Documentation</li>
           </ul>
         </TabContainer>
-        <Show when={showLastTab()}>
-          <Tab>Concepts</Tab>
-          <TabContainer>
-            <h2>
-              Valuable components instead of components without added value
-            </h2>
-
-            <p>
-              Wrapping elements like headers, text, or images in custom
-              Components is just wasteful. Components will only be provided if
-              they have added value over their native elements. The added
-              value may be
-            </p>
-            <ul>
-              <li>user experience</li>
-              <li>accessibility</li>
-              <li>developer experience</li>
-            </ul>
-
-            <p>
-              If none of these advantages can be provided, it is preferable to
-              use native HTML elements or SolidJS' abilities like Portal
-              effectively.
-            </p>
-
-            <h2>Components with style instead of styled components</h2>
-
-            <p>
-              Directly using CSS is frowned upon nowadays, but not rightfully
-              so. Well crafted CSS will easily outperform styled components.
-              It should do so with
-            </p>
-            <ul>
-              <li>
-                minimal bleeding (class prefix <code>sb-[component]</code>,
-                CSS reset, basic styles)
-              </li>
-              <li>
-                semantic class names, i.e. <code>.primary.sb-button</code>
-              </li>
-              <li>careful consideration of a11y</li>
-              <li>components styles work in non-JS environments (SSR)</li>
-              <li>responsive layout</li>
-              <li>theme-able, dark mode</li>
-            </ul>
-          </TabContainer>
-        </Show>
+        <Tab>Concepts</Tab>
+        <TabContainer>
+          <h2>
+            Valuable components instead of components without added value
+          </h2>
+          <p>
+            Wrapping elements like headers, text, or images in custom
+            Components is just wasteful. Components will only be provided if
+            they have added value over their native elements. The added
+            value may be
+          </p>
+          <ul>
+            <li>user experience</li>
+            <li>accessibility</li>
+            <li>developer experience</li>
+          </ul>
+          <p>
+            If none of these advantages can be provided, it is preferable to
+            use native HTML elements or SolidJS' abilities like Portal
+            effectively.
+          </p>
+          <h2>Components with style instead of styled components</h2>
+          <p>
+            Directly using CSS is frowned upon nowadays, but not rightfully
+            so. Well crafted CSS will easily outperform styled components.
+            It should do so with
+          </p>
+          <ul>
+            <li>
+              minimal bleeding (class prefix <code>sb-[component]</code>,
+              CSS reset, basic styles)
+            </li>
+            <li>
+              semantic class names, i.e. <code>.primary.sb-button</code>
+            </li>
+            <li>careful consideration of a11y</li>
+            <li>components styles work in non-JS environments (SSR)</li>
+            <li>responsive layout</li>
+            <li>theme-able, dark mode</li>
+          </ul>
+        </TabContainer>
       </Tabs>
       <Breadcrumbs>
         <a href="">You</a> <a href="">are</a> <span>Here</span>
@@ -150,8 +156,7 @@ const App: Component = () => {
         <Avatar />
         <Avatar />
         <Avatar />
-      </AvatarGroup>{" "}
-      <Checkbox align="right" switch checked={showLastTab()} onclick={() => setShowLastTab((show) => !show)}>Show last tab: </Checkbox>
+      </AvatarGroup>{" "}      
       <RadioGroup value="1">
         <Radio name="radio-test" value="1"> 1</Radio>
         <Radio name="radio-test" value="2"> 2</Radio>
@@ -167,6 +172,8 @@ const App: Component = () => {
         <br/>
         <Tag>Red Tags, blue Tags</Tag>
       </TagGroup> and even more.
+      <br/>
+      Progress: <Progress value="30" max="100" /> und Meter: <Meter value="50" max="100" />
     </div>
   );
 };

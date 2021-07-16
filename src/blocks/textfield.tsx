@@ -25,7 +25,7 @@ type TextFieldProps = {
   multiline?: boolean;
   label: JSX.Element;
   type?: TextFieldTypes;
-  onchange?: (value: string) => void;
+  onchange?: (value?: string) => void;
 } & JSX.InputHTMLAttributes<HTMLInputElement> & JSX.TextareaHTMLAttributes<HTMLTextAreaElement>
 
 export const TextField: Component<TextFieldProps> = (props) => {

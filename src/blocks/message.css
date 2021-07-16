@@ -14,3 +14,20 @@
 .sb-message.error {
   background: var(--error);
 }
+.inline.sb-message {
+  background: transparent;
+  padding: 0;
+  display: inline;
+}
+.inline.sb-message.success {
+  color: var(--success-text);
+}
+.inline.sb-message.info {
+  color: var(--info-text);
+}
+.inline.sb-message.warning {
+  color: var(--warning-text);
+}
+.inline.sb-message.error {
+  color: var(--error-text);
+}
