@@ -1,0 +1,41 @@
+.sb-tag {
+  display: inline-block;
+  padding: 0.125em 0.5em;
+  border-radius: var(--border-radius);
+}
+.sb-tag-group {
+  display: inline-block;
+  margin-right: -0.5em;
+  margin-bottom: -0.5em;
+}
+.sb-tag-group .sb-tag {
+  margin-right: 0.5em;
+  margin-bottom: 0.5em;
+}
+.sb-tag:not([data-random]) {
+  background: var(--border-color);
+}
+.sb-tag[data-random="1"] {
+  background: var(--random-color1);
+}
+.sb-tag[data-random="2"] {
+  background: var(--random-color2);
+}
+.sb-tag[data-random="3"] {
+  background: var(--random-color3);
+}
+.sb-tag[data-random="4"] {
+  background: var(--random-color4);
+}
+.sb-tag[data-random="5"] {
+  background: var(--random-color5);
+}
+.sb-tag[data-random="6"] {
+  background: var(--random-color6);
+}
+.sb-tag[data-random="7"] {
+  background: var(--random-color7);
+}
+.sb-tag[data-random="8"] {
+  background: var(--random-color8);
+}

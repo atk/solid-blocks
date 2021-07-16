@@ -25,3 +25,12 @@ export const getNearestNode = (
   }
   return nearest;
 };
+
+export const maxRandom = 8;
+let lastItem = 0;
+export const getRandom = () => {
+  const nextItem =
+    1 + Math.floor(Math.random() * (maxRandom - (lastItem ? 1 : 0)));
+  lastItem = lastItem ? nextItem + (nextItem === lastItem ? 1 : 0) : nextItem;
+  return lastItem;
+};

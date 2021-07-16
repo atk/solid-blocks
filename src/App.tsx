@@ -9,6 +9,8 @@ import {
   Tabs,
   Tab,
   TabContainer,
+  Tag,
+  TagGroup,
   Radio,
   RadioGroup,
   TextField,
@@ -59,6 +61,7 @@ const App: Component = () => {
             <li>Radio/-Group</li>
             <li>Select</li>
             <li>Tabs/Tab/TabContainer</li>
+            <li>Tags</li>
             <li>TextField</li>
             <li>Improved CSS: theme-ability using CSS variables, dark mode</li>
           </ul>
@@ -70,7 +73,6 @@ const App: Component = () => {
               More components:
               <ul>
                 <li>State: Progress, Meter</li>
-                <li>Orientation: Tag</li>
                 <li>
                   Layout: Menu, Toast, Modal, Sidebar/Drawer, Popover, Tooltip
                 </li>
@@ -158,6 +160,13 @@ const App: Component = () => {
         <option value="1">1</option>
         <option value="2">2</option>
       </Select>
+      <p>I can use a plain linked <Tag href="" plain>Tag</Tag> directly inside the text or as part of a group:</p>
+      <TagGroup>
+        <Tag>One Tag</Tag>
+        <Tag>Two Tags</Tag>
+        <br/>
+        <Tag>Red Tags, blue Tags</Tag>
+      </TagGroup> and even more.
     </div>
   );
 };

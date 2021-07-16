@@ -1,5 +1,5 @@
 import { Component, JSX, createMemo, splitProps } from "solid-js";
-import { composeStyles } from "./tools";
+import { composeStyles, getRandom } from "./tools";
 import "./avatar.css";
 
 export type AvatarProps = {
@@ -19,15 +19,6 @@ export const getInitials = (name: string) =>
     // find first char of the first name and the last name
     .replace(initialsRegexp, "$1$2")
     .toUpperCase();
-
-export const maxRandom = 8;
-let lastItem = 0;
-const getRandom = () => {
-  const nextItem =
-    1 + Math.floor(Math.random() * (maxRandom - (lastItem ? 1 : 0)));
-  lastItem = lastItem ? nextItem + (nextItem === lastItem ? 1 : 0) : nextItem;
-  return lastItem;
-};
 
 export const Avatar: Component<AvatarProps> = (props) => {
   const [local, divProps] = splitProps(props, [

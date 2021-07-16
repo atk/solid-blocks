@@ -21,7 +21,7 @@ export type CheckboxProps = JSX.HTMLAttributes<HTMLLabelElement> & JSX.HTMLAttri
 
 export const Checkbox: Component<CheckboxProps> = (props) => {
   const [inputProps, content, labelProps] = splitProps(props, [
-    'accessKey', 'align', 'aria-disabled', 'autofocus', 'checked', 'class',
+    'accessKey', 'aria-disabled', 'autofocus', 'checked', 'class',
     'disabled', 'id', 'name', 'onclick', 'onkeydown', 'onkeypress',
     'onkeyup', 'oninvalid', 'required', 'value'
   ], ['align', 'children', 'onchange', 'switch']);
@@ -31,7 +31,13 @@ export const Checkbox: Component<CheckboxProps> = (props) => {
 
   return <label class={`${content.align || "left"} ${content.switch ? ' switch' : ''} sb-checkbox`} {...labelProps}>
     <Show when={content.align === 'right'}>{content.children}</Show>
-    <input ref={input} type="checkbox" {...inputProps} onchange={changeHandler} />
+    <input
+      ref={input}
+      type="checkbox"
+      {...(content.switch ? {"aria-role": "switch" } : {})}
+      {...inputProps}
+      onchange={changeHandler}
+    />
     <Show when={content.align !== 'right'}>{content.children}</Show>
   </label>
 }

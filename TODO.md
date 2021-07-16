@@ -9,7 +9,6 @@ Road to 1.0:
   - vertical tabs
 - Components:
   - State: progress, meter
-  - Orientation: tag
   - Layout: menu, toast, modal, (top/bottom/side)-bar, popover, tooltip
   - Icons
 - Documentation
