@@ -24,18 +24,24 @@ import { Select } from "./blocks/select";
 
 const App: Component = () => {
   const [darkMode, setDarkMode] = createSignal(false);
-  
+
   createEffect(() => {
-    document.body.classList.toggle('dark-mode', darkMode());
-  })
+    document.body.classList.toggle("dark-mode", darkMode());
+  });
 
   return (
     <div class="app">
-      <Checkbox style={{ float: 'right' }} switch onchange={(on) => setDarkMode(on)}>
-          <Show when={darkMode()} fallback=" Dark Mode"> Light Mode</Show>
+      <Checkbox
+        style={{ float: "right" }}
+        switch
+        onchange={(on) => setDarkMode(on)}
+      >
+        <Show when={darkMode()} fallback=" Dark Mode">
+          {" "}
+          Light Mode
+        </Show>
       </Checkbox>
       <h1>
-        
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="1em"
@@ -69,6 +75,7 @@ const App: Component = () => {
             <li>Checkbox</li>
             <li>Loading Spinner</li>
             <li>Messages (needs icons)</li>
+            <li>Meter</li>
             <li>Progress</li>
             <li>Radio/-Group</li>
             <li>Select</li>
@@ -84,7 +91,6 @@ const App: Component = () => {
             <li>
               More components:
               <ul>
-                <li>State: Meter (wip)</li>
                 <li>
                   Layout: Menu, Toast, Modal, Sidebar/Drawer, Popover, Tooltip
                 </li>
@@ -96,14 +102,11 @@ const App: Component = () => {
         </TabContainer>
         <Tab>Concepts</Tab>
         <TabContainer>
-          <h2>
-            Valuable components instead of components without added value
-          </h2>
+          <h2>Valuable components instead of components without added value</h2>
           <p>
-            Wrapping elements like headers, text, or images in custom
-            Components is just wasteful. Components will only be provided if
-            they have added value over their native elements. The added
-            value may be
+            Wrapping elements like headers, text, or images in custom Components
+            is just wasteful. Components will only be provided if they have
+            added value over their native elements. The added value may be
           </p>
           <ul>
             <li>user experience</li>
@@ -111,20 +114,19 @@ const App: Component = () => {
             <li>developer experience</li>
           </ul>
           <p>
-            If none of these advantages can be provided, it is preferable to
-            use native HTML elements or SolidJS' abilities like Portal
-            effectively.
+            If none of these advantages can be provided, it is preferable to use
+            native HTML elements or SolidJS' abilities like Portal effectively.
           </p>
           <h2>Components with style instead of styled components</h2>
           <p>
-            Directly using CSS is frowned upon nowadays, but not rightfully
-            so. Well crafted CSS will easily outperform styled components.
-            It should do so with
+            Directly using CSS is frowned upon nowadays, but not rightfully so.
+            Well crafted CSS will easily outperform styled components. It should
+            do so with
           </p>
           <ul>
             <li>
-              minimal bleeding (class prefix <code>sb-[component]</code>,
-              CSS reset, basic styles)
+              minimal bleeding (class prefix <code>sb-[component]</code>, CSS
+              reset, basic styles)
             </li>
             <li>
               semantic class names, i.e. <code>.primary.sb-button</code>
@@ -146,7 +148,11 @@ const App: Component = () => {
         <Message type="error">Error Message</Message>
       </div>
       <div>
-        <TextField label="Test" placeholder="test" aria-orientation="vertical" />
+        <TextField
+          label="Test"
+          placeholder="test"
+          aria-orientation="vertical"
+        />
         <Button>Button</Button> <Button variant="secondary">Secondary</Button>{" "}
         <Button variant="link">Link</Button> <span>Text</span> <Spinner />
       </div>
@@ -156,24 +162,39 @@ const App: Component = () => {
         <Avatar />
         <Avatar />
         <Avatar />
-      </AvatarGroup>{" "}      
+      </AvatarGroup>{" "}
       <RadioGroup value="1">
-        <Radio name="radio-test" value="1"> 1</Radio>
-        <Radio name="radio-test" value="2"> 2</Radio>
-      </RadioGroup><br/>
+        <Radio name="radio-test" value="1">
+          {" "}
+          1
+        </Radio>
+        <Radio name="radio-test" value="2">
+          {" "}
+          2
+        </Radio>
+      </RadioGroup>
+      <br />
       <Select label="Test Select" value="2">
         <option value="1">1</option>
         <option value="2">2</option>
       </Select>
-      <p>I can use a plain linked <Tag href="" plain>Tag</Tag> directly inside the text or as part of a group:</p>
+      <p>
+        I can use a plain linked{" "}
+        <Tag href="" plain>
+          Tag
+        </Tag>{" "}
+        directly inside the text or as part of a group:
+      </p>
       <TagGroup>
         <Tag>One Tag</Tag>
         <Tag>Two Tags</Tag>
-        <br/>
+        <br />
         <Tag>Red Tags, blue Tags</Tag>
-      </TagGroup> and even more.
-      <br/>
-      Progress: <Progress value="30" max="100" /> und Meter: <Meter value="50" max="100" />
+      </TagGroup>{" "}
+      and even more.
+      <br />
+      Progress: <Progress value="30" max="100" /> und Meter:{" "}
+      <Meter value="50" max="100" />
     </div>
   );
 };

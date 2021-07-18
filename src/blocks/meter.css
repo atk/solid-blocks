@@ -1,32 +1,16 @@
-meter.sb-meter,
 [role="meter"].sb-meter {
-  box-shadow: none;
+  display: inline-block;
   border-radius: var(--border-radius);
-  overflow: hidden;
   background: var(--border-color);
-  color: var(--primary);
+  overflow: hidden;
   height: 0.85em;
   width: 8em;
-  vertical-align: -0.125em;
   position: relative;
-  padding: 0;
+  vertical-align: -0.125em;
 }
-meter.sb-meter::-webkit-meter-bar {
-  border: none;
-  background: none;
-  padding: 0;
-}
-meter.sb-meter::-webkit-meter-inner-element {
-  background: none;
-  padding: 0;
-}
-meter.sb-meter::-webkit-meter-optimum-value {
-  background: var(--success-text);
-  background-size: 100% 100%;
-}
-meter.sb-meter::-webkit-meter-suboptimum-value {
-  background: var(--warning-text);  
-}
-meter.sb-meter::-webkit-meter-even-less-good-value {
-  background: var(--error-text);
+[role="meter"].sb-meter > svg {
+  fill: var(--primary);
+  height: 100%;
+  width: 100%;
+  position: absolute;
 }
