@@ -15,7 +15,6 @@ export const Tag: Component<TagProps> = (props) => {
     tagProps,
     { class: props.class ? `sb-tag ${props.class}` : 'sb-tag' }
   );
-  console.log(mergedProps);
   return <Show when={typeof mergedProps.href === 'string'} fallback={<span {...mergedProps} />}>
     <a {...mergedProps} />
   </Show>;
