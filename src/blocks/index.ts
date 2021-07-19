@@ -8,6 +8,7 @@ export * from "./message";
 export * from "./meter";
 export * from "./progress";
 export * from "./radio";
+export * from "./select";
 export * from "./spinner";
 export * from "./tabs";
 export * from "./tag";

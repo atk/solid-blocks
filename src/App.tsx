@@ -1,9 +1,10 @@
-import { Component, Show, createSignal, createEffect } from "solid-js";
+import { Component, Show } from "solid-js";
 import {
   Avatar,
   AvatarGroup,
   Breadcrumbs,
   Button,
+  Checkbox,
   Message,
   Progress,
   Spinner,
@@ -14,20 +15,16 @@ import {
   TagGroup,
   Radio,
   RadioGroup,
+  Select,
   TextField,
   Meter,
+  useDarkMode,
 } from "./blocks";
 
 import "./app.css";
-import { Checkbox } from "./blocks/checkbox";
-import { Select } from "./blocks/select";
 
 const App: Component = () => {
-  const [darkMode, setDarkMode] = createSignal(false);
-
-  createEffect(() => {
-    document.body.classList.toggle("dark-mode", darkMode());
-  });
+  const [darkMode, setDarkMode] = useDarkMode();  
 
   return (
     <div class="app">
@@ -35,10 +32,10 @@ const App: Component = () => {
         style={{ float: "right" }}
         switch
         onchange={(on) => setDarkMode(on)}
+        checked={darkMode()}
       >
         <Show when={darkMode()} fallback=" Dark Mode">
-          {" "}
-          Light Mode
+          {" Light Mode"}          
         </Show>
       </Checkbox>
       <h1>
@@ -134,7 +131,7 @@ const App: Component = () => {
             <li>careful consideration of a11y</li>
             <li>components styles work in non-JS environments (SSR)</li>
             <li>responsive layout</li>
-            <li>theme-able, dark mode</li>
+            <li>theme-able, dark mode, inline mode switch possible</li>
           </ul>
         </TabContainer>
       </Tabs>
@@ -178,8 +175,8 @@ const App: Component = () => {
         <option value="1">1</option>
         <option value="2">2</option>
       </Select>
-      <p>
-        I can use a plain linked{" "}
+      <p class={`${darkMode() ? 'light' : 'dark'}-mode`}>
+        I can switch mode and use a plain linked{" "}
         <Tag href="" plain>
           Tag
         </Tag>{" "}
@@ -193,7 +190,7 @@ const App: Component = () => {
       </TagGroup>{" "}
       and even more.
       <br />
-      Progress: <Progress value="30" max="100" /> und Meter:{" "}
+      Progress: <Progress value="30" max="100" /> and Meter:{" "}
       <Meter value="50" max="100" />
     </div>
   );

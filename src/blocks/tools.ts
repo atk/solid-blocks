@@ -1,4 +1,4 @@
-import { JSX } from "solid-js";
+import { JSX, createEffect, createSignal, onCleanup, Accessor } from "solid-js";
 
 export const toStyleObject = (style: string | JSX.CSSProperties) => {
   if (typeof style === "object") {
@@ -34,3 +34,25 @@ export const getRandom = () => {
   lastItem = lastItem ? nextItem + (nextItem === lastItem ? 1 : 0) : nextItem;
   return lastItem;
 };
+
+export const useDarkMode = (localStorageKey = 'COLOR_SCHEME', initial = false) => {
+  const mediaQueryPrefersDark = window.matchMedia('(prefers-color-scheme: dark)');
+  const localStoragePrefersDark = /^(true|false)$/.test(window.localStorage.getItem(localStorageKey))
+    ? RegExp.$1 === "true"
+    : null;
+  const darkModeSignal = createSignal((localStoragePrefersDark ?? mediaQueryPrefersDark.matches) || initial);
+
+  const colorSchemeChangeHandler = (ev: MediaQueryListEvent) => { darkModeSignal[1](ev.matches) }
+  mediaQueryPrefersDark.addEventListener('change', colorSchemeChangeHandler);
+  onCleanup(() => {
+    mediaQueryPrefersDark.removeEventListener('change', colorSchemeChangeHandler);
+  });
+  
+  createEffect(() => {
+    const darkMode = darkModeSignal[0]();
+    document.body.classList.toggle("dark-mode", darkMode);
+    localStorage.setItem(localStorageKey, darkMode.toString());
+  });
+
+  return darkModeSignal;
+}

@@ -38,8 +38,8 @@ Directly using CSS is frowned upon nowadays, but not rightfully so. Well crafted
 - semantic class names, i.e. `.primary.sb-button`
 - careful consideration of a11y
 - works as much as possible in non-JS environments (SSR)
-- responsive layout
-- TODO: theme-able, dark mode
+- theme-able, dark mode, inline mode switch possible
+- TODO: responsive layout
 
 ### Usage
 

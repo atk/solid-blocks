@@ -66,3 +66,8 @@ body,
   --random-color7: #827;
   --random-color8: #729;
 }
+
+.dark-mode, .light-mode {
+  background: var(--background);
+  color: var(--text);
+}
