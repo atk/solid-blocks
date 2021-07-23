@@ -1,0 +1,81 @@
+.sb-menu {
+  display: inline-block;
+  position: relative;
+}
+.sb-menu [role="menu"] {
+  border-radius: var(--border-radius);
+  border: var(--hair-line) solid var(--border-color);
+  background: var(--background);
+  position: absolute;
+  inset: inherit;
+  top: inherit;
+  left: inherit;
+  right: inherit;
+  bottom: inherit;
+  overflow: hidden;
+  z-index: var(--stack-dropdown);
+}
+.sb-menu [role="menuitem"] {
+  cursor: pointer;
+  padding: 0 0.25em;
+  white-space: nowrap;
+  min-width: 8em;
+}
+.sb-menu [role="menuitem"]:focus:not(:active, [aria-disabled]) {
+  background: var(--border-color);
+}
+.sb-menu [role="menu"] > hr {
+  border: none;
+  height: var(--hair-line);
+  width: 100%;
+  background: var(--border-color);
+  margin: 0;
+  padding: 0em;
+}
+.sb-menu [role="group"]:not(:first-child) {
+  border-top: var(--hair-line) solid var(--border-color);
+}
+.sb-menu [role="group"]:not(:last-child) {
+  border-bottom: var(--hair-line) solid var(--border-color);
+}
+.sb-menu [role="group"] > *:first-child {
+  padding: 0;
+  margin: 0.375em 0.375em 0;
+  font-size: 0.75em;
+  line-height: 1.5em;
+  font-weight: bold;
+}
+.sb-menu [role="menuitemradio"],
+.sb-menu [role="menuitemcheckbox"] {
+  cursor: pointer;
+  padding: 0 0.25em 0 1.5em;
+  white-space: nowrap;
+  min-width: 8em;
+}
+.sb-menu [role="menuitemradio"]:focus:not(:active, [aria-disabled], [tabIndex="-1"]),
+.sb-menu [role="menuitemcheckbox"]:focus:not(:active, [aria-disabled], [tabIndex="-1"]) {
+  background: var(--border-color);
+}
+.sb-menu [role="menuitemradio"][aria-disabled],
+.sb-menu [role="menuitemcheckbox"][aria-disabled] {
+  cursor: not-allowed;
+  color: var(--border-color);
+}
+.sb-menu [role="menuitemradio"][tabIndex="-1"]),
+.sb-menu [role="menuitemcheckbox"][tabIndex="-1"]) {
+  cursor: text;  
+}
+.sb-menu [role="menuitemradio"][aria-selected="true"]:before,
+.sb-menu [role="menuitemcheckbox"][aria-selected="true"]:before {
+  content: "\2714";
+  position: absolute;
+  left: 0.25em;
+  color: var(--primary)
+}
+.sb-menu [role="menuitemradio"][aria-selected="true"][aria-disabled]:before,
+.sb-menu [role="menuitemcheckbox"][aria-selected="true"][aria-disabled]:before {
+  content: "\2714";
+  position: absolute;
+  left: 0.25em;
+  color: var(--border-color)
+}

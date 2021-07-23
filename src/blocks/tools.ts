@@ -1,6 +1,4 @@
-import { JSX, createEffect, createSignal, onCleanup, Accessor } from "solid-js";
-
-export type Setter<T> = <U extends T | undefined>(v?: (U extends Function ? never : U) | ((prev: U) => U)) => U;
+import { JSX, createEffect, createSignal, onCleanup } from "solid-js";
 
 export const toStyleObject = (style: string | JSX.CSSProperties) => {
   if (typeof style === "object") {

@@ -8,6 +8,6 @@ Road to 1.0:
   - basic spacings + sizes
   - vertical tabs
 - Components:
-  - Layout: menu, toast, modal, (top/bottom/side)-bar, popover, tooltip
+  - Layout: toast, modal, (top/bottom/side)-bar, popover, tooltip
   - Icons
 - Documentation

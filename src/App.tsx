@@ -17,27 +17,58 @@ import {
   RadioGroup,
   Select,
   TextField,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuItemGroup,
   Meter,
   useDarkMode,
+  MenuOptionGroup,
+  MenuOption,
 } from "./blocks";
 
 import "./app.css";
 
 const App: Component = () => {
-  const [darkMode, setDarkMode] = useDarkMode();  
+  const [darkMode, setDarkMode] = useDarkMode();
 
   return (
     <div class="app">
-      <Checkbox
-        style={{ float: "right" }}
-        switch
-        onchange={(on) => setDarkMode(on)}
-        checked={darkMode()}
-      >
-        <Show when={darkMode()} fallback=" Dark Mode">
-          {" Light Mode"}          
-        </Show>
-      </Checkbox>
+      <div style={{ float: "right" }}>
+        <Checkbox
+          switch
+          onchange={(on) => setDarkMode(on)}
+          checked={darkMode()}
+        >
+          <Show when={darkMode()} fallback=" Dark Mode">
+            {" Light Mode"}
+          </Show>
+        </Checkbox>{" "}
+        <Menu style={{ right: 0 }}>
+          <MenuButton variant="icon">☰</MenuButton>
+          <MenuItem onClick={() => console.log("Item 1 selected")}>
+            Item 1
+          </MenuItem>
+          <MenuItemGroup title="Menu item group">
+            <MenuItem onClick={() => console.log("Item 2 selected")}>
+              Item 2
+            </MenuItem>
+            <MenuItem onClick={() => console.log("Item 3 selected")}>
+              Item 3
+            </MenuItem>
+          </MenuItemGroup>
+          <MenuOptionGroup title="Radio options" onchange={console.log} value="item 1">
+            <MenuOption value="item 1">Radio 1</MenuOption>
+            <MenuOption value="item 2">Radio 2</MenuOption>
+            <MenuOption value="disabled" aria-disabled="true">Disabled Radio</MenuOption>
+          </MenuOptionGroup>
+          <MenuOptionGroup title="Checkbox options" onchange={console.log} type="checkbox" value={["disabled"]}>
+            <MenuOption value="item 1">Checkbox 1</MenuOption>
+            <MenuOption value="item 2">Checkbox 2</MenuOption>
+            <MenuOption value="disabled" aria-disabled="true">Disabled Checkbox</MenuOption>
+          </MenuOptionGroup>
+        </Menu>
+      </div>
       <h1>
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -71,8 +102,9 @@ const App: Component = () => {
             <li>Button (needs icons)</li>
             <li>Checkbox</li>
             <li>Loading Spinner</li>
-            <li>Messages (needs icons)</li>
+            <li>Menu/-Item/-ItemGroup/-Option/-OptionGroup</li>
             <li>Meter</li>
+            <li>Messages (needs icons)</li>
             <li>Progress</li>
             <li>Radio/-Group</li>
             <li>Select</li>
@@ -88,9 +120,7 @@ const App: Component = () => {
             <li>
               More components:
               <ul>
-                <li>
-                  Layout: Menu, Toast, Modal, Sidebar/Drawer, Popover, Tooltip
-                </li>
+                <li>Layout: Toast, Modal, Sidebar/Drawer, Popover, Tooltip</li>
                 <li>Icons</li>
               </ul>
             </li>
@@ -175,13 +205,13 @@ const App: Component = () => {
         <option value="1">1</option>
         <option value="2">2</option>
       </Select>
-      <p class={`${darkMode() ? 'light' : 'dark'}-mode`}>
-        I can switch mode and use a plain linked{" "}
+      <Message type="info" class={`${darkMode() ? "light" : "dark"}-mode`}>
+        I can switch the theme mode and use a plain linked{" "}
         <Tag href="" plain>
           Tag
         </Tag>{" "}
-        directly inside the text or as part of a group:
-      </p>
+        directly inside the text, a message or as part of a group:
+      </Message>
       <TagGroup>
         <Tag>One Tag</Tag>
         <Tag>Two Tags</Tag>
@@ -192,6 +222,7 @@ const App: Component = () => {
       <br />
       Progress: <Progress value="30" max="100" /> and Meter:{" "}
       <Meter value="50" max="100" />
+      <br />
     </div>
   );
 };

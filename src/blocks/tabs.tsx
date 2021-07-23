@@ -4,13 +4,11 @@ import {
   Component,
   JSX,
   createMemo,
-  For,
 } from "solid-js";
 import { getElements, getNearestNode } from "./tools";
 import "./tabs.css";
 
 export type TabsProps = {
-  children: (ReturnType<typeof Tab> | ReturnType<typeof TabContainer> | null)[];
   index?: number;
   vertical?: boolean;
   onchange?: (index: number) => void;
@@ -101,10 +99,16 @@ export const Tabs: Component<TabsProps> = (props) => {
   );
 };
 
-export const Tab: Component = (props) => {
+export type TabProps = JSX.HTMLAttributes<HTMLLIElement>;
+
+export const Tab: Component<TabProps> = (props) => {
   return <li role="tab" tabindex="0" {...props} />;
 };
 
-export const TabContainer: Component = (props) => {
+export type TabContainerProps = JSX.HTMLAttributes<HTMLDivElement>;
+
+export const TabContainer: Component<TabContainerProps> = (props) => {
   return <div role="tabpanel" {...props} />;
 };
+
+type x = ReturnType<typeof TabContainer>
