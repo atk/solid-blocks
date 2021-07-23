@@ -34,7 +34,7 @@ export const Checkbox: Component<CheckboxProps> = (props) => {
     <input
       ref={input}
       type="checkbox"
-      {...(content.switch ? {"aria-role": "switch" } : {})}
+      {...(content.switch ? {"role": "switch" } : {})}
       {...inputProps}
       onchange={changeHandler}
     />
