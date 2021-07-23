@@ -1,20 +1,29 @@
-import type { Component, JSX } from "solid-js";
+import { Component, JSX, onCleanup, onMount } from "solid-js";
 import { getNearestNode } from "./tools";
 
 import "./accordion.css";
 
 export type AccordionProps = JSX.HTMLAttributes<HTMLDetailsElement> & {
   open?: boolean;
+  ontoggle?: (open?: boolean) => void;
 };
 
-export const Accordion: Component<AccordionProps> = (props) => (
-  <details
-    class={props.class ? `sb-accordion ${props.class}` : "sb-accordion"}
-    open={!!props.open}
-  >
-    {props.children}
-  </details>
-);
+export const Accordion: Component<AccordionProps> = (props) => {
+  let detailsRef;
+  const toggleHandler = () => props.ontoggle?.(detailsRef.open);
+
+  onMount(() => detailsRef?.addEventListener("toggle", toggleHandler));
+  onCleanup(() => detailsRef?.addEventListener("toggle", toggleHandler));
+
+  return (
+    <details
+      class={props.class ? `sb-accordion ${props.class}` : "sb-accordion"}
+      open={!!props.open}
+    >
+      {props.children}
+    </details>
+  );
+};
 
 export type AccordionHeaderProps = JSX.HTMLAttributes<HTMLElement>;
 

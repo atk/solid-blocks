@@ -12,17 +12,34 @@ a {
   color: var(--text);
 }
 
+body {
+  --border-radius: 0.25em;
+  --round-border-radius: 50%;
+  --hair-line: 0.05em;
+  --normal-line: 0.125em;
+  --wide-line: 0.25em;
+  --breadcrumb-icon: " > ";
+  --stack-hide: -1;
+  --stack-auto: "auto";
+  --stack-base: 0;
+  --stack-docked: 10;
+  --stack-dropdown: 1000;
+  --stack-sticky: 1100;
+  --stack-banner: 1200;
+  --stack-overlay: 1300;
+  --stack-modal: 1400;
+  --stack-popover: 1500;
+  --stack-skip-link: 1600;
+  --stack-toast: 1700;
+  --stack-tooltip: 1800;
+}
+
 body,
 .light-mode {
   --text: #333;
   --negative-text: #eee;
   --background: #fff;
-  --border-radius: 0.25em;
   --border-color: #ccc;
-  --round-border-radius: 50%;
-  --hair-line: 0.05em;
-  --normal-line: 0.125em;
-  --wide-line: 0.25em;
   --primary: #37c;
   --primary-text: #eee;
   --success: #dfd;
@@ -33,7 +50,6 @@ body,
   --warning-text: #bb0;
   --error: #fdd;
   --error-text: #800;
-  --breadcrumb-icon: " > ";
   --random-color1: #89d;
   --random-color2: #9bd;
   --random-color3: #adb;
@@ -67,7 +83,9 @@ body,
   --random-color8: #729;
 }
 
-.dark-mode, .light-mode {
+body,
+.dark-mode,
+.light-mode {
   background: var(--background);
   color: var(--text);
 }

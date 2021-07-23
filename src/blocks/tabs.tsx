@@ -6,7 +6,7 @@ import {
   createMemo,
   For,
 } from "solid-js";
-import { getNearestNode } from "./tools";
+import { getElements, getNearestNode } from "./tools";
 import "./tabs.css";
 
 export type TabsProps = {
@@ -36,39 +36,11 @@ const setPanelState = (panel: HTMLElement, nr, index) => {
   }
 };
 
-type TabChild =
-  | HTMLElement
-  | HTMLElement[]
-  | null
-  | (() =>
-      | HTMLElement
-      | HTMLElement[]
-      | null
-      | (() => HTMLElement | HTMLElement[] | null));
-
-const getElements = (
-  children: TabChild,
-  nodeName: string,
-  result = []
-): HTMLElement[] => {
-  if (!children) {
-    return;
-  }
-  if (Array.isArray(children)) {
-    children.forEach((child) => getElements(child, nodeName, result));
-  } else if (typeof children === "function") {
-    getElements(children(), nodeName, result);
-  } else if (children.nodeName === nodeName) {
-    result.push(children);
-  }
-  return result;
-};
-
 export const Tabs: Component<TabsProps> = (props) => {
   const [selected, setSelected] = createSignal(props.index ?? 0);
-  const tabs = createMemo(() => getElements(props.children as TabChild, "LI"));
+  const tabs = createMemo(() => getElements(props.children, "LI"));
   const panels = createMemo(() =>
-    getElements(props.children as TabChild, "DIV")
+    getElements(props.children, "DIV")
   );
 
   createEffect(() => {

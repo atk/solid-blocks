@@ -1,5 +1,7 @@
 import { JSX, createEffect, createSignal, onCleanup, Accessor } from "solid-js";
 
+export type Setter<T> = <U extends T | undefined>(v?: (U extends Function ? never : U) | ((prev: U) => U)) => U;
+
 export const toStyleObject = (style: string | JSX.CSSProperties) => {
   if (typeof style === "object") {
     return style;
@@ -35,19 +37,33 @@ export const getRandom = () => {
   return lastItem;
 };
 
-export const useDarkMode = (localStorageKey = 'COLOR_SCHEME', initial = false) => {
-  const mediaQueryPrefersDark = window.matchMedia('(prefers-color-scheme: dark)');
-  const localStoragePrefersDark = /^(true|false)$/.test(window.localStorage.getItem(localStorageKey))
+export const useDarkMode = (
+  localStorageKey = "COLOR_SCHEME",
+  initial = false
+) => {
+  const mediaQueryPrefersDark = window.matchMedia(
+    "(prefers-color-scheme: dark)"
+  );
+  const localStoragePrefersDark = /^(true|false)$/.test(
+    window.localStorage.getItem(localStorageKey)
+  )
     ? RegExp.$1 === "true"
     : null;
-  const darkModeSignal = createSignal((localStoragePrefersDark ?? mediaQueryPrefersDark.matches) || initial);
+  const darkModeSignal = createSignal(
+    (localStoragePrefersDark ?? mediaQueryPrefersDark.matches) || initial
+  );
 
-  const colorSchemeChangeHandler = (ev: MediaQueryListEvent) => { darkModeSignal[1](ev.matches) }
-  mediaQueryPrefersDark.addEventListener('change', colorSchemeChangeHandler);
+  const colorSchemeChangeHandler = (ev: MediaQueryListEvent) => {
+    darkModeSignal[1](ev.matches);
+  };
+  mediaQueryPrefersDark.addEventListener("change", colorSchemeChangeHandler);
   onCleanup(() => {
-    mediaQueryPrefersDark.removeEventListener('change', colorSchemeChangeHandler);
+    mediaQueryPrefersDark.removeEventListener(
+      "change",
+      colorSchemeChangeHandler
+    );
   });
-  
+
   createEffect(() => {
     const darkMode = darkModeSignal[0]();
     document.body.classList.toggle("dark-mode", darkMode);
@@ -55,4 +71,34 @@ export const useDarkMode = (localStorageKey = 'COLOR_SCHEME', initial = false) =
   });
 
   return darkModeSignal;
-}
+};
+
+export type NodeName = string;
+
+export const getElements = (
+  children: JSX.Element,
+  filter: NodeName | ((node: HTMLElement) => boolean),
+  /** if the children contains a callback, you may add an array of props */
+  props: any = [],
+  /** you can add prepended results if you want */
+  result = []
+): HTMLElement[] => {
+  if (!children) {
+    return;
+  }
+  if (Array.isArray(children)) {
+    children.forEach((child) => getElements(child, filter, props, result));
+  } else if (typeof children === "function") {
+    getElements(children.apply(null, props), filter, props, result);
+  } else if (!filter) {
+    result.push(children);
+  } else {
+    const node = children as HTMLElement;
+    if (
+      typeof filter === "function" ? filter(node) : node.nodeName === filter
+    ) {
+      result.push(children);
+    }
+  }
+  return result;
+};

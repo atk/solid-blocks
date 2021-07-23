@@ -1,4 +1,4 @@
-import { Component, JSX, splitProps } from "solid-js";
+import { Component, JSX, createMemo, splitProps } from "solid-js";
 
 import "./message.css";
 
@@ -9,15 +9,15 @@ export type MessageProps = {
 
 export const Message: Component<MessageProps> = (props) => {
   const [messageProps, divProps] = splitProps(props, ["type", "class", "inline"]);
-  const className = [
+  const className = createMemo(() => [
     ...new Set(
       ["sb-message", messageProps.type, messageProps.class, messageProps.inline && "inline"].filter(Boolean)
     ),
-  ].join(" ");
+  ].join(" "));
 
   return (
     <p
-      class={className}
+      class={className()}
       role={messageProps.type === "error" ? "alert" : null}
       {...divProps}
     />
