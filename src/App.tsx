@@ -1,4 +1,4 @@
-import { Component, createSignal, Show } from "solid-js";
+import { Component, createSignal, JSX, Show } from "solid-js";
 import {
   Avatar,
   AvatarGroup,
@@ -36,7 +36,6 @@ import "./app.css";
 
 const App: Component = () => {
   const [darkMode, setDarkMode] = useDarkMode();
-  const [showModal, setShowModal] = createSignal(false);
 
   return (
     <div class="app">
@@ -231,20 +230,23 @@ const App: Component = () => {
       Progress: <Progress value="30" max="100" /> and Meter:{" "}
       <Meter value="50" max="100" />
       <br />
-      <Button onClick={() => setShowModal((show) => !show)}>Show Modal</Button>
-      <Show when={showModal()}>
-        <Modal>
+      <Modal closeOnClickOutside>
+        {({ toggle }) => (<>
+          <Button onClick={() => toggle()}>Show Modal</Button>
           <ModalContent>
-            <ModalHeader>Modal Header <Button variant="icon" onClick={() => setShowModal(false)}>✕</Button></ModalHeader>
+            <ModalHeader>
+              Modal Header
+              <Button variant="icon" onClick={toggle}>✕</Button>
+            </ModalHeader>
             <ModalBody>
               <p>This is the modal's body. It can contain whatever.</p>
             </ModalBody>
             <ModalFooter>
-              <Button onClick={() => setShowModal(false)}>OK</Button>
+              <Button onClick={toggle}>OK</Button>
             </ModalFooter>
           </ModalContent>
-        </Modal>
-      </Show>
+        </>)}
+      </Modal>
     </div>
   );
 };

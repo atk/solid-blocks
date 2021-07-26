@@ -74,7 +74,7 @@ export const useDarkMode = (
 export type NodeName = string;
 
 export const getElements = (
-  children: JSX.Element,
+  children: JSX.Element | ((...args: unknown[]) => JSX.Element),
   filter: NodeName | ((node: HTMLElement) => boolean),
   /** if the children contains a callback, you may add an array of props */
   props: any = [],

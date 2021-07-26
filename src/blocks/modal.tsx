@@ -1,20 +1,62 @@
-import { Component, JSX, splitProps, Show, createMemo, mergeProps, onCleanup, onMount, createSignal } from 'solid-js';
+import {
+  Component,
+  JSX,
+  splitProps,
+  createEffect,
+  createSignal,
+  createMemo,
+  mergeProps,
+  Switch,
+  Match,
+} from 'solid-js';
 import { Portal } from 'solid-js/web';
 
 import "./modal.css";
+import { getElements } from './tools';
 
-export type ModalProps = JSX.HTMLAttributes<HTMLDivElement> & {
+type WrappedElementProps = {
+  open: boolean;
+  /** 
+   * toggle
+   * 
+   * if called with boolean argument, it will set the open state
+   * according to the argument, otherwise toggle it
+   */
+  toggle: (open?: boolean | unknown) => void;
+}
+type WrappedElement = (props: WrappedElementProps) => JSX.Element
+
+export type ModalProps = Omit<JSX.HTMLAttributes<HTMLDivElement>, 'children'> & {
+  closeOnClickOutside?: boolean;
+  open?: boolean;
   noPortal?: boolean;
+  children: WrappedElement | JSX.Element;
 };
 
 let modalCount = 0;
 
-export const Modal: Component<ModalProps> = (props) => {
-  const [local, containerProps] = splitProps(props, ['noPortal']);
+export const Modal = (props: ModalProps): JSX.Element => {
+  const [local, containerProps] = splitProps(props, ['open', 'noPortal', 'children']);
+  const [open, setOpen] = createSignal(local.open);
+  const toggle = (open?: boolean) => setOpen(typeof open === 'boolean' ? open : ((o) => !o));
+  const modalContent = createMemo(() => getElements(
+    local.children,
+    (node) => node.className.indexOf('sb-modal-content') !== -1,
+    [{ open, toggle }]
+  ));
+  const otherChildren = createMemo(() => getElements(
+    local.children,
+    (node) => node.className.indexOf('sb-modal-content') === -1,
+    [{ open, toggle }]
+  ));
+
   let modalRef;
   modalCount++;
 
-  onMount(() => {
+  createEffect(() => {
+    if (!modalRef) {
+      return;
+    }
     const header = modalRef.querySelector('.sb-modal-header');
     if (header) { 
       modalRef.setAttribute(        
@@ -37,19 +79,37 @@ export const Modal: Component<ModalProps> = (props) => {
     {
       role: 'dialog',
       tabIndex: -1,
-      class: props.class ? `sb-modal ${props.class}` : "sb-modal"
+      class: props.class ? `sb-modal ${props.class}` : "sb-modal",
+      children: modalContent(),
+      onClick: createMemo(() => props.closeOnClickOutside ? (ev: MouseEvent) => {
+        const target = ev.target as HTMLElement;
+        if (!modalContent().some(content => content?.contains(target))) {
+          toggle(false);
+        }
+      } : undefined)(),
     }
   );
 
-  return <Show
-    when={!local.noPortal}
-    fallback={<div ref={modalRef} {...divProps} />}
-  >
-    <Portal mount={document.body}>
-      <div ref={modalRef} {...divProps} />
-    </Portal>
-  </Show>
-}
+  return <Switch>
+    <Match when={!open()}>
+      {otherChildren()}
+    </Match>
+    <Match when={open() && local.noPortal}>
+      <>
+        {otherChildren()}
+        <div ref={modalRef} {...divProps} />
+      </>
+    </Match>
+    <Match when={open() && !local.noPortal}>
+      <>
+        {otherChildren()}
+        <Portal mount={document.body}>
+          <div ref={modalRef} {...divProps} />
+        </Portal>
+      </>
+    </Match>
+  </Switch>
+};
 
 export type ModalContentProps = JSX.HTMLAttributes<HTMLDivElement>;
 
