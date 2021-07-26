@@ -17,12 +17,22 @@
   cursor: pointer;
   padding: 0 0.5em;
 }
+.sb-tabs
+  > [role="tablist"][aria-orientation="horizontal"]
+  > [role="tab"] {
+  border-bottom: 0.125em solid transparent;
+}
+
+.sb-tabs > [role="tablist"] > [role="tab"]:hover:not(:active, [aria-selected="true"]),
+.sb-tabs > [role="tablist"] > [role="tab"]:focus:not(:active, [aria-selected="true"]) {
+  border-color: var(--border-color);
+}
 .sb-tabs > [role="tablist"] > [role="tab"][aria-selected="true"] {
   font-weight: 700;
   cursor: default;
 }
 .sb-tabs
-  > [role="tablist"][aria-orientation="horizontal"]
+  > [role="tablist"]
   > [role="tab"][aria-selected="true"] {
-  border-bottom: 0.125em solid var(--primary);
+  border-color: var(--primary);
 }
