@@ -56,6 +56,7 @@
 .sb-menu [role="menuitemcheckbox"]:focus:not(:active, [aria-disabled], [tabIndex="-1"]) {
   background: var(--border-color);
 }
+.sb-menu [role="menuitem"][aria-disabled],
 .sb-menu [role="menuitemradio"][aria-disabled],
 .sb-menu [role="menuitemcheckbox"][aria-disabled] {
   cursor: not-allowed;

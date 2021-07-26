@@ -57,6 +57,7 @@ const App: Component = () => {
               Item 3
             </MenuItem>
           </MenuItemGroup>
+          <MenuItem aria-disabled="true">Disabled Item</MenuItem>
           <MenuOptionGroup title="Radio options" onchange={console.log} value="item 1">
             <MenuOption value="item 1">Radio 1</MenuOption>
             <MenuOption value="item 2">Radio 2</MenuOption>
