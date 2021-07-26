@@ -1,6 +1,6 @@
 # TODO
 
-Road to 1.0:
+Road to first release:
 
 - Improved package structure
 - Styles:
@@ -8,6 +8,6 @@ Road to 1.0:
   - basic spacings + sizes
   - vertical tabs
 - Components:
-  - Layout: toast, modal, (top/bottom/side)-bar, popover, tooltip
+  - Layout: toast, (top/bottom/side)-bar, popover, tooltip
   - Icons
 - Documentation

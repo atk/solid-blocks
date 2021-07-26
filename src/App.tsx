@@ -1,4 +1,4 @@
-import { Component, Show } from "solid-js";
+import { Component, createSignal, Show } from "solid-js";
 import {
   Avatar,
   AvatarGroup,
@@ -21,16 +21,22 @@ import {
   MenuButton,
   MenuItem,
   MenuItemGroup,
-  Meter,
-  useDarkMode,
-  MenuOptionGroup,
   MenuOption,
+  MenuOptionGroup,
+  Meter,
+  Modal,
+  ModalContent,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  useDarkMode,
 } from "./blocks";
 
 import "./app.css";
 
 const App: Component = () => {
   const [darkMode, setDarkMode] = useDarkMode();
+  const [showModal, setShowModal] = createSignal(false);
 
   return (
     <div class="app">
@@ -106,6 +112,7 @@ const App: Component = () => {
             <li>Menu/-Item/-ItemGroup/-Option/-OptionGroup</li>
             <li>Meter</li>
             <li>Messages (needs icons)</li>
+            <li>Modal</li>
             <li>Progress</li>
             <li>Radio/-Group</li>
             <li>Select</li>
@@ -121,7 +128,7 @@ const App: Component = () => {
             <li>
               More components:
               <ul>
-                <li>Layout: Toast, Modal, Sidebar/Drawer, Popover, Tooltip</li>
+                <li>Layout: Toast, Sidebar/Drawer, Popover, Tooltip</li>
                 <li>Icons</li>
               </ul>
             </li>
@@ -224,6 +231,20 @@ const App: Component = () => {
       Progress: <Progress value="30" max="100" /> and Meter:{" "}
       <Meter value="50" max="100" />
       <br />
+      <Button onClick={() => setShowModal((show) => !show)}>Show Modal</Button>
+      <Show when={showModal()}>
+        <Modal>
+          <ModalContent>
+            <ModalHeader>Modal Header <Button variant="icon" onClick={() => setShowModal(false)}>✕</Button></ModalHeader>
+            <ModalBody>
+              <p>This is the modal's body. It can contain whatever.</p>
+            </ModalBody>
+            <ModalFooter>
+              <Button onClick={() => setShowModal(false)}>OK</Button>
+            </ModalFooter>
+          </ModalContent>
+        </Modal>
+      </Show>
     </div>
   );
 };

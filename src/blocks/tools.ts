@@ -1,4 +1,4 @@
-import { JSX, createEffect, createSignal, onCleanup } from "solid-js";
+import { JSX, createEffect, createSignal, onCleanup, createMemo, onMount } from "solid-js";
 
 export const toStyleObject = (style: string | JSX.CSSProperties) => {
   if (typeof style === "object") {

@@ -3,9 +3,11 @@ body {
   height: 100%;
 }
 
-.app {
+body {
   font-size: calc(1em + 1vmin);
   line-height: 1.5em;
+}
+.app {
   padding: 0em 1em 3em 1em;
   height: 100%;
 }
