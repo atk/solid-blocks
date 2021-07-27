@@ -1,4 +1,6 @@
-import { JSX, createEffect, createSignal, onCleanup, createMemo, onMount } from "solid-js";
+import { JSX, createEffect, createSignal, onCleanup } from "solid-js";
+
+export type WrappedElement<P> = (props: P) => JSX.Element;
 
 export const toStyleObject = (style: string | JSX.CSSProperties) => {
   if (typeof style === "object") {
