@@ -29,6 +29,7 @@ import {
   ModalHeader,
   ModalBody,
   ModalFooter,
+  Toast,
   useDarkMode,
 } from "./blocks";
 
@@ -118,6 +119,7 @@ const App: Component = () => {
             <li>Tabs/Tab/TabContainer</li>
             <li>Tags</li>
             <li>TextField</li>
+            <li>Toast</li>
             <li>Improved CSS: theme-ability using CSS variables, dark mode</li>
           </ul>
         </TabContainer>
@@ -127,7 +129,7 @@ const App: Component = () => {
             <li>
               More components:
               <ul>
-                <li>Layout: Toast, Sidebar/Drawer, Popover, Tooltip</li>
+                <li>Layout: Sidebar/Drawer, Popover, Tooltip</li>
                 <li>Icons</li>
               </ul>
             </li>
@@ -181,7 +183,7 @@ const App: Component = () => {
         <Message type="warning">Warning</Message>
         <Message type="error">Error Message</Message>
       </div>
-      <div>
+      <p>
         <TextField
           label="Test"
           placeholder="test"
@@ -189,14 +191,15 @@ const App: Component = () => {
         />
         <Button>Button</Button> <Button variant="secondary">Secondary</Button>{" "}
         <Button variant="link">Link</Button> <span>Text</span> <Spinner />
-      </div>
-      <AvatarGroup>
-        <Avatar />
-        <Avatar />
-        <Avatar />
-        <Avatar />
-        <Avatar />
-      </AvatarGroup>{" "}
+      </p>
+      <p>
+        <AvatarGroup>
+          <Avatar />
+          <Avatar />
+          <Avatar />
+          <Avatar />
+          <Avatar />
+        </AvatarGroup>
       <RadioGroup value="1">
         <Radio name="radio-test" value="1">
           {" "}
@@ -207,11 +210,13 @@ const App: Component = () => {
           2
         </Radio>
       </RadioGroup>
-      <br />
-      <Select label="Test Select" value="2">
-        <option value="1">1</option>
-        <option value="2">2</option>
-      </Select>
+      </p>
+      <p>
+        <Select label="Test Select" value="2">
+          <option value="1">1</option>
+          <option value="2">2</option>
+        </Select>
+      </p>
       <Message type="info" class={`${darkMode() ? "light" : "dark"}-mode`}>
         I can switch the theme mode and use a plain linked{" "}
         <Tag href="" plain>
@@ -219,17 +224,17 @@ const App: Component = () => {
         </Tag>{" "}
         directly inside the text, a message or as part of a group:
       </Message>
-      <TagGroup>
+      <p><TagGroup>
         <Tag>One Tag</Tag>
         <Tag>Two Tags</Tag>
         <br />
         <Tag>Red Tags, blue Tags</Tag>
       </TagGroup>{" "}
       and even more.
-      <br />
-      Progress: <Progress value="30" max="100" /> and Meter:{" "}
+      </p>
+      <p>Progress: <Progress value="30" max="100" /> and Meter:{" "}
       <Meter value="50" max="100" />
-      <br />
+      </p>
       <Modal closeOnClickOutside>
         {({ toggle }) => (<>
           <Button onClick={() => toggle()}>Show Modal</Button>
@@ -247,6 +252,16 @@ const App: Component = () => {
           </ModalContent>
         </>)}
       </Modal>
+      <Toast position="top" timeout={0}>
+        {({hide}) => <Message type="info">
+          We have Toasts now <Button variant="icon" style={{ float: "right" }} onClick={hide}>✕</Button>
+        </Message>}
+      </Toast>
+      <Toast position="top"><Message type="info">This will vanish after 5 seconds</Message></Toast>
+      <Toast position="top">{({update}) => {
+        setTimeout(() => update(<Message type="success">Updated!</Message>), 2000);
+        return <Message type="warning">And this one updates after 2 seconds</Message>;
+      }}</Toast>
     </div>
   );
 };

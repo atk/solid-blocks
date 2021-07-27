@@ -4,9 +4,9 @@ import { getRandom } from "./tools";
 
 import "./tag.css";
 
-export type TagProps = (JSX.HTMLAttributes<HTMLSpanElement> & Partial<JSX.AnchorHTMLAttributes<HTMLAnchorElement>>) & { plain?: boolean};
-
-const a = document.createElement('a')
+export type TagProps = (JSX.HTMLAttributes<HTMLSpanElement> &
+  Partial<JSX.AnchorHTMLAttributes<HTMLAnchorElement>>) &
+  { plain?: boolean };
 
 export const Tag: Component<TagProps> = (props) => {
   const [local, tagProps] = splitProps(props, ['plain'])

@@ -58,7 +58,14 @@ export const RadioGroup: Component<RadioGroupProps> = (props) => {
     }
   }
 
-  return <div ref={group} role="radiogroup" onkeyup={changeHandler} onclick={changeHandler} {...divProps}>
+  return <div
+    ref={group}
+    role="radiogroup"
+    onkeyup={changeHandler}
+    onclick={changeHandler}
+    {...divProps}
+    class={divProps.class ? `sb-radiogroup ${divProps.class}` : 'sb-radiogroup'}
+>
     {local.children}
   </div>;
 }

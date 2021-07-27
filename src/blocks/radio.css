@@ -24,3 +24,7 @@
 .sb-radio input[type="radio"]:checked:before {
   content: '\25cf';
 }
+
+.sb-radiogroup[role="radiogroup"] {
+  display: inline-block;
+}

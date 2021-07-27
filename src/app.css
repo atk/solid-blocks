@@ -2,22 +2,21 @@ html,
 body {
   height: 100%;
 }
-
+#root {
+  margin: 0;
+  padding: 0;
+}
 body {
   font-size: calc(1em + 1vmin);
   line-height: 1.5em;
 }
 .app {
-  padding: 0em 1em 3em 1em;
+  padding: 1em 1em 3em 1em;
   height: 100%;
 }
-
-.app > * + * {
-  margin-top: 1em;
-}
-
 .flex-row {
   display: flex;
+  flex-direction: row;
 }
 .flex-row > * + * {
   margin-left: 1em;

@@ -1,0 +1,27 @@
+[id^="sb-toast-"] {
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  pointer-events: none;
+}
+[id^="sb-toast-"] > div {
+  margin: 0;
+  padding: 0.25em 0;
+}
+
+#sb-toast-top-left { inset: 0.5em 0.5em auto auto; }
+#sb-toast-top { inset: 0.5em 0.5em auto 0.5em; align-items: center; flex-direction: column-reverse; }
+#sb-toast-top-right { inset: 0.5em 0.5em auto auto; }
+#sb-toast-bottom-left { inset: auto auto 0.5em 0.5em; }
+#sb-toast-bottom { inset: auto 0.5em 0.5em 0.5em; align-items: center; }
+#sb-toast-bottom-right { inset: auto 0.5em 0.5em auto; }
+
+.sb-toast {
+  width: 15em;
+  max-width: 75vw;
+  z-index: var(--stack-toast);
+}
+
+.sb-toast > * {
+  pointer-events: auto;
+}
