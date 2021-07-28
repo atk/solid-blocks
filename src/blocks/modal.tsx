@@ -30,6 +30,7 @@ export type ModalProps = Omit<
   "children"
 > & {
   closeOnClickOutside?: boolean;
+  closeOnEsc?: boolean;
   open?: boolean;
   noPortal?: boolean;
   children: WrappedElement<WrappedModalContentProps> | JSX.Element;
@@ -43,7 +44,7 @@ export const Modal = (props: ModalProps): JSX.Element => {
     "noPortal",
     "children",
   ]);
-  const [open, setOpen] = createSignal(local.open);
+  const [open, setOpen] = createSignal(local.open);  
   const toggle = (open?: boolean) =>
     setOpen(typeof open === "boolean" ? open : (o) => !o);
   const modalContent = createMemo(() =>
@@ -62,6 +63,8 @@ export const Modal = (props: ModalProps): JSX.Element => {
   );
 
   let modalRef;
+  createEffect(() => open() && modalRef?.focus());
+
   modalCount++;
 
   createEffect(() => {
@@ -82,7 +85,6 @@ export const Modal = (props: ModalProps): JSX.Element => {
         body.id || (() => (body.id = `sb-modal-body-${modalCount}`))()
       );
     }
-    modalRef.querySelector(".sb-modal-content")?.focus();
   });
 
   const divProps = mergeProps(containerProps, {
@@ -99,6 +101,15 @@ export const Modal = (props: ModalProps): JSX.Element => {
             }
           }
         : undefined
+    )(),
+    onkeyup: createMemo(() => props.closeOnEsc !== false
+      ? (ev: KeyboardEvent) => {
+        console.log(ev);
+        if (ev.key === 'Escape' && !ev.defaultPrevented) {
+          setOpen(false);
+        }
+      }
+      : undefined
     )(),
   });
 
