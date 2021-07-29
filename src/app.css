@@ -21,3 +21,45 @@ body {
 .flex-row > * + * {
   margin-left: 1em;
 }
+dt { font-weight: 700; }
+pre {
+  color: var(--negative-text);
+  background: var(--text);
+  font-size: 0.85em;
+  padding: 0.5em 1em;
+  border-radius: var(--border-radius);
+  position: relative;
+}
+pre[data-title]:before {
+  content: attr(data-title);
+  float: right;
+  font-size: 0.75em;
+}
+.example {
+  border: var(--hair-line) solid var(--border-color);
+  border-radius: var(--border-radius);
+  padding: 0.5em 1em;
+  margin-bottom: 1em;
+  position: relative;
+}
+.example:before {
+  content: "Example";
+  position: absolute;
+  padding: 0.25em 0.5em;
+  background: var(--background);
+  font-size: 0.6em;
+  top: -1.5em;
+}
+.to-top-wrapper {
+  position: fixed;
+  right: 2.5em;
+  bottom: 2em;
+}
+.to-top[href="#top"][role="button"] {
+  display: inline-block;
+  text-decoration: none;
+  text-align: center;
+  background: var(--text);
+  color: var(--negative-text);
+  font-weight: 700;
+}

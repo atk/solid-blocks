@@ -1,26 +1,39 @@
-import { Component, JSX, onCleanup, onMount } from "solid-js";
-import { getNearestNode } from "./tools";
+import { Component, createMemo, createSignal, JSX, onCleanup, onMount, splitProps } from "solid-js";
+import { getNearestNode, WrappedElement } from "./tools";
 
 import "./accordion.css";
 
-export type AccordionProps = JSX.HTMLAttributes<HTMLDetailsElement> & {
+export type AccordionProps = Omit<JSX.HTMLAttributes<HTMLDetailsElement>, 'children'> & {
+  children: WrappedElement<boolean> | JSX.Element;
   open?: boolean;
   ontoggle?: (open?: boolean) => void;
 };
 
 export const Accordion: Component<AccordionProps> = (props) => {
+  const [local, detailsProps] = splitProps(props, ['children', 'ontoggle']);
+  const [open, setOpen] = createSignal(!!props.open)
   let detailsRef;
-  const toggleHandler = () => props.ontoggle?.(detailsRef.open);
+  const children = createMemo(() => typeof props.children === 'function'
+    ? props.children(open())
+    : props.children
+  );
+
+  const toggleHandler = () => {
+    setOpen(detailsRef.open);
+    local.ontoggle?.(detailsRef.open);
+  };
 
   onMount(() => detailsRef?.addEventListener("toggle", toggleHandler));
   onCleanup(() => detailsRef?.addEventListener("toggle", toggleHandler));
 
   return (
     <details
+      ref={detailsRef}
+      {...detailsProps}
       class={props.class ? `sb-accordion ${props.class}` : "sb-accordion"}
       open={!!props.open}
     >
-      {props.children}
+      {children()}
     </details>
   );
 };
@@ -43,9 +56,8 @@ export type AccordionGroupProps = JSX.HTMLAttributes<HTMLElement> & {
 };
 
 export const AccordionGroup: Component<AccordionGroupProps> = (props) => {
-  const clickHandler = props.allowMultiple
-    ? null
-    : (ev: MouseEvent) => {
+  const [local, divProps] = splitProps(props, ['allowMultiple', 'allowToggle']);
+  const clickHandler = createMemo(() => (ev: MouseEvent) => {
         const details = getNearestNode(ev.target, "DETAILS") as
           | HTMLDetailsElement
           | undefined;
@@ -56,18 +68,18 @@ export const AccordionGroup: Component<AccordionGroupProps> = (props) => {
         if (open.length === 0) {
           return;
         }
-        if (props.allowToggle || !details.open) {
+        if (local.allowToggle || !details.open) {
           Array.prototype.forEach.call(open, (item) => {
             if (item !== details) {
               item.removeAttribute("open");
             }
           });
         }
-        if (!props.allowToggle && details.open) {
+        if (!local.allowToggle && details.open) {
           ev.preventDefault();
         }
-      };
-  const keyupHandler = (ev: KeyboardEvent) => {
+      });
+  const keyupHandler = createMemo(() => (ev: KeyboardEvent) => {
     const details = getNearestNode(ev.target, "DETAILS");
     if (!details) {
       return;
@@ -88,14 +100,13 @@ export const AccordionGroup: Component<AccordionGroupProps> = (props) => {
       summary.focus();
       summary.click();
     }
-  };
+  });
   return (
     <section
-      class="sb-accordion-group"
-      onclick={clickHandler}
-      onkeyup={keyupHandler}
-    >
-      {props.children}
-    </section>
+      {...divProps}
+      class={divProps.class ? `${divProps.class} sb-accordion-group` : "sb-accordion-group"}
+      onclick={clickHandler()}
+      onkeyup={keyupHandler()}
+    />
   );
 };

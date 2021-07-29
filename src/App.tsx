@@ -1,51 +1,43 @@
-import { Component, createSignal, Show } from "solid-js";
+import { Component, Show } from "solid-js";
 import {
-  Avatar,
-  AvatarGroup,
-  Bar,
-  Breadcrumbs,
-  Button,
   Checkbox,
-  Message,
-  Progress,
-  Spinner,
   Tabs,
   Tab,
   TabContainer,
-  Tag,
-  TagGroup,
-  Radio,
-  RadioGroup,
-  Select,
-  TextField,
+  Tooltip,
   Menu,
   MenuButton,
   MenuItem,
   MenuItemGroup,
   MenuOption,
   MenuOptionGroup,
-  Meter,
-  Modal,
-  ModalContent,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
-  Toast,
-  Tooltip,
-  TooltipPosition,
   useDarkMode,
 } from "./blocks";
 
 import "./app.css";
+import { AccordionDocs } from "./blocks/accordion.docs";
+import { AvatarDocs } from './blocks/avatar.docs';
+import { BarDocs } from './blocks/bar.docs';
+import { BreadcrumbsDocs } from "./blocks/breadcrumbs.docs";
+import { ButtonDocs } from "./blocks/button.docs";
+import { CheckboxDocs } from "./blocks/checkbox.docs";
+import { MenuDocs } from "./blocks/menu.docs";
+import { MessageDocs } from "./blocks/message.docs";
+import { MeterDocs } from "./blocks/meter.docs";
+import { ModalDocs } from "./blocks/modal.docs";
+import { ProgressDocs } from "./blocks/progress.docs";
+import { RadioDocs } from "./blocks/radio.docs";
+import { SelectDocs } from "./blocks/select.docs";
+import { SpinnerDocs } from "./blocks/spinner.docs";
+import { TabsDocs } from "./blocks/tabs.docs";
+import { TextfieldDocs } from "./blocks/textfield.docs";
+import { ToastDocs } from "./blocks/toast.docs";
+import { TooltipDocs } from "./blocks/tooltip.docs";
 
 const App: Component = () => {
   const [darkMode, setDarkMode] = useDarkMode();
-  const tooltipPositions: TooltipPosition[] = ['nw', 'n', 'ne', 'e', 'se', 's', 'sw', 'w'];
-  const [tooltipPosition, setTooltipPosition] = createSignal(0)
-  const [showBar, setShowBar] = createSignal(false);
-
   return (
-    <div class="app">
+    <div class="app" id="top">
       <div style={{ float: "right" }}>
         <Checkbox
           switch
@@ -105,12 +97,13 @@ const App: Component = () => {
         </svg>{" "}
         Solid Blocks
       </h1>
-      <Tabs>
+      <Tabs index={1}>
         <Tab>Features</Tab>
         <TabContainer>
           <ul>
             <li>Accordion/-Header/-Group</li>
             <li>Avatar/-Group</li>
+            <li>Bar</li>
             <li>Breadcrumbs</li>
             <li>Button (needs icons)</li>
             <li>Checkbox</li>
@@ -129,6 +122,56 @@ const App: Component = () => {
             <li>Improved CSS: theme-ability using CSS variables, dark mode</li>
           </ul>
         </TabContainer>
+        <Tab>Documentation</Tab>
+        <TabContainer>
+          <span class="to-top-wrapper">
+            <Tooltip content="Back to top" position="n" nowrap>
+              <a role="button" class="to-top icon sb-button" href="#top">⇧</a>
+            </Tooltip>
+          </span>
+          <ul>
+            <li><a href="#accordion-docs">Accordion</a></li>
+            <li><a href="#accordiongroup-docs">AccordionGroup</a></li>
+            <li><a href="#avatar-docs">Avatar</a></li>
+            <li><a href="#avatarbadge-docs">AvatarBadge</a></li>
+            <li><a href="#avatargroup-docs">AvatarGroup</a></li>
+            <li><a href="#bar-docs">Bar</a></li>
+            <li><a href="#breadcrumbs-docs">Breadcrumbs</a></li>
+            <li><a href="#button-docs">Button</a></li>
+            <li><a href="#checkbox-docs">Checkbox</a></li>
+            <li><a href="#menu-docs">Menu/MenuItem/MenuItemGroup/MenuOption/MenuOptionGroup</a></li>
+            <li><a href="#message-docs">Message</a></li>
+            <li><a href="#meter-docs">Meter</a></li>
+            <li><a href="#modal-docs">Modal/ModalContent/ModalHeader/ModalContent/ModalFooter</a></li>
+            <li><a href="#progress-docs">Progress</a></li>
+            <li><a href="#radio-docs">Radio/RadioGroup</a></li>
+            <li><a href="#select-docs">Select</a></li>
+            <li><a href="#spinner-docs">Spinner</a></li>
+            <li><a href="#tabs-docs">Tabs/Tab/TabContainer</a></li>
+            <li><a href="#tag-docs">Tags/TagGroup</a></li>
+            <li><a href="#textfield-docs">Textfield</a></li>
+            <li><a href="#toast-docs">Toast</a></li>
+            <li><a href="#tooltip-docs">Tooltip</a></li>
+          </ul>
+          <AccordionDocs />
+          <AvatarDocs />
+          <BarDocs />
+          <BreadcrumbsDocs/>
+          <ButtonDocs/>
+          <CheckboxDocs/>
+          <MenuDocs/>
+          <MessageDocs/>
+          <MeterDocs/>
+          <ModalDocs/>
+          <ProgressDocs/>
+          <RadioDocs/>
+          <SelectDocs/>
+          <SpinnerDocs/>
+          <TabsDocs/>
+          <TextfieldDocs/>
+          <ToastDocs/>
+          <TooltipDocs/>
+        </TabContainer>
         <Tab>TODO</Tab>
         <TabContainer>
           <ul>
@@ -138,7 +181,7 @@ const App: Component = () => {
                 <li>Icons</li>
               </ul>
             </li>
-            <li>Documentation</li>
+            <li>Documentation (WIP)</li>
           </ul>
         </TabContainer>
         <Tab>Concepts</Tab>
@@ -179,110 +222,6 @@ const App: Component = () => {
           </ul>
         </TabContainer>
       </Tabs>
-      <Breadcrumbs>
-        <a href="">You</a> <a href="">are</a> <span>Here</span>
-      </Breadcrumbs>
-      <div class="flex-row">
-        <Message type="success">We have messages!</Message>
-        <Message type="info">Information</Message>
-        <Message type="warning">Warning</Message>
-        <Message type="error">Error Message</Message>
-      </div>
-      <p>
-        <TextField
-          label="Test"
-          placeholder="test"
-          aria-orientation="vertical"
-        />
-        <Button>Button</Button> <Button variant="secondary">Secondary</Button>{" "}
-        <Button variant="link">Link</Button> <span>Text</span> <Spinner />
-      </p>
-      <p>
-        <AvatarGroup>
-          <Avatar />
-          <Avatar />
-          <Avatar />
-          <Avatar />
-          <Avatar />
-        </AvatarGroup>
-      <RadioGroup value="1">
-        <Radio name="radio-test" value="1">
-          {" "}
-          1
-        </Radio>
-        <Radio name="radio-test" value="2">
-          {" "}
-          2
-        </Radio>
-      </RadioGroup>
-      </p>
-      <p>
-        <Select label="Test Select" value="2">
-          <option value="1">1</option>
-          <option value="2">2</option>
-        </Select>
-      </p>
-      <Message type="info" class={`${darkMode() ? "light" : "dark"}-mode`}>
-        I can switch the theme mode and use a plain linked{" "}
-        <Tag href="" plain>
-          Tag
-        </Tag>{" "}
-        directly inside the text, a message or as part of a group:
-      </Message>
-      <p><TagGroup>
-        <Tag>One Tag</Tag>
-        <Tag>Two Tags</Tag>
-        <br />
-        <Tag>Red Tags, blue Tags</Tag>
-      </TagGroup>{" "}
-      and even more.
-      </p>
-      <p>Progress: <Progress value="30" max="100" /> and Meter:{" "}
-      <Meter value="50" max="100" />
-      </p>
-      <Modal closeOnClickOutside>
-        {({ toggle }) => (<>
-          <Button onClick={() => toggle()}>Show Modal</Button>
-          <ModalContent>
-            <ModalHeader>
-              Modal Header
-              <Button variant="icon" onClick={toggle}>✕</Button>
-            </ModalHeader>
-            <ModalBody>
-              <p>This is the modal's body. It can contain whatever.</p>
-            </ModalBody>
-            <ModalFooter>
-              <Button onClick={toggle}>OK</Button>
-            </ModalFooter>
-          </ModalContent>
-        </>)}
-      </Modal>
-      <Toast position="bottom-right" timeout={0}>
-        {({hide}) => <Message type="info">
-          We have Toasts now <Button variant="icon" style={{ float: "right" }} onClick={hide}>✕</Button>
-        </Message>}
-      </Toast>
-      <Toast position="bottom-right"><Message type="info">This will vanish after 5 seconds</Message></Toast>
-      <Toast position="bottom-right" timeout={10000}>{({update}) => {
-        setTimeout(() => update(<Message type="success">Updated! Will hide after 8 more seconds</Message>), 2000);
-        return <Message type="warning">And this one updates after 2 seconds</Message>;
-      }}</Toast>
-      <p align="center" onClick={() => setTooltipPosition(pos => (pos + 1) % tooltipPositions.length)}>
-        <Tooltip content="Tooltip-Text" position={tooltipPositions[tooltipPosition()]}>
-          Tooltip-Trigger ({tooltipPositions[tooltipPosition()]})
-        </Tooltip>
-      </p>
-      <p>
-        <Button onclick={() => setShowBar(show => !show)}>Toggle Sidebar</Button>
-        <Bar placement="right" position="fixed" hidden={!showBar()} overlay>
-          <main>
-            <h2>Sidebar</h2>
-            <p style={{width: "12em"}}>I can place up to 3 containers in the sidebar. The first one will always align to the top, the last one to the bottom. If there is only one container, it will fill the whole bar</p>
-          </main>
-          <footer>This is the footer</footer>
-        </Bar>
-
-      </p>
     </div>
   );
 };

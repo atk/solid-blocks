@@ -9,6 +9,7 @@ export type TooltipPosition = 'nw' | 'n' | 'ne' | 'e' | 'se' | 's' | 'sw' | 'w';
 
 export type TooltipProps = JSX.HTMLAttributes<HTMLSpanElement> & {
   arrow?: boolean;
+  nowrap?: boolean;
   position?: TooltipPosition;
   content: JSX.Element;
   trigger?: SingularOrArray<TooltipTrigger>;
@@ -53,10 +54,11 @@ const wrapText = (children: JSX.Element): JSX.Element => {
     }
     return result;
   }
+  return children;
 }  
 
 export const Tooltip: Component<TooltipProps> = (props) => {
-  const [local, spanProps] = splitProps(props, ['children', 'position', 'content', 'trigger', 'arrow']);
+  const [local, spanProps] = splitProps(props, ['children', 'position', 'content', 'trigger', 'arrow', 'nowrap']);
   const children = createMemo(() =>
     triggerHas(local.trigger, 'focus')
       ? wrapText(local.children)
@@ -117,7 +119,8 @@ export const Tooltip: Component<TooltipProps> = (props) => {
     ref={wrapperRef}
     aria-haspopup="true"
     aria-expanded={visible()}
-    class={`sb-tooltip-wrapper position-${local.position ?? 's'}${local.arrow === false ? '' : ' arrow'}`}
+    class={`sb-tooltip-wrapper position-${local.position ?? 's'}${
+      local.arrow === false ? '' : ' arrow'}${local.nowrap ? ' nowrap' : ''}`}
     oncapture:focus={focusHandler()}
     oncapture:blur={focusHandler()}
     onmouseover={hoverHandler()}

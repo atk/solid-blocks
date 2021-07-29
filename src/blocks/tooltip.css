@@ -7,6 +7,9 @@
   font-size: 0.8em;
   z-index: var(--stack-tooltip);
 }
+.sb-tooltip-wrapper.nowrap [role="tooltip"] {
+  white-space: nowrap;
+}
 .sb-tooltip-wrapper.position-nw [role="tooltip"] {
   transform: translateY(-100%) translateY(-1em);
 }
