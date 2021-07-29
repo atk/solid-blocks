@@ -8,6 +8,5 @@ Road to first release:
   - basic spacings + sizes
   - vertical tabs
 - Components:
-  - Layout: (top/bottom/side)-bar, popover/tooltip
   - Icons
 - Documentation

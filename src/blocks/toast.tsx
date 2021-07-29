@@ -7,11 +7,22 @@ import {
   Show,
   Setter,
   splitProps,
+  createMemo,
 } from "solid-js";
 import { Portal } from "solid-js/web";
 import { getElements, WrappedElement } from "./tools";
 
 import "./toast.css";
+
+const toastPositions = ["top", "top-right", "top-left", "bottom", "bottom-right", "bottom-left"] as const;
+
+export type ToastPosition = typeof toastPositions[number];
+
+const toastMountPoints: Partial<Record<ToastPosition, HTMLElement | undefined>> = {};
+// load previously created containers
+toastPositions.forEach((pos) => { 
+  toastMountPoints[pos] = document.getElementById(`sb-toast-${pos}`);
+})
 
 export type WrappedToastContentProps = {
   update: Setter<JSX.Element | WrappedElement<WrappedToastContentProps>>;
@@ -29,31 +40,32 @@ export type ToastProps = Omit<
    */
   timeout?: number;
   /** indicates where the toast should be rendered; default position will be top-right */
-  position?:
-    | "top"
-    | "top-right"
-    | "top-left"
-    | "bottom"
-    | "bottom-right"
-    | "bottom-left";
+  position?: ToastPosition;
   mount?: HTMLElement;
 };
 
 const div = document.createElement("div");
+
+const addMountPoint = (position: ToastPosition = 'top-right') => {
+  toastMountPoints[position] = div.cloneNode() as HTMLDivElement;
+  toastMountPoints[position].id = `sb-toast-${position}`;
+  document.body.appendChild(toastMountPoints[position]);
+  return toastMountPoints[position];
+}
 
 export const Toast = (props: ToastProps): JSX.Element => {
   const [local, divProps] = splitProps(props, [
     "timeout",
     "position",
     "children",
+    "mount",
   ]);
+  const mountPoint = createMemo(() =>
+    local.mount ||
+    toastMountPoints[local.position || 'top-right'] ||
+    addMountPoint(local.position)
+  );
 
-  const mountPointId = `sb-toast-${props.position || "top-right"}`;
-  if (!props.mount || !document.getElementById(mountPointId)) {
-    document.body.appendChild(
-      Object.assign(div.cloneNode(), { id: mountPointId })
-    );
-  }
 
   const [visible, setVisible] = createSignal(true);
   const hide = () => setVisible(false);
@@ -65,9 +77,7 @@ export const Toast = (props: ToastProps): JSX.Element => {
   onMount(
     () =>
       props.timeout !== 0 &&
-      setTimeout(() => {
-        setVisible(false);
-      }, props.timeout ?? 5000)
+      setTimeout(() => setVisible(false), props.timeout ?? 5000)
   );
 
   createEffect(() => {
@@ -75,18 +85,21 @@ export const Toast = (props: ToastProps): JSX.Element => {
       setChildren(getElements(newChildren(), () => true, [{ update, hide }]));
   });
 
-  onCleanup(() => {
-    const mountPoint = document.getElementById(mountPointId);
-    if (mountPoint && mountPoint.childElementCount === 0) {
-      document.body.removeChild(mountPoint);
+  createEffect(() => {
+    const container = mountPoint()
+    if (container === props.mount) {
+      return;
+    }
+    if (!visible() && container?.childElementCount === 0) {
+      document.body.removeChild(container);
+    } else if (visible() && container && !container?.parentNode) {      
+      document.body.appendChild(container);
     }
   });
 
-  const mountPoint = props.mount ?? document.getElementById(mountPointId);
-
   return (
     <Show when={visible()}>
-      <Portal mount={mountPoint}>
+      <Portal mount={mountPoint()}>
         <div
           {...divProps}
           class={divProps.class ? `sb-toast ${divProps.class}` : "sb-toast"}

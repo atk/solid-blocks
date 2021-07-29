@@ -135,7 +135,6 @@ const App: Component = () => {
             <li>
               More components:
               <ul>
-                <li>Layout: Sidebar/Drawer, Popover, Tooltip</li>
                 <li>Icons</li>
               </ul>
             </li>
@@ -264,8 +263,8 @@ const App: Component = () => {
         </Message>}
       </Toast>
       <Toast position="bottom-right"><Message type="info">This will vanish after 5 seconds</Message></Toast>
-      <Toast position="bottom-right">{({update}) => {
-        setTimeout(() => update(<Message type="success">Updated!</Message>), 2000);
+      <Toast position="bottom-right" timeout={10000}>{({update}) => {
+        setTimeout(() => update(<Message type="success">Updated! Will hide after 8 more seconds</Message>), 2000);
         return <Message type="warning">And this one updates after 2 seconds</Message>;
       }}</Toast>
       <p align="center" onClick={() => setTooltipPosition(pos => (pos + 1) % tooltipPositions.length)}>
