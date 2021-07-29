@@ -1,7 +1,8 @@
-import { Component, createSignal, JSX, Show } from "solid-js";
+import { Component, createSignal, Show } from "solid-js";
 import {
   Avatar,
   AvatarGroup,
+  Bar,
   Breadcrumbs,
   Button,
   Checkbox,
@@ -41,6 +42,7 @@ const App: Component = () => {
   const [darkMode, setDarkMode] = useDarkMode();
   const tooltipPositions: TooltipPosition[] = ['nw', 'n', 'ne', 'e', 'se', 's', 'sw', 'w'];
   const [tooltipPosition, setTooltipPosition] = createSignal(0)
+  const [showBar, setShowBar] = createSignal(false);
 
   return (
     <div class="app">
@@ -256,13 +258,13 @@ const App: Component = () => {
           </ModalContent>
         </>)}
       </Modal>
-      <Toast position="top" timeout={0}>
+      <Toast position="bottom-right" timeout={0}>
         {({hide}) => <Message type="info">
           We have Toasts now <Button variant="icon" style={{ float: "right" }} onClick={hide}>✕</Button>
         </Message>}
       </Toast>
-      <Toast position="top"><Message type="info">This will vanish after 5 seconds</Message></Toast>
-      <Toast position="top">{({update}) => {
+      <Toast position="bottom-right"><Message type="info">This will vanish after 5 seconds</Message></Toast>
+      <Toast position="bottom-right">{({update}) => {
         setTimeout(() => update(<Message type="success">Updated!</Message>), 2000);
         return <Message type="warning">And this one updates after 2 seconds</Message>;
       }}</Toast>
@@ -270,6 +272,17 @@ const App: Component = () => {
         <Tooltip content="Tooltip-Text" position={tooltipPositions[tooltipPosition()]}>
           Tooltip-Trigger ({tooltipPositions[tooltipPosition()]})
         </Tooltip>
+      </p>
+      <p>
+        <Button onclick={() => setShowBar(show => !show)}>Toggle Sidebar</Button>
+        <Bar placement="right" position="fixed" hidden={!showBar()} overlay>
+          <main>
+            <h2>Sidebar</h2>
+            <p style={{width: "12em"}}>I can place up to 3 containers in the sidebar. The first one will always align to the top, the last one to the bottom. If there is only one container, it will fill the whole bar</p>
+          </main>
+          <footer>This is the footer</footer>
+        </Bar>
+
       </p>
     </div>
   );

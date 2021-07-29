@@ -1,0 +1,103 @@
+.sb-bar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  position: absolute;  
+  background: var(--background);
+  z-index: var(--stack-bar)
+}
+.sb-bar[hidden] {
+  display: none;
+}
+.transparent.sb-bar {
+  background: transparent;
+}
+.left.sb-bar,
+.right.sb-bar {
+  flex-direction: column;
+}
+.top.sb-bar {
+  inset: 0 0 auto 0;
+  border-bottom: var(--hair-line) solid var(--border-color);
+}
+.right.sb-bar {
+  inset: 0 0 0 auto;
+  border-left: var(--hair-line) solid var(--border-color);
+}
+.bottom.sb-bar {
+  inset: auto 0 0 0;
+  border-top: var(--hair-line) solid var(--border-color);
+}
+.left.sb-bar {
+  inset: 0 auto 0 0;
+  border-right: var(--hair-line) solid var(--border-color);
+}
+.borderless.sb-bar {
+  border-color: transparent;
+}
+.sticky.sb-bar {
+  position: sticky;
+}
+.fixed.sb-bar {
+  position: fixed;
+}
+.relative.sb-bar {
+  position: relative;
+}
+.top.relative.sb-bar,
+.bottom.relative.sb-bar {
+  width: 100%;
+}
+.left.relative.sb-bar,
+.right.relative.sb-bar {
+  height: 100%;
+}
+.sb-bar > * {
+  display: flex;
+  flex-direction: inherit;
+  align-items: center;
+  margin-right: 0.5em;
+  margin-left: 0.5em;
+}
+.left.sb-bar > *,
+.right.sb-bar > * {
+  align-items: flex-start;
+}
+.sb-bar > *:first-child {
+  margin-top: 0.5em;
+}
+.sb-bar > *:last-child {
+  margin-bottom: 0.5em;
+}
+.top.sb-bar > *:only-child {
+.bottom.sb-bar > *:only-child {
+  width: 100%;
+}
+.top.sb-bar > *:first-child:nth-last-child(2),
+.top.sb-bar > *:first-child:nth-last-child(2) + *,
+.bottom.sb-bar > *:first-child:nth-last-child(2),
+.bottom.sb-bar > *:first-child:nth-last-child(2) + * {
+  width: 50%;
+}
+.top.sb-bar > *:first-child:nth-last-child(3),
+.top.sb-bar > *:first-child:nth-last-child(3) ~ *,
+.bottom.sb-bar > *:first-child:nth-last-child(3),
+.bottom.sb-bar > *:first-child:nth-last-child(3) ~ * {
+  width: 33.3%;
+}
+.left.sb-bar > *:only-child {
+.right.sb-bar > *:only-child {
+  height: 100%;
+}
+.left.sb-bar > *:first-child:nth-last-child(2),
+.left.sb-bar > *:first-child:nth-last-child(2) + *,
+.right.sb-bar > *:first-child:nth-last-child(2),
+.right.sb-bar > *:first-child:nth-last-child(2) + * {
+  height: 50%;
+}
+.left.sb-bar > *:first-child:nth-last-child(3),
+.left.sb-bar > *:first-child:nth-last-child(3) ~ *,
+.right.sb-bar > *:first-child:nth-last-child(3),
+.right.sb-bar > *:first-child:nth-last-child(3) ~ * {
+  height: 33.3%;
+}

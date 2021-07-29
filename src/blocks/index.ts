@@ -1,6 +1,7 @@
 import "./base.css";
 export * from "./accordion";
 export * from "./avatar";
+export * from "./bar";
 export * from "./breadcrumbs";
 export * from "./button";
 export * from "./checkbox";

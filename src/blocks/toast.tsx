@@ -36,6 +36,7 @@ export type ToastProps = Omit<
     | "bottom"
     | "bottom-right"
     | "bottom-left";
+  mount?: HTMLElement;
 };
 
 const div = document.createElement("div");
@@ -48,7 +49,7 @@ export const Toast = (props: ToastProps): JSX.Element => {
   ]);
 
   const mountPointId = `sb-toast-${props.position || "top-right"}`;
-  if (!document.getElementById(mountPointId)) {
+  if (!props.mount || !document.getElementById(mountPointId)) {
     document.body.appendChild(
       Object.assign(div.cloneNode(), { id: mountPointId })
     );
@@ -81,7 +82,7 @@ export const Toast = (props: ToastProps): JSX.Element => {
     }
   });
 
-  const mountPoint = document.getElementById(mountPointId);
+  const mountPoint = props.mount ?? document.getElementById(mountPointId);
 
   return (
     <Show when={visible()}>
