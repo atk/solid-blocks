@@ -14,10 +14,10 @@
   },
   "license": "MIT",
   "devDependencies": {
-    "vite": "^2.4.3",
+    "vite": "^2.4.4",
     "vite-plugin-solid": "^2.0.1"
   },
   "dependencies": {
-    "solid-js": "1.0.5"
+    "solid-js": "1.0.6"
   }
 }

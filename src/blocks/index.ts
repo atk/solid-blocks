@@ -16,4 +16,5 @@ export * from "./tabs";
 export * from "./tag";
 export * from "./textfield";
 export * from './toast';
+export * from './tooltip';
 export * from "./tools";

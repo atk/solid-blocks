@@ -1,0 +1,72 @@
+.sb-tooltip-wrapper [role="tooltip"] {
+  position: absolute;
+  border-radius: var(--border-radius);
+  background: var(--text);  
+  color: var(--negative-text);
+  padding: 0.25em 1em;
+  font-size: 0.8em;
+  z-index: var(--stack-tooltip);
+}
+.sb-tooltip-wrapper.position-nw [role="tooltip"] {
+  transform: translateY(-100%) translateY(-1em);
+}
+.sb-tooltip-wrapper.position-n [role="tooltip"] {
+  transform: translate(-50%, -100%) translateY(-1em);
+}
+.sb-tooltip-wrapper.position-ne [role="tooltip"] {
+  transform: translate(-100%, -100%) translateY(-1em);
+}
+.sb-tooltip-wrapper.position-e [role="tooltip"] {
+  transform: translate(1em, -50%);
+}
+.sb-tooltip-wrapper.position-sw [role="tooltip"] {
+  transform: translateY(1em);
+}
+.sb-tooltip-wrapper.position-s [role="tooltip"] {
+  transform: translate(-50%, 1em);
+}
+.sb-tooltip-wrapper.position-se [role="tooltip"] {
+  transform: translate(-100%, 1em);
+}
+.sb-tooltip-wrapper.position-w [role="tooltip"] {
+  transform: translate(-100%, -50%) translateX(-1em);
+}
+
+.sb-tooltip-wrapper.arrow [role="tooltip"]:before {
+  content: "";
+  position: absolute;
+  display: block;
+  border-style: solid;
+}
+.sb-tooltip-wrapper.arrow.position-nw [role="tooltip"]:before,
+.sb-tooltip-wrapper.arrow.position-n [role="tooltip"]:before,
+.sb-tooltip-wrapper.arrow.position-ne [role="tooltip"]:before {
+  border-width: 0.5em 0.5em 0 0.5em;
+  border-color: var(--text) transparent transparent transparent;
+  bottom: -0.45em;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.sb-tooltip-wrapper.arrow.position-sw [role="tooltip"]:before,
+.sb-tooltip-wrapper.arrow.position-s [role="tooltip"]:before,
+.sb-tooltip-wrapper.arrow.position-se [role="tooltip"]:before {
+  border-width: 0 0.5em 0.5em 0.5em;
+  border-color: transparent transparent var(--text) transparent;
+  top: -0.45em;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.sb-tooltip-wrapper.arrow.position-e [role="tooltip"]:before {
+  border-width: 0.5em 0.5em 0.5em 0;
+  border-color: transparent var(--text) transparent transparent;
+  left: -0.45em;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.sb-tooltip-wrapper.arrow.position-w [role="tooltip"]:before {
+  border-width: 0.5em 0 0.5em 0.5em;
+  border-color: transparent transparent transparent var(--text);
+  right: -0.45em;
+  top: 50%;
+  transform: translateY(-50%);
+}

@@ -30,6 +30,8 @@ import {
   ModalBody,
   ModalFooter,
   Toast,
+  Tooltip,
+  TooltipPosition,
   useDarkMode,
 } from "./blocks";
 
@@ -37,6 +39,8 @@ import "./app.css";
 
 const App: Component = () => {
   const [darkMode, setDarkMode] = useDarkMode();
+  const tooltipPositions: TooltipPosition[] = ['nw', 'n', 'ne', 'e', 'se', 's', 'sw', 'w'];
+  const [tooltipPosition, setTooltipPosition] = createSignal(0)
 
   return (
     <div class="app">
@@ -262,6 +266,11 @@ const App: Component = () => {
         setTimeout(() => update(<Message type="success">Updated!</Message>), 2000);
         return <Message type="warning">And this one updates after 2 seconds</Message>;
       }}</Toast>
+      <p align="center" onClick={() => setTooltipPosition(pos => (pos + 1) % tooltipPositions.length)}>
+        <Tooltip content="Tooltip-Text" position={tooltipPositions[tooltipPosition()]}>
+          Tooltip-Trigger ({tooltipPositions[tooltipPosition()]})
+        </Tooltip>
+      </p>
     </div>
   );
 };
