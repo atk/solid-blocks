@@ -16,8 +16,8 @@ import {
 
 import "./app.css";
 import { AccordionDocs } from "./blocks/accordion.docs";
-import { AvatarDocs } from './blocks/avatar.docs';
-import { BarDocs } from './blocks/bar.docs';
+import { AvatarDocs } from "./blocks/avatar.docs";
+import { BarDocs } from "./blocks/bar.docs";
 import { BreadcrumbsDocs } from "./blocks/breadcrumbs.docs";
 import { ButtonDocs } from "./blocks/button.docs";
 import { CheckboxDocs } from "./blocks/checkbox.docs";
@@ -62,15 +62,28 @@ const App: Component = () => {
             </MenuItem>
           </MenuItemGroup>
           <MenuItem aria-disabled="true">Disabled Item</MenuItem>
-          <MenuOptionGroup title="Radio options" onchange={console.log} value="item 1">
+          <MenuOptionGroup
+            title="Radio options"
+            onchange={console.log}
+            value="item 1"
+          >
             <MenuOption value="item 1">Radio 1</MenuOption>
             <MenuOption value="item 2">Radio 2</MenuOption>
-            <MenuOption value="disabled" aria-disabled="true">Disabled Radio</MenuOption>
+            <MenuOption value="disabled" aria-disabled="true">
+              Disabled Radio
+            </MenuOption>
           </MenuOptionGroup>
-          <MenuOptionGroup title="Checkbox options" onchange={console.log} type="checkbox" value={["disabled"]}>
+          <MenuOptionGroup
+            title="Checkbox options"
+            onchange={console.log}
+            type="checkbox"
+            value={["disabled"]}
+          >
             <MenuOption value="item 1">Checkbox 1</MenuOption>
             <MenuOption value="item 2">Checkbox 2</MenuOption>
-            <MenuOption value="disabled" aria-disabled="true">Disabled Checkbox</MenuOption>
+            <MenuOption value="disabled" aria-disabled="true">
+              Disabled Checkbox
+            </MenuOption>
           </MenuOptionGroup>
         </Menu>
       </div>
@@ -126,51 +139,101 @@ const App: Component = () => {
         <TabContainer>
           <span class="to-top-wrapper">
             <Tooltip content="Back to top" position="n" nowrap>
-              <a role="button" class="to-top icon sb-button" href="#top">⇧</a>
+              <a role="button" class="to-top icon sb-button" href="#top">
+                ⇧
+              </a>
             </Tooltip>
           </span>
           <ul>
-            <li><a href="#accordion-docs">Accordion</a></li>
-            <li><a href="#accordiongroup-docs">AccordionGroup</a></li>
-            <li><a href="#avatar-docs">Avatar</a></li>
-            <li><a href="#avatarbadge-docs">AvatarBadge</a></li>
-            <li><a href="#avatargroup-docs">AvatarGroup</a></li>
-            <li><a href="#bar-docs">Bar</a></li>
-            <li><a href="#breadcrumbs-docs">Breadcrumbs</a></li>
-            <li><a href="#button-docs">Button</a></li>
-            <li><a href="#checkbox-docs">Checkbox</a></li>
-            <li><a href="#menu-docs">Menu/MenuItem/MenuItemGroup/MenuOption/MenuOptionGroup</a></li>
-            <li><a href="#message-docs">Message</a></li>
-            <li><a href="#meter-docs">Meter</a></li>
-            <li><a href="#modal-docs">Modal/ModalContent/ModalHeader/ModalContent/ModalFooter</a></li>
-            <li><a href="#progress-docs">Progress</a></li>
-            <li><a href="#radio-docs">Radio/RadioGroup</a></li>
-            <li><a href="#select-docs">Select</a></li>
-            <li><a href="#spinner-docs">Spinner</a></li>
-            <li><a href="#tabs-docs">Tabs/Tab/TabContainer</a></li>
-            <li><a href="#tag-docs">Tags/TagGroup</a></li>
-            <li><a href="#textfield-docs">Textfield</a></li>
-            <li><a href="#toast-docs">Toast</a></li>
-            <li><a href="#tooltip-docs">Tooltip</a></li>
+            <li>
+              <a href="#accordion-docs">Accordion</a>
+            </li>
+            <li>
+              <a href="#accordiongroup-docs">AccordionGroup</a>
+            </li>
+            <li>
+              <a href="#avatar-docs">Avatar</a>
+            </li>
+            <li>
+              <a href="#avatarbadge-docs">AvatarBadge</a>
+            </li>
+            <li>
+              <a href="#avatargroup-docs">AvatarGroup</a>
+            </li>
+            <li>
+              <a href="#bar-docs">Bar</a>
+            </li>
+            <li>
+              <a href="#breadcrumbs-docs">Breadcrumbs</a>
+            </li>
+            <li>
+              <a href="#button-docs">Button</a>
+            </li>
+            <li>
+              <a href="#checkbox-docs">Checkbox</a>
+            </li>
+            <li>
+              <a href="#menu-docs">
+                Menu/MenuItem/MenuItemGroup/MenuOption/MenuOptionGroup
+              </a>
+            </li>
+            <li>
+              <a href="#message-docs">Message</a>
+            </li>
+            <li>
+              <a href="#meter-docs">Meter</a>
+            </li>
+            <li>
+              <a href="#modal-docs">
+                Modal/ModalContent/ModalHeader/ModalContent/ModalFooter
+              </a>
+            </li>
+            <li>
+              <a href="#progress-docs">Progress</a>
+            </li>
+            <li>
+              <a href="#radio-docs">Radio/RadioGroup</a>
+            </li>
+            <li>
+              <a href="#select-docs">Select</a>
+            </li>
+            <li>
+              <a href="#spinner-docs">Spinner</a>
+            </li>
+            <li>
+              <a href="#tabs-docs">Tabs/Tab/TabContainer</a>
+            </li>
+            <li>
+              <a href="#tag-docs">Tags/TagGroup</a>
+            </li>
+            <li>
+              <a href="#textfield-docs">Textfield</a>
+            </li>
+            <li>
+              <a href="#toast-docs">Toast</a>
+            </li>
+            <li>
+              <a href="#tooltip-docs">Tooltip</a>
+            </li>
           </ul>
           <AccordionDocs />
           <AvatarDocs />
           <BarDocs />
-          <BreadcrumbsDocs/>
-          <ButtonDocs/>
-          <CheckboxDocs/>
-          <MenuDocs/>
-          <MessageDocs/>
-          <MeterDocs/>
-          <ModalDocs/>
-          <ProgressDocs/>
-          <RadioDocs/>
-          <SelectDocs/>
-          <SpinnerDocs/>
-          <TabsDocs/>
-          <TextfieldDocs/>
-          <ToastDocs/>
-          <TooltipDocs/>
+          <BreadcrumbsDocs />
+          <ButtonDocs />
+          <CheckboxDocs />
+          <MenuDocs />
+          <MessageDocs />
+          <MeterDocs />
+          <ModalDocs />
+          <ProgressDocs />
+          <RadioDocs />
+          <SelectDocs />
+          <SpinnerDocs />
+          <TabsDocs />
+          <TextfieldDocs />
+          <ToastDocs />
+          <TooltipDocs />
         </TabContainer>
         <Tab>TODO</Tab>
         <TabContainer>

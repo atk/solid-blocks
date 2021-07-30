@@ -28,6 +28,9 @@
 .sb-checkbox input[type="checkbox"]:disabled {
   cursor: not-allowed;
 }
+.sb-checkbox input[type="checkbox"]:disabled:not(:checked) {
+  background: var(--border-color);
+}
 .sb-checkbox input[type="checkbox"]:disabled:before {
   color: var(--border-color);
 }
@@ -54,6 +57,9 @@
 }
 .sb-checkbox input[type="checkbox"][role="switch"]:checked:before {
   transform: translateX(0.9em);
+}
+.sb-checkbox input[type="checkbox"][role="switch"]:disabled {
+  background: var(--border-color);
 }
 .sb-checkbox input[type="checkbox"][role="switch"]:disabled:before {
   background: var(--border-color);
