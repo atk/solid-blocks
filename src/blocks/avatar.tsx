@@ -6,6 +6,7 @@ export type AvatarProps = {
   img?: string;
   name?: string;
   fallback?: JSX.Element;
+  plus?: number;
 } & JSX.HTMLAttributes<HTMLDivElement>;
 
 const char =
@@ -101,7 +102,7 @@ export const AvatarBadge: Component<AvatarBadgeProps> = (props) => {
   );
 };
 
-export type AvatarGroupProps = JSX.HTMLAttributes<HTMLDivElement>;
+export type AvatarGroupProps = JSX.HTMLAttributes<HTMLDivElement> & { "data-plus"?: string };
 
 export const AvatarGroup: Component<AvatarGroupProps> = (props) => (
   <div

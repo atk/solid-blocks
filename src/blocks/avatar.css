@@ -90,6 +90,25 @@
   font-size: 0.6em;
   text-indent: 0.2em;
 }
+.sb-avatar[role="group"]:not([aria-expanded="true"])[data-plus]
+  .sb-avatar
+  + .sb-avatar
+  + .sb-avatar
+  + .sb-avatar:last-child:before {
+  content: "\80"
+}
+.sb-avatar[role="group"]:not([aria-expanded="true"])[data-plus]:after {
+  content: attr(data-plus);
+  text-indent: 0;
+  font-weight: 400;
+  font-size: 0.7em;
+  position: absolute;
+  width: 2.25em;
+  text-align: center;
+  margin-top: 0.3em;
+  margin-left: -2.5em;
+  overflow: hidden;
+}
 .sb-avatar[data-random="1"] {
   background: var(--random-color1);
 }

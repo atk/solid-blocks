@@ -11,7 +11,7 @@ export const CheckboxDocs = () => {
     <h2 id="checkbox-docs">Checkbox</h2>
     <p>The checkbox component can either be used as a normal checkbox or a switch.</p>
     <h3>Properties</h3>
-    <p>It has all <a href="https://developer.mozilla.org/de/docs/Web/HTML/Element/Input/checkbox" target="_blank" rel="nofollow">the properties of an input[type="checkbox"]</a>, and additionally:</p>
+    <p>It has all <a href="https://developer.mozilla.org/de/docs/Web/HTML/Element/Input/checkbox" target="_blank" rel="nofollow">the properties of an input of type "checkbox"</a>, and additionally:</p>
     <pre>
         {`
 CheckboxProps {

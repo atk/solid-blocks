@@ -46,6 +46,13 @@ AvatarGroupProps {
         <Avatar/>
         <Avatar/>
       </AvatarGroup>
+      {" or with a data-plus attribute to set the last item manually (which obviously does not work if expanded): "}
+      <AvatarGroup data-plus={"+lots"}>
+        <Avatar img="https://avatars.githubusercontent.com/u/220405?s=60&v=4" name="Alex Lohr" />
+        <Avatar name="Solid Blocks" />
+        <Avatar/>
+        <Avatar/>
+      </AvatarGroup>
     </div>
     <hr/>
   </>
