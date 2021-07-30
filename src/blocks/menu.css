@@ -38,7 +38,7 @@
 .sb-menu [role="group"]:not(:last-child) {
   border-bottom: var(--hair-line) solid var(--border-color);
 }
-.sb-menu [role="group"] > *:first-child {
+.sb-menu [role="group"] > *:first-child:not([role="menuitem"]) {
   padding: 0;
   margin: 0.375em 0.375em 0;
   font-size: 0.75em;

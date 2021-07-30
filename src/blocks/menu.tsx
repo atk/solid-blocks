@@ -19,7 +19,7 @@ import "./menu.css";
 
 export type MenuProps = JSX.HTMLAttributes<HTMLDivElement> & {
   open?: boolean;
-  onToggle?: (open?: boolean) => void;
+  ontoggle?: (open?: boolean) => void;
 };
 
 const getFirstMenuButton = (open: Accessor<boolean>) => {
@@ -55,7 +55,7 @@ const getMenuItems = () => {
 
 export const Menu: Component<MenuProps> = (props) => {
   const [open, setOpen] = createSignal(props.open);
-  const [local, divProps] = splitProps(props, ["open", "children", "onToggle"]);
+  const [local, divProps] = splitProps(props, ["open", "children", "onoggle"]);
   const opener = createMemo(
     () => getElements(props.children, getFirstMenuButton(open), [open()])[0]
   );
@@ -67,7 +67,7 @@ export const Menu: Component<MenuProps> = (props) => {
 
   createEffect(() => {
     const visible = open();
-    local.onToggle?.(visible);
+    local.ontoggle?.(visible);
     if (visible) {
       menuItems()[0].focus();
     }
@@ -196,7 +196,7 @@ export type MenuOptionsContextValue = [
 export const MenuOptionsContext = createContext<MenuOptionsContextValue>([() => [], (value) => console.warn('context default!', value)]);
 
 export type MenuOptionProps = Omit<JSX.HTMLAttributes<HTMLDivElement>, 'onchange'> & {
-  onchange?: (selected?: boolean) => void;
+  onchange?: (checked?: boolean) => void;
   value: string;
 };
 
@@ -226,14 +226,14 @@ export const MenuOption: Component<MenuOptionProps> = (props) => {
   />
 };
 
-export type MenuOptionGroupProps = JSX.HTMLAttributes<HTMLDivElement> & {
-  type?: 'radio' | 'checkbox';
+export type MenuOptionGroupProps<T extends 'radio' | 'checkbox'> = Omit<JSX.HTMLAttributes<HTMLDivElement>, 'onchange'> & {
+  type?: T;
   title?: JSX.Element;
-  value?: string | string[];
-  onchange?: (value?: string | string[]) => void;
+  value?: string[] | string;
+  onchange?: (value: T extends 'checkbox' ? string[] : string) => void;
 };
 
-export const MenuOptionGroup: Component<MenuOptionGroupProps> = (props) => {
+export const MenuOptionGroup = <T extends 'radio' | 'checkbox'>(props: MenuOptionGroupProps<T>): JSX.Element => {
   const [local, divProps] = splitProps(props, ['title', 'value', 'onchange', 'children', 'type']);
   const [value, setValue] = createSignal(
     Array.isArray(local.value) ? local.value : local.value ? [local.value] : [],
@@ -257,10 +257,8 @@ export const MenuOptionGroup: Component<MenuOptionGroupProps> = (props) => {
   createEffect((lastVal) => {
     const newVal = value();
     if (props.type === 'checkbox' ? newVal.length === lastVal.length : newVal[0] === lastVal[0]) {
-      //console.log('equals', lastVal, newVal);
       return lastVal;
     }
-    // console.log('differs', lastVal, newVal);
     local.onchange?.(local.type !== 'checkbox' ? newVal[0] : newVal)
     return newVal;
   }, value());

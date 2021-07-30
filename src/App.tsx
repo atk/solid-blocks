@@ -5,12 +5,6 @@ import {
   Tab,
   TabContainer,
   Tooltip,
-  Menu,
-  MenuButton,
-  MenuItem,
-  MenuItemGroup,
-  MenuOption,
-  MenuOptionGroup,
   useDarkMode,
 } from "./blocks";
 
@@ -47,45 +41,7 @@ const App: Component = () => {
           <Show when={darkMode()} fallback=" Dark Mode">
             {" Light Mode"}
           </Show>
-        </Checkbox>{" "}
-        <Menu style={{ right: 0 }}>
-          <MenuButton variant="icon">☰</MenuButton>
-          <MenuItem onClick={() => console.log("Item 1 selected")}>
-            Item 1
-          </MenuItem>
-          <MenuItemGroup title="Menu item group">
-            <MenuItem onClick={() => console.log("Item 2 selected")}>
-              Item 2
-            </MenuItem>
-            <MenuItem onClick={() => console.log("Item 3 selected")}>
-              Item 3
-            </MenuItem>
-          </MenuItemGroup>
-          <MenuItem aria-disabled="true">Disabled Item</MenuItem>
-          <MenuOptionGroup
-            title="Radio options"
-            onchange={console.log}
-            value="item 1"
-          >
-            <MenuOption value="item 1">Radio 1</MenuOption>
-            <MenuOption value="item 2">Radio 2</MenuOption>
-            <MenuOption value="disabled" aria-disabled="true">
-              Disabled Radio
-            </MenuOption>
-          </MenuOptionGroup>
-          <MenuOptionGroup
-            title="Checkbox options"
-            onchange={console.log}
-            type="checkbox"
-            value={["disabled"]}
-          >
-            <MenuOption value="item 1">Checkbox 1</MenuOption>
-            <MenuOption value="item 2">Checkbox 2</MenuOption>
-            <MenuOption value="disabled" aria-disabled="true">
-              Disabled Checkbox
-            </MenuOption>
-          </MenuOptionGroup>
-        </Menu>
+        </Checkbox>
       </div>
       <h1>
         <svg

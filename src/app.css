@@ -54,6 +54,7 @@ pre[data-title]:before {
   position: fixed;
   right: 2.5em;
   bottom: 2em;
+  z-index: var(--stack-skip-link);
 }
 .to-top[href="#top"][role="button"] {
   display: inline-block;
