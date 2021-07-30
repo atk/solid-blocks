@@ -76,7 +76,7 @@ AccordionGroupProps {
     </pre>
     <dl>
       <dt>allowMultiple</dt>
-      <dd>if <code>false</code>, only one accordion can be opened at a time; the last one will remain open, except if allowToggle is set to <code>true</code>:</dd>
+      <dd>if <code>true</code>, multiple accordions can be opened at a time; the last one will remain open, except if allowToggle is set to <code>true</code>:</dd>
       <dt>allowToggle</dt>
       <dd>if <code>true</code>, the last remaining accordion can be closed even though allowMultiple is set to <code>false</code></dd>
     </dl>
@@ -84,41 +84,7 @@ AccordionGroupProps {
     <Checkbox checked={allowMultiple()} onchange={() => setAllowMultiple(a => !a)}> allowMultiple</Checkbox>{" "}
     <Checkbox checked={allowToggle()} onchange={() => setAllowToggle(a => !a)}> allowToggle</Checkbox><br/><br/>
     <div class="example" style={{ "min-height": "9em"}}>
-      <Dynamic component={AccordionGroup} allowMultiple={allowMultiple()} allowToggle={allowToggle()}>
-        <Accordion>
-          <AccordionHeader><b>First Accordion</b></AccordionHeader>
-          <p>Opened content of first accordion</p>
-        </Accordion>
-        <Accordion>
-          <AccordionHeader><b>Second Accordion</b></AccordionHeader>
-          <p>Opened content of second accordion</p>
-        </Accordion>
-        <Accordion>
-          <AccordionHeader><b>Third Accordion</b></AccordionHeader>
-          <p>Opened content of third accordion</p>
-        </Accordion>
-      </Dynamic>
-    </div>
-    <p>allowMutliple = true:</p>
-    <div class="example" style={{ "min-height": "9em"}}>
-      <AccordionGroup allowMultiple={true}>
-        <Accordion>
-          <AccordionHeader><b>First Accordion</b></AccordionHeader>
-          <p>Opened content of first accordion</p>
-        </Accordion>
-        <Accordion>
-          <AccordionHeader><b>Second Accordion</b></AccordionHeader>
-          <p>Opened content of second accordion</p>
-        </Accordion>
-        <Accordion>
-          <AccordionHeader><b>Third Accordion</b></AccordionHeader>
-          <p>Opened content of third accordion</p>
-        </Accordion>
-      </AccordionGroup>
-    </div>
-    <p>allowMutliple = false + allowToggle = true:</p>
-    <div class="example" style={{ "min-height": "9em"}}>
-      <AccordionGroup allowMultiple={false} allowToggle>
+      <AccordionGroup allowMultiple={allowMultiple()} allowToggle={allowToggle()}>
         <Accordion>
           <AccordionHeader><b>First Accordion</b></AccordionHeader>
           <p>Opened content of first accordion</p>

@@ -64,18 +64,19 @@ export const AccordionGroup: Component<AccordionGroupProps> = (props) => {
         if (!details) {
           return;
         }
-        const open = details.parentNode.querySelectorAll("details[open]");
+        const open = details.parentNode.querySelectorAll("details.sb-accordion[open]");
         if (open.length === 0) {
           return;
         }
-        if (local.allowToggle || !details.open) {
+        
+        if (!local.allowMultiple && !details.open) {
           Array.prototype.forEach.call(open, (item) => {
             if (item !== details) {
               item.removeAttribute("open");
             }
           });
         }
-        if (!local.allowToggle && details.open) {
+        if (!local.allowToggle && details.open && open.length === 1) {
           ev.preventDefault();
         }
       });
@@ -85,20 +86,22 @@ export const AccordionGroup: Component<AccordionGroupProps> = (props) => {
       return;
     }
     const grouped: NodeListOf<HTMLDetailsElement> =
-      details.parentNode.querySelectorAll("details.accordion");
+      details.parentNode.querySelectorAll("details.sb-accordion");
     const index = Array.prototype.indexOf.call(grouped, details);
     if (index === -1) {
       return;
     }
     if (ev.key === "ArrowLeft" && index !== 0) {
-      const summary = grouped[index - 1].querySelector("summary");
+      const detail = grouped[index - 1];
+      const summary = detail.querySelector("summary");
       summary.focus();
-      summary.click();
+      !detail.open && summary.click();
     }
     if (ev.key === "ArrowRight" && index + 1 < grouped.length) {
-      const summary = grouped[index + 1].querySelector("summary");
+      const detail = grouped[index + 1];
+      const summary = detail.querySelector("summary");
       summary.focus();
-      summary.click();
+      !detail.open && summary.click();
     }
   });
   return (
