@@ -75,14 +75,18 @@ export const Menu: Component<MenuProps> = (props) => {
 
   const clickHandler = (ev: MouseEvent) => {
     const target = ev.target as HTMLElement;
-    const role = target?.getAttribute('role');
+    const role = target?.getAttribute("role");
     const button = opener();
     if (!ev.defaultPrevented && button) {
       if (ev.target === button) {
         setOpen(
           (open) => !open && button.getAttribute("aria-disabled") !== "true"
         );
-      } else if (!button.contains(target) && role !== "menuitemradio" && role !== "menuitemcheckbox") {
+      } else if (
+        !button.contains(target) &&
+        role !== "menuitemradio" &&
+        role !== "menuitemcheckbox"
+      ) {
         setOpen(false);
       }
     }
@@ -97,9 +101,11 @@ export const Menu: Component<MenuProps> = (props) => {
   const overHandler = (ev: MouseEvent) => {
     const target = ev.target as HTMLElement;
     if (
-      ["menuitem", "menuitemradio", "menuitemcheckbox"].includes(target?.getAttribute("role")) &&
+      ["menuitem", "menuitemradio", "menuitemcheckbox"].includes(
+        target?.getAttribute("role")
+      ) &&
       target?.tabIndex !== -1 &&
-      target?.getAttribute('aria-disabled') !== 'true'
+      target?.getAttribute("aria-disabled") !== "true"
     ) {
       focusItem = target;
       focusItem?.focus();
@@ -107,37 +113,49 @@ export const Menu: Component<MenuProps> = (props) => {
   };
 
   const moveFocus = (step: 1 | -1) => {
-    const menuItems = menuRef.querySelectorAll('[role^=menuitem]:not([aria-disabled], [tabIndex="-1"])');
-    const currentPos = focusItem ? Array.prototype.findIndex.call(menuItems, (item) => item === focusItem) : -1;
-    const newPos = currentPos === -1 ? 1 : (menuItems.length + step + currentPos) % menuItems.length
+    const menuItems = menuRef.querySelectorAll(
+      '[role^=menuitem]:not([aria-disabled], [tabIndex="-1"])'
+    );
+    const currentPos = focusItem
+      ? Array.prototype.findIndex.call(menuItems, (item) => item === focusItem)
+      : -1;
+    const newPos =
+      currentPos === -1
+        ? 1
+        : (menuItems.length + step + currentPos) % menuItems.length;
     focusItem = menuItems[newPos];
     focusItem.focus();
-  }
+  };
 
   const keyHandler = (ev: KeyboardEvent) => {
     const target = ev.target as HTMLElement;
     if (ev.key === "Escape" && open()) {
       setOpen(false);
-      opener().focus()
+      opener().focus();
     }
-    const role = target?.getAttribute('role');
-    if (ev.key === ' ' && ['menuitem', 'menuitemradio', 'menuitemcheckbox'].includes(role)) {
+    const role = target?.getAttribute("role");
+    if (
+      ev.key === " " &&
+      ["menuitem", "menuitemradio", "menuitemcheckbox"].includes(role)
+    ) {
       target.click();
-      if (role === 'menuitemradio') {
-        const radios = target.parentNode.querySelectorAll('[role="menuitemradio"]:not([aria-disabled], [tabIndex="-1"]');
+      if (role === "menuitemradio") {
+        const radios = target.parentNode.querySelectorAll(
+          '[role="menuitemradio"]:not([aria-disabled], [tabIndex="-1"]'
+        );
         const currentPos = Array.prototype.indexOf.call(radios, target);
-        const newPos = (radios.length + 1 + currentPos) % radios.length
+        const newPos = (radios.length + 1 + currentPos) % radios.length;
         focusItem = radios[newPos];
         focusItem.focus();
       }
-      ev.preventDefault();  
+      ev.preventDefault();
     }
     if (ev.key === "ArrowDown") {
       moveFocus(1);
       ev.preventDefault();
     } else if (ev.key === "ArrowUp") {
       moveFocus(-1);
-      ev.preventDefault()
+      ev.preventDefault();
     }
   };
 
@@ -149,12 +167,7 @@ export const Menu: Component<MenuProps> = (props) => {
       onkeydown={keyHandler}
     >
       {opener()}
-      <div
-        tabIndex="-1"
-        role="menu"
-        hidden={!open()}
-        onmouseover={overHandler}
-      >
+      <div tabIndex="-1" role="menu" hidden={!open()} onmouseover={overHandler}>
         {menuItems()}
       </div>
     </div>
@@ -178,37 +191,47 @@ export type MenuItemGroupProps = JSX.HTMLAttributes<HTMLDivElement> & {
 };
 
 export const MenuItemGroup: Component<MenuItemGroupProps> = (props) => {
-  const [local, divProps] = splitProps(props, ['title', 'children']);
-  return <div {...divProps} role="group">
-    <Show when={typeof props.title === "string"} fallback={local.title}>
-      <p>{local.title}</p>
-    </Show>
-    {local.children}
-  </div>
+  const [local, divProps] = splitProps(props, ["title", "children"]);
+  return (
+    <div {...divProps} role="group">
+      <Show when={typeof props.title === "string"} fallback={local.title}>
+        <p>{local.title}</p>
+      </Show>
+      {local.children}
+    </div>
+  );
 };
 
 export type MenuOptionsContextValue = [
   value: Accessor<string[]>,
   change: (value: string) => void,
-  type?: 'checkbox' | 'radio',
+  type?: "checkbox" | "radio"
 ];
 
-export const MenuOptionsContext = createContext<MenuOptionsContextValue>([() => [], (value) => console.warn('context default!', value)]);
+export const MenuOptionsContext = createContext<MenuOptionsContextValue>([
+  () => [],
+  (value) => console.warn("context default!", value),
+]);
 
-export type MenuOptionProps = Omit<JSX.HTMLAttributes<HTMLDivElement>, 'onchange'> & {
+export type MenuOptionProps = Omit<
+  JSX.HTMLAttributes<HTMLDivElement>,
+  "onchange"
+> & {
   onchange?: (checked?: boolean) => void;
   value: string;
 };
 
 export const MenuOption: Component<MenuOptionProps> = (props) => {
-  const [local, divProps] = splitProps(props, ['value', 'onchange']);
+  const [local, divProps] = splitProps(props, ["value", "onchange"]);
   const [value, change, type] = useContext(MenuOptionsContext);
   const selected = createMemo(() => value().includes(props.value));
-  const clickHandler = createMemo(() => () => props['aria-disabled'] !== 'true' && change(props.value));
+  const clickHandler = createMemo(
+    () => () => props["aria-disabled"] !== "true" && change(props.value)
+  );
   const keyHandler = createMemo(() => (ev: KeyboardEvent) => {
-    if (ev.key === ' ') {
+    if (ev.key === " ") {
       ev.preventDefault();
-      props['aria-disabled'] !== 'true' && change(props.value);
+      props["aria-disabled"] !== "true" && change(props.value);
     }
   });
 
@@ -216,59 +239,104 @@ export const MenuOption: Component<MenuOptionProps> = (props) => {
     props.onchange?.(selected());
   });
 
-  return <div
-    aria-selected={selected()}
-    tabIndex={(type === "checkbox" || !selected()) && props['aria-disabled'] !== 'true' ? "0" : "-1"}
-    {...divProps}
-    role={type !== 'checkbox' ? "menuitemradio" : 'menuitemcheckbox'}
-    onclick={clickHandler()}
-    onkeypress={keyHandler()}
-  />
+  return (
+    <div
+      aria-selected={selected()}
+      tabIndex={
+        (type === "checkbox" || !selected()) &&
+        props["aria-disabled"] !== "true"
+          ? "0"
+          : "-1"
+      }
+      {...divProps}
+      role={type !== "checkbox" ? "menuitemradio" : "menuitemcheckbox"}
+      onclick={clickHandler()}
+      onkeypress={keyHandler()}
+    />
+  );
 };
 
-export type MenuOptionGroupProps<T extends 'radio' | 'checkbox'> = Omit<JSX.HTMLAttributes<HTMLDivElement>, 'onchange'> & {
-  type?: T;
-  title?: JSX.Element;
-  value?: string[] | string;
-  onchange?: (value: T extends 'checkbox' ? string[] : string) => void;
-};
+export type MenuOptionGroupProps = Omit<
+  JSX.HTMLAttributes<HTMLDivElement>,
+  "onchange"
+> &
+  (
+    | {
+        type: "checkbox";
+        onchange?: (value: string[]) => void;
+        title?: JSX.Element;
+        value?: string[];
+      }
+    | {
+        type?: "radio" | undefined;
+        onchange?: (value: string) => void;
+        title?: JSX.Element;
+        value?: [string] | string;
+      }
+  );
 
-export const MenuOptionGroup = <T extends 'radio' | 'checkbox'>(props: MenuOptionGroupProps<T>): JSX.Element => {
-  const [local, divProps] = splitProps(props, ['title', 'value', 'onchange', 'children', 'type']);
+export const MenuOptionGroup = (props: MenuOptionGroupProps): JSX.Element => {
+  const [local, divProps] = splitProps(props, [
+    "title",
+    "value",
+    "onchange",
+    "children",
+    "type",
+  ]);
   const [value, setValue] = createSignal(
     Array.isArray(local.value) ? local.value : local.value ? [local.value] : [],
-    { equals: (prev, next) => prev.length === next.length && prev[0] === next[0] }
+    {
+      equals: (prev, next) =>
+        prev.length === next.length && prev[0] === next[0],
+    }
   );
-  const change = createMemo<(value: string) => void>(() => 
-    props.type === 'checkbox'
-    ? (value) => setValue(
-        (prev) => prev.includes(value) ? prev.filter((item) => item !== value) : [...prev, value]
-      )
-    : (value) => setValue((prev) => prev[0] === value ? prev : [value])
+  const change = createMemo<(value: string) => void>(() =>
+    props.type === "checkbox"
+      ? (value) =>
+          setValue((prev) =>
+            prev.includes(value)
+              ? prev.filter((item) => item !== value)
+              : [...prev, value]
+          )
+      : (value) => setValue((prev) => (prev[0] === value ? prev : [value]))
   );
-  
+
   createEffect((lastVal) => {
     if (lastVal !== local.value) {
-      setValue(Array.isArray(local.value) ? local.value : local.value ? [local.value] : []);
+      setValue(
+        Array.isArray(local.value)
+          ? local.value
+          : local.value
+          ? [local.value]
+          : []
+      );
     }
     return local.value;
   }, local.value);
 
   createEffect((lastVal) => {
     const newVal = value();
-    if (props.type === 'checkbox' ? newVal.length === lastVal.length : newVal[0] === lastVal[0]) {
+    if (
+      props.type === "checkbox"
+        ? newVal.length === lastVal.length
+        : newVal[0] === lastVal[0]
+    ) {
       return lastVal;
     }
-    local.onchange?.(local.type !== 'checkbox' ? newVal[0] : newVal)
+    props.type === "checkbox"
+      ? props.onchange?.(newVal)
+      : props.onchange?.(newVal[0]);
     return newVal;
   }, value());
 
-  return <div tabIndex="-1" role="group" {...divProps}>
-    <Show when={typeof props.title === "string"} fallback={local.title}>
-      <p>{local.title}</p>
-    </Show>
-    <MenuOptionsContext.Provider value={[value, change(), local.type]}>
-      {local.children}
-    </MenuOptionsContext.Provider>
-  </div>
+  return (
+    <div tabIndex="-1" role="group" {...divProps}>
+      <Show when={typeof props.title === "string"} fallback={local.title}>
+        <p>{local.title}</p>
+      </Show>
+      <MenuOptionsContext.Provider value={[value, change(), local.type]}>
+        {local.children}
+      </MenuOptionsContext.Provider>
+    </div>
+  );
 };
