@@ -13,12 +13,18 @@ button.primary.sb-button,
   background: var(--primary);
   color: var(--primary-text);
 }
-button.sb-button:hover:not(:active),
-button.sb-button:focus:not(:active),
-[role="button"].sb-button:hover:not(:active),
-[role="button"].sb-button:focus:not(:active) {
+button.sb-button:hover:not(:active, [aria-disabled="true"]),
+button.sb-button:focus:not(:active, [aria-disabled="true"]),
+[role="button"].sb-button:hover:not(:active, [aria-disabled="true"]),
+[role="button"].sb-button:focus:not(:active, [aria-disabled="true"]) {
   box-shadow: 0 0 0 0.125em var(--background), 0 0 0 0.25em var(--primary);
   text-decoration: none;
+}
+button.sb-button[aria-disabled="true"],
+[role="button"].sb-button[aria-disabled="true"] {
+  background: var(--border-color);
+  border-color: var(--border-color);
+  cursor: not-allowed;
 }
 button.secondary.sb-button,
 [role="button"].secondary.sb-button {
@@ -33,10 +39,10 @@ button.link.sb-button,
   color: var(--text);
   text-decoration: underline;
 }
-button.link.sb-button:hover:not(:active),
-button.link.sb-button:focus:not(:active),
-[role="button"].link.sb-button:hover:not(:active),
-[role="button"].link.sb-button:hover:not(:active) {
+button.link.sb-button:hover:not(:active, [aria-disabled="true"]),
+button.link.sb-button:focus:not(:active, [aria-disabled="true"]),
+[role="button"].link.sb-button:hover:not(:active, [aria-disabled="true"]),
+[role="button"].link.sb-button:hover:not(:active, [aria-disabled="true"]) {
   border-color: var(--primary);
 }
 button.sb-button:not(:first-child),

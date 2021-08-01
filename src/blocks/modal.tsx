@@ -1,4 +1,5 @@
 import {
+  Accessor,
   Component,
   JSX,
   splitProps,
@@ -15,7 +16,7 @@ import "./modal.css";
 import { getElements, WrappedElement } from "./tools";
 
 type WrappedModalContentProps = {
-  open: boolean;
+  open: Accessor<boolean>;
   /**
    * toggle
    *
@@ -44,7 +45,7 @@ export const Modal = (props: ModalProps): JSX.Element => {
     "noPortal",
     "children",
   ]);
-  const [open, setOpen] = createSignal(local.open);  
+  const [open, setOpen] = createSignal(local.open);
   const toggle = (open?: boolean) =>
     setOpen(typeof open === "boolean" ? open : (o) => !o);
   const modalContent = createMemo(() =>
@@ -102,14 +103,15 @@ export const Modal = (props: ModalProps): JSX.Element => {
           }
         : undefined
     )(),
-    onkeyup: createMemo(() => props.closeOnEsc !== false
-      ? (ev: KeyboardEvent) => {
-        console.log(ev);
-        if (ev.key === 'Escape' && !ev.defaultPrevented) {
-          setOpen(false);
-        }
-      }
-      : undefined
+    onkeyup: createMemo(() =>
+      props.closeOnEsc !== false
+        ? (ev: KeyboardEvent) => {
+            console.log(ev);
+            if (ev.key === "Escape" && !ev.defaultPrevented) {
+              setOpen(false);
+            }
+          }
+        : undefined
     )(),
   });
 
