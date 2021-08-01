@@ -4,7 +4,8 @@ export const BarDocs = () => {
       <h2 id="bar-docs">Bar</h2>
       <p>
         The bar component is meant either as a top/bottom bar or a hidden
-        sidebar for a web application.
+        sidebar for a web application. Up to three containers inside it are
+        equally spaced, which is especially useful for application layouts.
       </p>
       <h3>Properties</h3>
       <pre>

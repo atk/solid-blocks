@@ -66,31 +66,7 @@ const App: Component = () => {
         </svg>{" "}
         Solid Blocks
       </h1>
-      <Tabs index={1}>
-        <Tab>Features</Tab>
-        <TabContainer>
-          <ul>
-            <li>Accordion/-Header/-Group</li>
-            <li>Avatar/-Group</li>
-            <li>Bar</li>
-            <li>Breadcrumbs</li>
-            <li>Button (needs icons)</li>
-            <li>Checkbox</li>
-            <li>Loading Spinner</li>
-            <li>Menu/-Item/-ItemGroup/-Option/-OptionGroup</li>
-            <li>Meter</li>
-            <li>Messages (needs icons)</li>
-            <li>Modal</li>
-            <li>Progress</li>
-            <li>Radio/-Group</li>
-            <li>Select</li>
-            <li>Tabs/Tab/TabContainer</li>
-            <li>Tags</li>
-            <li>TextField</li>
-            <li>Toast</li>
-            <li>Improved CSS: theme-ability using CSS variables, dark mode</li>
-          </ul>
-        </TabContainer>
+      <Tabs>
         <Tab>Documentation</Tab>
         <TabContainer>
           <span class="to-top-wrapper">
