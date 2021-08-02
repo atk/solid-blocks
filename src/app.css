@@ -23,10 +23,11 @@ body {
 }
 dt { font-weight: 700; }
 pre {
-  color: var(--negative-text);
-  background: var(--text);
+  color: #ccc;
+  background: #111;
   font-size: 0.85em;
   padding: 0.5em 1em;
+  border: var(--hair-line) solid var(--border-color);
   border-radius: var(--border-radius);
   position: relative;
 }
