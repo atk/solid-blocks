@@ -4,7 +4,7 @@
   justify-content: space-between;
   position: absolute;  
   background: var(--background);
-  z-index: var(--stack-bar)
+  z-index: var(--stack-bar);
 }
 .sb-bar[hidden] {
   display: none;
@@ -69,7 +69,7 @@
 .sb-bar > *:last-child {
   margin-bottom: 0.5em;
 }
-.top.sb-bar > *:only-child {
+.top.sb-bar > *:only-child,
 .bottom.sb-bar > *:only-child {
   width: 100%;
 }
@@ -85,7 +85,7 @@
 .bottom.sb-bar > *:first-child:nth-last-child(3) ~ * {
   width: 33.3%;
 }
-.left.sb-bar > *:only-child {
+.left.sb-bar > *:only-child,
 .right.sb-bar > *:only-child {
   height: 100%;
 }

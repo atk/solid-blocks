@@ -1,20 +1,20 @@
 summary.sb-accordion-header {
-  list-style: none;
   border-bottom: 0.05em solid currentColor;
   clear: right;
   cursor: pointer;
+  list-style: none;
 }
 summary.sb-accordion-header:before {
+  box-sizing: content-box;
   content: "\23F7";
   float: right;
-  padding: 0em 0.5em 0.5em 0em;
-  box-sizing: content-box;
-  width: 0.75em;
   height: 0.75em;
+  overflow: hidden;
+  padding: 0 0.5em 0.5em 0;
   text-align: right;
   transform: rotateX(0deg);
   transition: transform 0.25s linear;
-  overflow: hidden;
+  width: 0.75em;
 }
 details.sb-accordion[open] > summary.sb-accordion-header:before {
   transform: rotateX(180deg);
