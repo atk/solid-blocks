@@ -2,7 +2,7 @@ import { Component, JSX, splitProps, Show } from 'solid-js';
 
 import "./textfield.css"
 
-type TextFieldTypes = 
+export type TextFieldType = 
   | 'text'
   | 'color'
   | 'date'
@@ -14,7 +14,6 @@ type TextFieldTypes =
   | 'password'
   | 'range'
   | 'search'
-  | 'submit'
   | 'tel'
   | 'time'
   | 'url'
@@ -24,16 +23,16 @@ type TextFieldProps = {
   "aria-orientation"?: 'horizontal' | 'vertical';
   multiline?: boolean;
   label: JSX.Element;
-  type?: TextFieldTypes;
+  type?: TextFieldType;
   onchange?: (value?: string) => void;
-} & JSX.InputHTMLAttributes<HTMLInputElement> & JSX.TextareaHTMLAttributes<HTMLTextAreaElement>
+} & Omit<JSX.InputHTMLAttributes<HTMLInputElement> & JSX.TextareaHTMLAttributes<HTMLTextAreaElement>, 'onchange'>
 
 export const TextField: Component<TextFieldProps> = (props) => {
   const [local, fieldProps] = splitProps(props, ['aria-orientation', 'label', 'multiline', 'onchange', 'children']);
   let field;
   const changeHandler = () => local.onchange?.(field?.value);
 
-  return <label class="sb-textfield" aria-orientation={local['aria-orientation']}>
+  return <label class="sb-textfield" aria-orientation={props['aria-orientation']}>
     <span class="sb-textfield-label">{local.label}</span>
     <Show
       when={props.multiline}

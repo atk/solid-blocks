@@ -8,18 +8,22 @@
   padding: 0.25em 0.5em;
   background: transparent;
 }
+.sb-textfield > .sb-textfield-label + textarea {
+  height: 3.2em;
+  vertical-align: 0;
+  padding: 0.135em 0.5em;
+}
 .sb-textfield > .sb-textfield-label + input:disabled,
 .sb-textfield > .sb-textfield-label + textarea:disabled {
   color: var(--border-color);
 }
-.sb-textfield > .sb-textfield-label + textarea {
-  vertical-align: -0.6em;
-}
 .sb-textfield:not([aria-orientation="vertical"]) .sb-textfield-label {
   display: inline-block;
   margin-right: 0.5em;
+  margin-top: 0.2em;
   min-width: 4em;
   text-align: right;
+  vertical-align: top;
 }
 .sb-textfield[aria-orientation="vertical"] .sb-textfield-label {
   font-size: 0.85em;

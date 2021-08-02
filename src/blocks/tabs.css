@@ -7,8 +7,13 @@
   border-bottom: 0.025em solid var(--border-color);
 }
 .sb-tabs > [role="tablist"][aria-orientation="vertical"] {
-  float: left;
+  display: inline-block;
   border-right: 0.025em solid var(--border-color);
+}
+.sb-tabs > [role="tablist"][aria-orientation="vertical"] ~ [role="tabpanel"]:not([hidden]) {
+  display: inline-block;
+  vertical-align: top;
+  margin-left: 0.5em;
 }
 .sb-tabs > [role="tablist"][aria-orientation="horizontal"] > [role="tab"] {
   display: inline-block;
@@ -21,6 +26,11 @@
   > [role="tablist"][aria-orientation="horizontal"]
   > [role="tab"] {
   border-bottom: 0.125em solid transparent;
+}
+.sb-tabs
+  > [role="tablist"][aria-orientation="vertical"]
+  > [role="tab"] {
+  border-right: 0.25em solid transparent;
 }
 
 .sb-tabs > [role="tablist"] > [role="tab"]:hover:not(:active, [aria-selected="true"]),

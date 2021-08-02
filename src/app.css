@@ -30,6 +30,7 @@ pre {
   border: var(--hair-line) solid var(--border-color);
   border-radius: var(--border-radius);
   position: relative;
+  overflow: auto;
 }
 pre[data-title]:before {
   content: attr(data-title);
