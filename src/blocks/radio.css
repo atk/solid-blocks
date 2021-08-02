@@ -1,6 +1,9 @@
 .sb-radio {
   cursor: pointer;
 }
+.sb-radio.disabled {
+  color: var(--border-color);
+}
 .sb-radio input[type="radio"] {
   appearance: none;
   cursor: pointer;
@@ -24,7 +27,9 @@
 .sb-radio input[type="radio"]:checked:before {
   content: '\25cf';
 }
-
+.sb-radio input[type="radio"]:disabled {
+  background: var(--border-color);
+}
 .sb-radiogroup[role="radiogroup"] {
   display: inline-block;
 }
