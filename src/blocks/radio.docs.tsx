@@ -6,7 +6,7 @@ export const RadioDocs = () => {
   const [value, setValue] = createSignal<"1" | "2">("2");
   const [events, setEvents] = createSignal("");
   return <>
-    <h2 id="radio-docs">Radio/RadioGroup</h2>
+    <h2 id="radio-docs">Radio / RadioGroup</h2>
     <p>The radio component is a simple radio button. It has all the properties of a normal input with type="radio". However, wrapping it in a radio group allows an easy way to control it.</p>
     <h3>Properties</h3>
     <pre>

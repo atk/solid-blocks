@@ -110,7 +110,7 @@ const App: Component = () => {
             </li>
             <li>
               <a href="#menu-docs">
-                Menu/MenuItem/MenuItemGroup/MenuOption/MenuOptionGroup
+                Menu / MenuItem / MenuItemGroup / MenuOption / MenuOptionGroup
               </a>
             </li>
             <li>
@@ -121,14 +121,14 @@ const App: Component = () => {
             </li>
             <li>
               <a href="#modal-docs">
-                Modal/ModalContent/ModalHeader/ModalContent/ModalFooter
+                Modal / ModalContent / ModalHeader / ModalContent / ModalFooter
               </a>
             </li>
             <li>
               <a href="#progress-docs">Progress</a>
             </li>
             <li>
-              <a href="#radio-docs">Radio/RadioGroup</a>
+              <a href="#radio-docs">Radio / RadioGroup</a>
             </li>
             <li>
               <a href="#select-docs">Select</a>
@@ -137,10 +137,10 @@ const App: Component = () => {
               <a href="#spinner-docs">Spinner</a>
             </li>
             <li>
-              <a href="#tabs-docs">Tabs/Tab/TabContainer</a>
+              <a href="#tabs-docs">Tabs / Tab / TabContainer</a>
             </li>
             <li>
-              <a href="#tag-docs">Tags/TagGroup</a>
+              <a href="#tag-docs">Tags / TagGroup</a>
             </li>
             <li>
               <a href="#textfield-docs">Textfield</a>

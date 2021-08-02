@@ -11,7 +11,7 @@ export const ModalDocs = () => {
   return (
     <>
       <h2 id="modal-docs">
-        Modal/ModalContent/ModalHeader/ModalBody/ModalFooter
+        Modal / ModalContent / ModalHeader / ModalBody / ModalFooter
       </h2>
       <p>
         The modal component shows a dialog to the user that blocks all other

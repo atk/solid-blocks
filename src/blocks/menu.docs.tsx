@@ -13,7 +13,7 @@ export const MenuDocs = () => {
   return (
     <>
       <h2 id="menu-docs">
-        Menu/MenuButton/MenuItem/MenuItemGroup/MenuOption/MenuOptionGroup
+        Menu / MenuButton / MenuItem / MenuItemGroup / MenuOption / MenuOptionGroup
       </h2>
       <p>
         The menu component is a versatile menu for pages and web applications.
