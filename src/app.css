@@ -17,6 +17,7 @@ body {
 .flex-row {
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
 }
 .flex-row > * + * {
   margin-left: 1em;
