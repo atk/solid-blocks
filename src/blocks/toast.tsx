@@ -2,7 +2,6 @@ import {
   createEffect,
   createSignal,
   JSX,
-  onCleanup,
   onMount,
   Show,
   Setter,
@@ -42,6 +41,7 @@ export type ToastProps = Omit<
   /** indicates where the toast should be rendered; default position will be top-right */
   position?: ToastPosition;
   mount?: HTMLElement;
+  onhide?: () => void;
 };
 
 const div = document.createElement("div");
@@ -59,6 +59,7 @@ export const Toast = (props: ToastProps): JSX.Element => {
     "position",
     "children",
     "mount",
+    "onhide",
   ]);
   const mountPoint = createMemo(() =>
     local.mount ||
@@ -84,6 +85,8 @@ export const Toast = (props: ToastProps): JSX.Element => {
     newChildren() &&
       setChildren(getElements(newChildren(), () => true, [{ update, hide }]));
   });
+
+  createEffect(() => !visible() && props.onhide())
 
   createEffect(() => {
     const container = mountPoint()

@@ -10,7 +10,7 @@
   padding: 0.25em 0;
 }
 
-#sb-toast-top-left { inset: 0.5em 0.5em auto auto; }
+#sb-toast-top-left { inset: 0.5em auto auto 0.5em; }
 #sb-toast-top { inset: 0.5em 0.5em auto 0.5em; align-items: center; flex-direction: column-reverse; }
 #sb-toast-top-right { inset: 0.5em 0.5em auto auto; }
 #sb-toast-bottom-left { inset: auto auto 0.5em 0.5em; }
