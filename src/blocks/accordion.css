@@ -6,16 +6,16 @@ summary.sb-accordion-header {
 }
 summary.sb-accordion-header:before {
   box-sizing: content-box;
-  content: "\23F7";
+  content: "\2303";
   float: right;
   height: 0.75em;
   overflow: hidden;
   padding: 0 0.5em 0.5em 0;
   text-align: right;
-  transform: rotateX(0deg);
+  transform: rotateX(180deg);
   transition: transform 0.25s linear;
   width: 0.75em;
 }
 details.sb-accordion[open] > summary.sb-accordion-header:before {
-  transform: rotateX(180deg);
+  transform: rotateX(0deg);
 }

@@ -64,7 +64,7 @@ export const Modal = (props: ModalProps): JSX.Element => {
   );
 
   let modalRef;
-  createEffect(() => open() && modalRef?.focus());
+  createEffect(() => open() && (modalRef?.focus(), modalRef?.scrollIntoView()));
 
   modalCount++;
 

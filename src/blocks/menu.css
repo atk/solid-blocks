@@ -15,6 +15,13 @@
   overflow: hidden;
   z-index: var(--stack-dropdown);
 }
+.sb-menu.center [role="menu"] {
+  left: 50%;
+  transform: translateX(-50%);
+}
+.sb-menu.right [role="menu"] {
+  right: 0;
+}
 .sb-menu [role="menuitem"] {
   cursor: pointer;
   padding: 0 0.25em;

@@ -6,9 +6,12 @@ import {
   MenuItemGroup,
   MenuOption,
   MenuOptionGroup,
+  MenuProps,
 } from "./menu";
+import { Radio, RadioGroup } from "./radio";
 
 export const MenuDocs = () => {
+  const [align, setAlign] = createSignal('center');
   const [events, setEvents] = createSignal("");
   return (
     <>
@@ -30,6 +33,7 @@ export const MenuDocs = () => {
 MenuProps {
   open?: boolean;
   ontoggle?: (open?: boolean) => void;
+  align?: 'left' | 'center' | 'right';
 }
 MenuButtonProps extends ButtonProps;
 MenuItemProps extends JSX.Element;
@@ -55,6 +59,8 @@ MenuOptionsGroupProps {
           an optional callback that will receive the open state as argument when
           it toggles
         </dd>
+        <dt>MenuProps.align</dt>
+        <dd>how the menu should be aligned to the button: 'left', 'center' or 'right'. Default is 'left'.</dd>
         <dt>MenuItemGroupProps.title</dt>
         <dd>
           An optional title of the menu item group; plain text will be wrapped
@@ -75,20 +81,25 @@ MenuOptionsGroupProps {
         <dt>MenuOptionGroupProps.title</dt>
         <dd>Same as MenuItemGroupProps.title, just for the option group</dd>
         <dt>MenuOptionGroupProps.value</dt>
-        <dt>
+        <dd>
           the preset value of the option group, which can be a string for a
           single selected checkbox or radio button and an array of strings for
           multiple selected checkboxes
-        </dt>
+        </dd>
       </dl>
+      <RadioGroup onchange={setAlign} value={align()}>
+        <Radio value="left"> left</Radio>
+        <Radio value="center"> center</Radio>
+        <Radio value="right"> right</Radio>
+      </RadioGroup>
       <pre
         data-title="onchange-calls"
         style={{ "max-height": "6em", overflow: "auto" }}
       >
         {events()}
       </pre>
-      <div class="example" style={{ "text-align": "center" }}>
-        <Menu>
+      <div class="example" style={{ "text-align": align() }}>
+        <Menu align={align() as MenuProps['align']}>
           <MenuButton variant="icon">☰</MenuButton>
           <MenuItem>Item outside MenuItemGroup</MenuItem>
           <hr />
@@ -125,7 +136,7 @@ MenuOptionsGroupProps {
       </div>
       <pre>
         {`
-<Menu>
+<Menu align="${align()}">
   <MenuButton variant="icon">☰</MenuButton>
   <MenuItem>Item outside MenuItemGroup</MenuItem>
   <hr />

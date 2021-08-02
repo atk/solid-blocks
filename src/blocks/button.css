@@ -6,6 +6,7 @@ button.sb-button,
   cursor: pointer;
   font-size: inherit;
   padding: 0.25em 0.75em;
+  margin: 0.05em 0;
 }
 button.primary.sb-button,
 [role="button"].primary.sb-button {
