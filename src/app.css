@@ -68,3 +68,4 @@ pre[data-title]:before {
   color: var(--negative-text);
   font-weight: 700;
 }
+h2, li { word-wrap: wrap-word; }
