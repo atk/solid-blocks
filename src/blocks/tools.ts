@@ -1,4 +1,4 @@
-import { JSX, createEffect, createSignal, onCleanup } from "solid-js";
+import { JSX, createEffect, createSignal, onCleanup, createMemo, Accessor, Setter } from "solid-js";
 
 export type WrappedElement<P> = (props: P) => JSX.Element;
 
@@ -37,40 +37,75 @@ export const getRandom = () => {
   return lastItem;
 };
 
-export const useDarkMode = (
-  localStorageKey = "COLOR_SCHEME",
-  initial = false
-) => {
-  const mediaQueryPrefersDark = window.matchMedia(
-    "(prefers-color-scheme: dark)"
-  );
-  const localStoragePrefersDark = /^(true|false)$/.test(
-    window.localStorage.getItem(localStorageKey)
-  )
-    ? RegExp.$1 === "true"
-    : null;
-  const darkModeSignal = createSignal(
-    (localStoragePrefersDark ?? mediaQueryPrefersDark.matches) || initial
-  );
+type MediaQueryItem = 
+  |'all'
+  | 'print'
+  | 'screen' 
+  | `(${'min-' | 'max-' | ''}${
+    | 'aspect-ratio'
+    | 'color'
+    | 'color-gamut'
+    | 'color-index'
+    | 'display-mode'
+    | 'grid'
+    | 'inverted-colors'
+    | 'height'
+    | 'orientation'
+    | 'pointer'
+    | `prefers-${'color-scheme' | 'contrast' | 'reduced-motion' | 'reduced-transparency'}`
+    | 'resolution'
+    | 'scan'
+    | 'width'
+  }: ${string})`;
+type MediaQueryOperator = ' and ' | ' not ' | ' only ' | ', ';
+type MediaQueryString = 
+  | MediaQueryItem
+  | `${MediaQueryItem}${MediaQueryOperator}${MediaQueryItem}`
 
-  const colorSchemeChangeHandler = (ev: MediaQueryListEvent) => {
-    darkModeSignal[1](ev.matches);
-  };
-  mediaQueryPrefersDark.addEventListener("change", colorSchemeChangeHandler);
-  onCleanup(() => {
-    mediaQueryPrefersDark.removeEventListener(
-      "change",
-      colorSchemeChangeHandler
-    );
-  });
+export const useMediaQuery = (query: MediaQueryString): Accessor<boolean> => {
+  const matcher = window.matchMedia(query);
+  const [matches, setMatches] = createSignal(matcher.matches);
+
+  const changeHandler = (ev: MediaQueryListEvent) => setMatches(ev.matches);
+  matcher.addEventListener('change', changeHandler);
+  onCleanup(() => matcher.removeEventListener('change', changeHandler));
+
+  return matches
+}
+
+const parseStorage = (data, useJson) => useJson ? data ? JSON.parse(data) : undefined : data;
+
+export function createLocalStorageSignal(key, initialValue?: string, useJson?: false): [Accessor<string>, Setter<string>];
+export function createLocalStorageSignal<T extends unknown>(
+  key,
+  initialValue: T | undefined,
+  useJson: true
+): [Accessor<T>, Setter<T>];
+export function createLocalStorageSignal(key, initialValue, useJson = false) {
+  if (localStorage.getItem(key) === null && initialValue !== undefined) {
+    localStorage.setItem(key, useJson ? JSON.stringify(initialValue) : initialValue);
+  }
+  const [value, setValue] = createSignal(parseStorage(localStorage.getItem(key), useJson));
+  
+  createEffect(() =>
+    useJson && value() === undefined
+    ? localStorage.removeItem(key)
+    : localStorage.setItem(key, useJson ? JSON.stringify(value()) : value())
+  );
+  
+  return [value, setValue];
+}
+
+export const useDarkMode = (localStorageKey = "COLOR_SCHEME") => {
+  const mediaQueryPrefersDark = useMediaQuery("(prefers-color-scheme: dark)");
+  const [storedPrefersDark, setStoredPrefersDark] = createLocalStorageSignal<boolean>(localStorageKey, undefined, true);
+  const darkMode = createMemo(() => storedPrefersDark() ?? mediaQueryPrefersDark());
 
   createEffect(() => {
-    const darkMode = darkModeSignal[0]();
-    document.body.classList.toggle("dark-mode", darkMode);
-    localStorage.setItem(localStorageKey, darkMode.toString());
+    document.body.classList.toggle('dark-mode', darkMode())
   });
 
-  return darkModeSignal;
+  return [darkMode, setStoredPrefersDark];
 };
 
 export type NodeName = string;

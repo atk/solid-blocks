@@ -4,11 +4,7 @@ export const ThemeDocs = () => <>
   <h3>Dark mode</h3>
   <p>For dark/light mode, there is also a little helper function <code>useDarkMode</code>:</p>
   <pre data-title="function signature">
-    {`
-useDarkMode(
-  localStorageKey = "COLOR_SCHEME",
-  initial = false,
-): [darkMode(): Accessor<boolean>, setDarkMode(): Setter<boolean>]`}
+    {`useDarkMode(localStorageKey = "COLOR_SCHEME"): [Accessor<boolean>, Setter<boolean>]`}
   </pre>
   <p>It will first attempt to get a user setting from local storage, then from the browser settings and finally take the initial value, which defaults to <code>false</code>. If you change the browser setting, the changed setting will also take effect if it differs from the current state.</p>
   <p>Setting the mode through the setter will store the value in local storage.</p>

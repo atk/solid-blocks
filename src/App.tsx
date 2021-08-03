@@ -28,6 +28,7 @@ import { TabsDocs } from "./blocks/tabs.docs";
 import { TextfieldDocs } from "./blocks/textfield.docs";
 import { ToastDocs } from "./blocks/toast.docs";
 import { TooltipDocs } from "./blocks/tooltip.docs";
+import { HelpersDocs } from "./blocks/Helpers.docs";
 import { ThemeDocs } from "./blocks/theme.docs";
 
 const App: Component = () => {
@@ -153,6 +154,12 @@ const App: Component = () => {
               <a href="#tooltip-docs">Tooltip</a>
             </li>
             <li>
+              <a href="#createLocalStorageSignal-docs">createLocalStorageSignal</a>
+            </li>
+            <li>
+              <a href="#useMediaQuery-docs">useMediaQuery</a>
+            </li>
+            <li>
               <a href="#theme-docs">Theme</a>
             </li>
           </ul>
@@ -174,6 +181,7 @@ const App: Component = () => {
           <TextfieldDocs />
           <ToastDocs />
           <TooltipDocs />
+          <HelpersDocs />
           <ThemeDocs />
         </TabContainer>
         <Tab>TODO</Tab>
