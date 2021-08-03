@@ -7,7 +7,7 @@ body {
   padding: 0;
 }
 body {
-  font-size: calc(1em + 1vmin);
+  font-size: calc(0.35em + 2vmin);
   line-height: 1.5em;
 }
 .app {
