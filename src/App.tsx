@@ -179,13 +179,20 @@ const App: Component = () => {
         <Tab>TODO</Tab>
         <TabContainer>
           <ul>
+            <li>Improved package structure</li>
+            <li>
+              Styles
+              <ul>
+                <li>extend + improve theme</li>
+                <li>basic spacing, sizes and typography</li>
+              </ul>
+            </li>
             <li>
               More components:
               <ul>
                 <li>Icons</li>
-              </ul>
+              </ul>              
             </li>
-            <li>Documentation (WIP)</li>
           </ul>
         </TabContainer>
         <Tab>Concepts</Tab>

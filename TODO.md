@@ -6,7 +6,5 @@ Road to first release:
 - Styles:
   - extend + improve theme
   - basic spacings + sizes
-  - vertical tabs
 - Components:
   - Icons
-- Documentation
