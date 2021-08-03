@@ -32,7 +32,7 @@ TextfieldProps {
       <dt>label</dt>
       <dd>the description of the field</dd>
       <dt>type</dt>
-      <dd>on of 'text', 'color', 'date', 'datetime-local', 'email', 'file', 'month', 'number', 'password', 'range', 'search', 'submit', 'tel', 'time', 'url', 'week'; default is 'text'; see <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/Input#input_types" target="_blank" rel="nofollow">&lt;input&gt; types</a> for reference; only available if multiline is not <code>true</code></dd>
+      <dd>on of 'text', 'color', 'date', 'datetime-local', 'email', 'file', 'month', 'number', 'password', 'range', 'search', 'submit', 'tel', 'time', 'url', 'week'; default is 'text'; see <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/Input#input_types" target="_blank" rel="noopener">&lt;input&gt; types</a> for reference; only available if multiline is not <code>true</code></dd>
       <dt>onchange</dt>
       <dd>convenience handler to receive the value whenever it changes</dd>
     </dl>

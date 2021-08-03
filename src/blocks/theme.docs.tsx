@@ -1,6 +1,6 @@
 export const ThemeDocs = () => <>
   <h2 id="theme-docs">Theme</h2>
-  <p>The theme is powered by <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties" target="_blank" rel="nofollow">CSS variables</a>, allowing to adapt them with ease. It also uses the class names <code>dark-mode</code> and <code>light-mode</code> to allow switching between these modes - even within a container.</p>
+  <p>The theme is powered by <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties" target="_blank" rel="noopener">CSS variables</a>, allowing to adapt them with ease. It also uses the class names <code>dark-mode</code> and <code>light-mode</code> to allow switching between these modes - even within a container.</p>
   <h3>Dark mode</h3>
   <p>For dark/light mode, there is also a little helper function <code>useDarkMode</code>:</p>
   <pre data-title="function signature">
