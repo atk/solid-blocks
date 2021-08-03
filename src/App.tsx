@@ -193,6 +193,7 @@ const App: Component = () => {
                 <li>Icons</li>
               </ul>              
             </li>
+            <li>Release + publish official package</li>
           </ul>
         </TabContainer>
         <Tab>Concepts</Tab>

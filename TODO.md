@@ -8,3 +8,4 @@ Road to first release:
   - basic spacings + sizes
 - Components:
   - Icons
+- Release + publish official package
