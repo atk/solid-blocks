@@ -40,7 +40,7 @@ trigger?: SingularOrArray<TooltipTrigger>;
           <li><code>false</code> - will never show the tooltip</li>
           <li><code>'focus'</code> - will display the tooltip if any trigger element receives the focus</li>
           <li><code>'hover'</code> - will display the tooltip if any trigger element is hovered</li>
-          <li><code>() => boolean</code> - an accessor with a boolean return value can be used to manually set the display state</li>
+          <li><code>() =&gt; boolean</code> - an accessor with a boolean return value can be used to manually set the display state</li>
         </ul>
       </dd>
     </dl>
