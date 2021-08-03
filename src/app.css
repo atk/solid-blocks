@@ -7,8 +7,11 @@ body {
   padding: 0;
 }
 body {
-  font-size: calc(0.35em + 2vmin);
+  font-size: calc(0.5em + 1.5vmin);
   line-height: 1.5em;
+}
+@media (max-width: 50em) and (max-height: 50em) {
+  body { font-size: 1em; }
 }
 .app {
   padding: 1em 1em 3em 1em;
