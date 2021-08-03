@@ -2,8 +2,6 @@ import { JSX, createEffect, createSignal, onCleanup } from "solid-js";
 
 export type WrappedElement<P> = (props: P) => JSX.Element;
 
-export type SingularOrArray<T> = T | T[];
-
 export const toStyleObject = (style: string | JSX.CSSProperties) => {
   if (typeof style === "object") {
     return style;

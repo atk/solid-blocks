@@ -28,6 +28,7 @@ import { TabsDocs } from "./blocks/tabs.docs";
 import { TextfieldDocs } from "./blocks/textfield.docs";
 import { ToastDocs } from "./blocks/toast.docs";
 import { TooltipDocs } from "./blocks/tooltip.docs";
+import { ThemeDocs } from "./blocks/theme.docs";
 
 const App: Component = () => {
   const [darkMode, setDarkMode] = useDarkMode();
@@ -151,6 +152,9 @@ const App: Component = () => {
             <li>
               <a href="#tooltip-docs">Tooltip</a>
             </li>
+            <li>
+              <a href="#theme-docs">Theme</a>
+            </li>
           </ul>
           <AccordionDocs />
           <AvatarDocs />
@@ -170,6 +174,7 @@ const App: Component = () => {
           <TextfieldDocs />
           <ToastDocs />
           <TooltipDocs />
+          <ThemeDocs />
         </TabContainer>
         <Tab>TODO</Tab>
         <TabContainer>

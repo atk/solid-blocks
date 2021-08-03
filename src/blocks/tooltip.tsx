@@ -1,9 +1,8 @@
 import { Accessor, Component, createEffect, createMemo, createSignal, splitProps } from "solid-js";
 import type { JSX } from 'solid-js';
-import { SingularOrArray } from "./tools";
 import "./tooltip.css";
 
-type TooltipTrigger = boolean | 'focus' | 'hover' | Accessor<boolean>
+type TooltipTrigger = boolean | 'focus' | 'hover' | Accessor<boolean> | ('focus' | 'hover' | Accessor<boolean>)[]
 
 export type TooltipPosition = 'nw' | 'n' | 'ne' | 'e' | 'se' | 's' | 'sw' | 'w';
 
@@ -12,7 +11,7 @@ export type TooltipProps = JSX.HTMLAttributes<HTMLSpanElement> & {
   nowrap?: boolean;
   position?: TooltipPosition;
   content: JSX.Element;
-  trigger?: SingularOrArray<TooltipTrigger>;
+  trigger?: TooltipTrigger;
 };
 
 declare module "solid-js" {
@@ -24,7 +23,9 @@ declare module "solid-js" {
   }
 }
 
-const computeVisible = (trigger: TooltipProps['trigger'] | undefined, initial?: boolean): boolean =>
+const wrapLog = (c) => (console.log(c), c)
+
+const computeVisible = (trigger: TooltipTrigger | undefined, initial?: boolean): boolean =>
   trigger === undefined
   ? false
   : (Array.isArray(trigger) ? trigger : [trigger]).reduce<boolean>(
@@ -59,6 +60,8 @@ const wrapText = (children: JSX.Element): JSX.Element => {
 
 export const Tooltip: Component<TooltipProps> = (props) => {
   const [local, spanProps] = splitProps(props, ['children', 'position', 'content', 'trigger', 'arrow', 'nowrap']);
+  const useFocus = createMemo(() => triggerHas(local.trigger, 'focus'));
+  const useHover = createMemo(() => triggerHas(local.trigger, 'hover'));
   const children = createMemo(() =>
     triggerHas(local.trigger, 'focus')
       ? wrapText(local.children)
@@ -72,15 +75,11 @@ export const Tooltip: Component<TooltipProps> = (props) => {
   let wrapperRef;
 
   const focusHandler = createMemo(() => 
-    triggerHas(local.trigger, 'focus') 
-    ? (ev: FocusEvent) => setVisible(ev.type === 'focus')
-    : undefined
+    (ev: FocusEvent) => useFocus() && setVisible(ev.type === 'focus')
   );
   const hoverHandler = createMemo(() =>
-    triggerHas(local.trigger, 'hover')
-    ? (ev: MouseEvent & { toElement?: HTMLElement }) =>
-      setVisible(wrapperRef.contains(ev.toElement ?? ev.target))
-    : undefined
+    (ev: MouseEvent & { toElement?: HTMLElement }) =>
+      useHover() && setVisible(wrapperRef.contains(ev.toElement ?? ev.target))
   );
 
   createEffect(() => {

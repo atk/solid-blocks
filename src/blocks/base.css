@@ -25,9 +25,7 @@ body {
   --wide-line: 0.25em;
   --breadcrumb-icon: " > ";
   --stack-hide: -1;
-  --stack-auto: "auto";
   --stack-base: 0;
-  --stack-docked: 10;
   --stack-dropdown: 1000;
   --stack-sticky: 1100;
   --stack-banner: 1200;

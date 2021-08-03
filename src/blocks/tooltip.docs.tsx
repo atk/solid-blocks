@@ -1,4 +1,4 @@
-import { createSignal } from "solid-js"
+import { createMemo, createSignal } from "solid-js"
 import { Checkbox } from "./checkbox";
 import { Radio, RadioGroup } from "./radio";
 import { Select } from "./select";
@@ -57,9 +57,11 @@ trigger?: SingularOrArray<TooltipTrigger>;
       <option value="nw">nw - North west</option>
     </Select>{" "}
     <RadioGroup onchange={setTrigger} value={trigger()}>
-      <Radio value="0">Default triggers</Radio>
-      <Radio value="1">Always on</Radio>
-      <Radio value="2">Always off</Radio>
+      <Radio value="0"> Default: Focus + Hover</Radio>{" "}
+      <Radio value="1"> Always on</Radio>{" "}
+      <Radio value="2"> Always off</Radio>{" "}
+      <Radio value="3"> Focus only</Radio>{" "}
+      <Radio value="4"> Hover only</Radio>
     </RadioGroup><br/><br/>
     <div class="example" style={{display: 'flex', "align-items": "center", "justify-content": "center", height: "8em"}}>
       <Tooltip
@@ -67,7 +69,7 @@ trigger?: SingularOrArray<TooltipTrigger>;
         arrow={arrow()}
         nowrap={nowrap()}
         position={pos() as TooltipPosition}
-        trigger={[undefined, true, false][trigger()]}
+        trigger={[undefined, true, false, ['focus'], 'hover'][trigger()]}
       >
         trigger text
       </Tooltip>
