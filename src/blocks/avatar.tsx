@@ -1,4 +1,4 @@
-import { Component, JSX, createMemo, splitProps } from "solid-js";
+import { Component, JSX, createMemo, splitProps, mergeProps } from "solid-js";
 import { composeStyles, getRandom } from "./tools";
 import "./avatar.css";
 
@@ -23,7 +23,7 @@ export const getInitials = (name: string) =>
 
 export const Avatar: Component<AvatarProps> = (props) => {
   const [local, divProps] = splitProps(props, [
-    "class",
+    "classList",
     "children",
     "img",
     "name",
@@ -36,7 +36,7 @@ export const Avatar: Component<AvatarProps> = (props) => {
   if (local.img) {
     return (
       <div
-        class={local.class ? `sb-avatar ${local.class}` : "sb-avatar"}
+        classList={mergeProps(local.classList ?? {}, { "sb-avatar": true })}
         role="figure"
         data-random={getRandom()}
         {...divProps}
@@ -50,7 +50,7 @@ export const Avatar: Component<AvatarProps> = (props) => {
   if (local.name) {
     return (
       <div
-        class={local.class ? `sb-avatar ${local.class}` : "sb-avatar"}
+        classList={mergeProps(local.classList ?? {}, { "sb-avatar": true })}
         role="img"
         aria-label={local.name}
         data-random={getRandom()}
@@ -63,7 +63,7 @@ export const Avatar: Component<AvatarProps> = (props) => {
   }
   return (
     <div
-      class={local.class ? `sb-avatar ${local.class}` : "sb-avatar"}
+      classList={mergeProps(local.classList ?? {}, { "sb-avatar": true })}
       role="img"
       data-random={getRandom()}
       aria-label="Unknown"
@@ -81,34 +81,35 @@ export type AvatarBadgeProps = {
 } & JSX.HTMLAttributes<HTMLSpanElement>;
 
 export const AvatarBadge: Component<AvatarBadgeProps> = (props) => {
-  const {
-    class: className,
-    style,
-    borderColor,
-    background,
-    ...badgeProps
-  } = props;
-  const composedStyle = composeStyles(style, {
-    "border-color": borderColor,
-    background,
+  const [local, spanProps] = splitProps(props, [
+    "classList",
+    "borderColor",
+    "background",
+    "style",
+  ]);
+  const composedStyle = composeStyles(local.style, {
+    "border-color": local.borderColor,
+    background: local.background,
   });
 
   return (
     <span
-      class={props.class ? `sb-badge ${props.class}` : "sb-badge"}
-      {...badgeProps}
+      classList={mergeProps(local.classList ?? {}, { "sb-badge": true })}
+      {...spanProps}
       style={composedStyle}
     />
   );
 };
 
-export type AvatarGroupProps = JSX.HTMLAttributes<HTMLDivElement> & { "data-plus"?: string };
+export type AvatarGroupProps = JSX.HTMLAttributes<HTMLDivElement> & {
+  "data-plus"?: string;
+};
 
 export const AvatarGroup: Component<AvatarGroupProps> = (props) => (
   <div
-    class={props.class ? `sb-avatar ${props.class}` : "sb-avatar"}
+    {...props}
+    classList={mergeProps(props.classList ?? {}, { "sb-badge": true })}
     role="group"
     aria-haspopup={Array.isArray(props.children) && props.children.length > 3}
-    {...props}
   />
 );

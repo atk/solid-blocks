@@ -1,4 +1,4 @@
-import { Component, JSX, splitProps } from "solid-js";
+import { Component, JSX, mergeProps, splitProps } from "solid-js";
 
 import "./button.css";
 
@@ -7,14 +7,15 @@ export type ButtonProps = JSX.HTMLAttributes<HTMLButtonElement> & {
 };
 
 export const Button: Component<ButtonProps> = (props) => {
-  const [local, buttonProps] = splitProps(props, ["variant", "class"]);
+  const [local, buttonProps] = splitProps(props, ["variant", "classList"]);
 
   return (
     <button
-      class={`${local.variant ?? "primary"} sb-button${local.class ? " " : ""}${
-        local.class ?? ""
-      }`}
       {...buttonProps}
+      classList={mergeProps(local.classList ?? {}, {
+        "sb-button": true,
+        [local.variant ?? "primary"]: true,
+      })}
     />
   );
 };

@@ -4,11 +4,12 @@ import {
   Component,
   JSX,
   createMemo,
+  mergeProps,
 } from "solid-js";
 import { getElements, getNearestNode } from "./tools";
 import "./tabs.css";
 
-export type TabsProps = {
+export type TabsProps = JSX.HTMLAttributes<HTMLElement> & {
   index?: number;
   vertical?: boolean;
   onchange?: (index: number) => void;
@@ -37,13 +38,15 @@ const setPanelState = (panel: HTMLElement, nr, index) => {
 export const Tabs: Component<TabsProps> = (props) => {
   const [selected, setSelected] = createSignal(props.index ?? 0);
   const tabs = createMemo(() => getElements(props.children, "LI"));
-  const panels = createMemo(() =>
-    getElements(props.children, "DIV")
-  );
+  const panels = createMemo(() => getElements(props.children, "DIV"));
 
   createEffect(() => {
     if (tabs().length !== panels().length) {
-      console.warn(`solid-blocks tabs: items count mismatch: ${tabs().length} tabs and ${panels().length}`);
+      console.warn(
+        `solid-blocks tabs: items count mismatch: ${tabs().length} tabs and ${
+          panels().length
+        }`
+      );
     }
     const index = selected() % tabs().length;
     props.onchange?.(index);
@@ -85,7 +88,7 @@ export const Tabs: Component<TabsProps> = (props) => {
   };
 
   return (
-    <section class="sb-tabs">
+    <section classList={mergeProps(props.classList ?? {}, { "sb-tabs": true })}>
       <ul
         role="tablist"
         aria-orientation={!props.vertical ? "horizontal" : "vertical"}
@@ -111,4 +114,4 @@ export const TabContainer: Component<TabContainerProps> = (props) => {
   return <div role="tabpanel" {...props} />;
 };
 
-type x = ReturnType<typeof TabContainer>
+type x = ReturnType<typeof TabContainer>;

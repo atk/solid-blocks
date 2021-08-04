@@ -1,21 +1,34 @@
-import { Component, createMemo, createSignal, JSX, onCleanup, onMount, splitProps } from "solid-js";
+import {
+  Component,
+  createMemo,
+  createSignal,
+  JSX,
+  mergeProps,
+  onCleanup,
+  onMount,
+  splitProps,
+} from "solid-js";
 import { getNearestNode, WrappedElement } from "./tools";
 
 import "./accordion.css";
 
-export type AccordionProps = Omit<JSX.HTMLAttributes<HTMLDetailsElement>, 'children'> & {
+export type AccordionProps = Omit<
+  JSX.HTMLAttributes<HTMLDetailsElement>,
+  "children"
+> & {
   children: WrappedElement<boolean> | JSX.Element;
   open?: boolean;
   ontoggle?: (open?: boolean) => void;
 };
 
 export const Accordion: Component<AccordionProps> = (props) => {
-  const [local, detailsProps] = splitProps(props, ['children', 'ontoggle']);
-  const [open, setOpen] = createSignal(!!props.open)
+  const [local, detailsProps] = splitProps(props, ["children", "ontoggle"]);
+  const [open, setOpen] = createSignal(!!props.open);
   let detailsRef;
-  const children = createMemo(() => typeof props.children === 'function'
-    ? props.children(open())
-    : props.children
+  const children = createMemo(() =>
+    typeof props.children === "function"
+      ? props.children(open())
+      : props.children
   );
 
   const toggleHandler = () => {
@@ -30,7 +43,7 @@ export const Accordion: Component<AccordionProps> = (props) => {
     <details
       ref={detailsRef}
       {...detailsProps}
-      class={props.class ? `sb-accordion ${props.class}` : "sb-accordion"}
+      classList={mergeProps(props.classList ?? {}, { "sb-accordion": true })}
       open={!!props.open}
     >
       {children()}
@@ -42,9 +55,9 @@ export type AccordionHeaderProps = JSX.HTMLAttributes<HTMLElement>;
 
 export const AccordionHeader: Component<AccordionHeaderProps> = (props) => (
   <summary
-    class={
-      props.class ? `sb-accordion-header ${props.class}` : "sb-accordion-header"
-    }
+    classList={mergeProps(props.classList ?? {}, {
+      "sb-accordion-header": true,
+    })}
   >
     {props.children}
   </summary>
@@ -56,30 +69,32 @@ export type AccordionGroupProps = JSX.HTMLAttributes<HTMLElement> & {
 };
 
 export const AccordionGroup: Component<AccordionGroupProps> = (props) => {
-  const [local, divProps] = splitProps(props, ['allowMultiple', 'allowToggle']);
+  const [local, divProps] = splitProps(props, ["allowMultiple", "allowToggle"]);
   const clickHandler = createMemo(() => (ev: MouseEvent) => {
-        const details = getNearestNode(ev.target, "DETAILS") as
-          | HTMLDetailsElement
-          | undefined;
-        if (!details) {
-          return;
-        }
-        const open = details.parentNode.querySelectorAll("details.sb-accordion[open]");
-        if (open.length === 0) {
-          return;
-        }
-        
-        if (!local.allowMultiple && !details.open) {
-          Array.prototype.forEach.call(open, (item) => {
-            if (item !== details) {
-              item.removeAttribute("open");
-            }
-          });
-        }
-        if (!local.allowToggle && details.open && open.length === 1) {
-          ev.preventDefault();
+    const details = getNearestNode(ev.target, "DETAILS") as
+      | HTMLDetailsElement
+      | undefined;
+    if (!details) {
+      return;
+    }
+    const open = details.parentNode.querySelectorAll(
+      "details.sb-accordion[open]"
+    );
+    if (open.length === 0) {
+      return;
+    }
+
+    if (!local.allowMultiple && !details.open) {
+      Array.prototype.forEach.call(open, (item) => {
+        if (item !== details) {
+          item.removeAttribute("open");
         }
       });
+    }
+    if (!local.allowToggle && details.open && open.length === 1) {
+      ev.preventDefault();
+    }
+  });
   const keyupHandler = createMemo(() => (ev: KeyboardEvent) => {
     const details = getNearestNode(ev.target, "DETAILS");
     if (!details) {
@@ -107,7 +122,9 @@ export const AccordionGroup: Component<AccordionGroupProps> = (props) => {
   return (
     <section
       {...divProps}
-      class={divProps.class ? `${divProps.class} sb-accordion-group` : "sb-accordion-group"}
+      classList={mergeProps(props.classList ?? {}, {
+        "sb-accordion-group": true,
+      })}
       onclick={clickHandler()}
       onkeyup={keyupHandler()}
     />
