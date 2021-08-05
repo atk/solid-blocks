@@ -1,12 +1,12 @@
 summary.sb-accordion-header {
-  border-bottom: 0.05em solid currentColor;
+  border-bottom: var(--hair-line) solid var(--border-color);
   clear: right;
   cursor: pointer;
   list-style: none;
 }
 summary.sb-accordion-header:before {
   box-sizing: content-box;
-  content: "\2303";
+  content: var(--accordion-icon);
   float: right;
   height: 0.75em;
   overflow: hidden;

@@ -91,6 +91,8 @@ export const ThemeDocs = () => <>
     <dd>solid lines</dd>
     <dt>--wide-line</dt>
     <dd>wide lines</dd>
+    <dt>--accordion-icon</dt>
+    <dd>the default icon for accordion headers</dd>
     <dt>--breadcrumb-icon</dt>
     <dd>the default icon delimiting breadcrumbs</dd>
   </dl>
