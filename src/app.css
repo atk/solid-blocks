@@ -17,6 +17,21 @@ body {
   padding: 1em 1em 3em 1em;
   height: 100%;
 }
+.top.sb-bar:after {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 100%;
+  background: linear-gradient(rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));
+  height: 1em;
+  width: 100%;
+}
+.dark-mode .top.sb-bar:after {
+  background: linear-gradient(rgba(35, 35, 35, 1), rgba(35, 35, 35, 0));
+}
+.top.sb-bar + * {
+  margin-top: 1em;
+}
 .flex-row.flex-row {
   display: flex;
   flex-direction: row;

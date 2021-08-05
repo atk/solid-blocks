@@ -36,9 +36,9 @@ const App: Component = () => {
   const [darkMode, setDarkMode] = useDarkMode();
   return (
     <div class="app" id="top">
-      <Bar position="relative" portal={false}>
+      <Bar position="sticky" placement="top" portal={false}>
         <div>
-          <h1 style={{"white-space": "nowrap"}}>
+          <h1 style={{"white-space": "nowrap", "margin": "0"}}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="1em"
