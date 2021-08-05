@@ -76,3 +76,10 @@ pre[data-title]:before {
   font-weight: 700;
 }
 h2, li { word-wrap: wrap-word; }
+.color-example {
+  border: var(--hair-line) solid var(--border-color);
+  display: inline-block;
+  height: 1em;
+  vertical-align: -0.15em;
+  width: 1em;
+}
