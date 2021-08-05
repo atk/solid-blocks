@@ -11,7 +11,7 @@ export type TagProps = (JSX.HTMLAttributes<HTMLSpanElement> &
 export const Tag: Component<TagProps> = (props) => {
   const [local, tagProps] = splitProps(props, ['plain'])
   const mergedProps = mergeProps(
-    { "data-random": local.plain ? undefined : getRandom(), rel: 'tag' },
+    { "data-random": local.plain ? undefined : getRandom(), rel: props.target ? 'tag noopener' : 'tag' },
     tagProps,
     { class: props.class ? `sb-tag ${props.class}` : 'sb-tag' }
   );

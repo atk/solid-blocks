@@ -31,6 +31,7 @@ import { ToastDocs } from "./blocks/toast.docs";
 import { TooltipDocs } from "./blocks/tooltip.docs";
 import { HelpersDocs } from "./blocks/Helpers.docs";
 import { ThemeDocs } from "./blocks/theme.docs";
+import { TagDocs } from "./blocks/tag.docs";
 
 const App: Component = () => {
   const [darkMode, setDarkMode] = useDarkMode();
@@ -148,7 +149,7 @@ const App: Component = () => {
               <a href="#tabs-docs">Tabs / Tab / TabContainer</a>
             </li>
             <li>
-              <a href="#tag-docs">Tags / TagGroup</a>
+              <a href="#tag-docs">Tag / TagGroup</a>
             </li>
             <li>
               <a href="#textfield-docs">Textfield</a>
@@ -184,6 +185,7 @@ const App: Component = () => {
           <SelectDocs />
           <SpinnerDocs />
           <TabsDocs />
+          <TagDocs />
           <TextfieldDocs />
           <ToastDocs />
           <TooltipDocs />
