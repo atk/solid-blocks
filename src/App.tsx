@@ -212,7 +212,7 @@ const App: Component = () => {
         </TabContainer>
         <Tab>Concepts</Tab>
         <TabContainer>
-          <h2>Valuable components instead of components without added value</h2>
+          <h2 style={{"margin-top": "0.5em"}}>Valuable components instead of components without added value</h2>
           <p>
             Wrapping elements like headers, text, or images in custom Components
             is just wasteful. Components will only be provided if they have
