@@ -10,6 +10,7 @@ import {
 } from "solid-js";
 import { getNearestNode, WrappedElement } from "./tools";
 
+import "./base.css";
 import "./accordion.css";
 
 export type AccordionProps = Omit<

@@ -1,5 +1,6 @@
 import { Component, JSX, createMemo, splitProps, mergeProps } from "solid-js";
 import { composeStyles, getRandom } from "./tools";
+import "./base.css";
 import "./avatar.css";
 
 export type AvatarProps = {

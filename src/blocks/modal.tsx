@@ -12,6 +12,7 @@ import {
 } from "solid-js";
 import { Portal } from "solid-js/web";
 
+import "./base.css";
 import "./modal.css";
 import { getElements, WrappedElement } from "./tools";
 

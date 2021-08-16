@@ -1,5 +1,6 @@
 import { Component, JSX, splitProps, Show, mergeProps } from "solid-js";
 
+import "./base.css";
 import "./textfield.css";
 
 export type TextFieldType =

@@ -1,5 +1,6 @@
 import { Component, JSX, createMemo, splitProps } from "solid-js";
 
+import "./base.css";
 import "./message.css";
 
 export type MessageProps = {
@@ -8,12 +9,23 @@ export type MessageProps = {
 } & JSX.HTMLAttributes<HTMLDivElement>;
 
 export const Message: Component<MessageProps> = (props) => {
-  const [messageProps, divProps] = splitProps(props, ["type", "class", "inline"]);
-  const className = createMemo(() => [
-    ...new Set(
-      ["sb-message", messageProps.type, messageProps.class, messageProps.inline && "inline"].filter(Boolean)
-    ),
-  ].join(" "));
+  const [messageProps, divProps] = splitProps(props, [
+    "type",
+    "class",
+    "inline",
+  ]);
+  const className = createMemo(() =>
+    [
+      ...new Set(
+        [
+          "sb-message",
+          messageProps.type,
+          messageProps.class,
+          messageProps.inline && "inline",
+        ].filter(Boolean)
+      ),
+    ].join(" ")
+  );
 
   return (
     <p

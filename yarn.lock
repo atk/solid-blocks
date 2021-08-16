@@ -341,6 +341,11 @@ electron-to-chromium@^1.3.723:
   resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.3.788.tgz#7a304c8ebb11d30916a1a1c1b4a9bad3983ef232"
   integrity sha512-dbMIpX4E4/Gk4gzOh1GYS7ls1vGsByWKpIqLviJi1mSmSt5BvrWLLtSqpFE5BaC7Ef4NnI0GMaiddNX2Brw6zA==
 
+esbuild@^0.12.17:
+  version "0.12.20"
+  resolved "https://registry.yarnpkg.com/esbuild/-/esbuild-0.12.20.tgz#4d3c9d83c99a4031e027b42a4c398c23b6827cb0"
+  integrity sha512-u7+0qTo9Z64MD9PhooEngCmzyEYJ6ovFhPp8PLNh3UasR5Ihjv6HWVXqm8uHmasdQlpsAf0IsY4U0YVUfCpt4Q==
+
 esbuild@^0.12.8:
   version "0.12.16"
   resolved "https://registry.yarnpkg.com/esbuild/-/esbuild-0.12.16.tgz#c397144ce13b445a6ead9c1f747da11f79ec5e67"
@@ -484,10 +489,10 @@ semver@^6.3.0:
   resolved "https://registry.yarnpkg.com/semver/-/semver-6.3.0.tgz#ee0a64c8af5e8ceea67687b133761e1becbd1d3d"
   integrity sha512-b39TBaTSfV6yBrapU89p5fKekE2m/NwnDocOVruQFS1/veMgdzuPcnOM34M6CwxW8jH/lxEa5rBoDeUwu5HHTw==
 
-solid-js@1.0.7:
-  version "1.0.7"
-  resolved "https://registry.yarnpkg.com/solid-js/-/solid-js-1.0.7.tgz#ad8279d1b50cc403eab072658e0686b22aa5602e"
-  integrity sha512-2jHCXLwp/B7P4kh5tl0ospRaC2F++BU0uWwtfgK/8Zc/MROOyCmmkjHpLAQC2u2NWYVGnIclDIJ2FGDXJ0wcYg==
+solid-js@1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/solid-js/-/solid-js-1.1.0.tgz#fe53d3c128832131ed41ee3a44df7e1d2b69378f"
+  integrity sha512-QcYxp0AnJW3luQKRF/vOhEC5G0ao/f5OqkRuY4JOEmSjWcl4fh8UGiaEOYnri+uJmfGo7KehTKC/+Se40Qh+Lg==
 
 solid-js@^1.0.3:
   version "1.0.5"
@@ -551,12 +556,12 @@ vite@^2.4.2:
   optionalDependencies:
     fsevents "~2.3.2"
 
-vite@^2.4.4:
-  version "2.4.4"
-  resolved "https://registry.yarnpkg.com/vite/-/vite-2.4.4.tgz#8c402a07ad45f168f6eb5428bead38f3e4363e47"
-  integrity sha512-m1wK6pFJKmaYA6AeZIUXyiAgUAAJzVXhIMYCdZUpCaFMGps0v0IlNJtbmPvkUhVEyautalajmnW5X6NboUPsnw==
+vite@^2.5.0:
+  version "2.5.0"
+  resolved "https://registry.yarnpkg.com/vite/-/vite-2.5.0.tgz#111ba3679432d426e44566acf480005a7914cbd6"
+  integrity sha512-Dn4B+g54PJsMG5WCc4QeFy1ygMXRdTtFrUPegqfk4+vzVQcbF/DqqmI/1bxezArzbujBJg/67QeT5wz8edfJVQ==
   dependencies:
-    esbuild "^0.12.8"
+    esbuild "^0.12.17"
     postcss "^8.3.6"
     resolve "^1.20.0"
     rollup "^2.38.5"

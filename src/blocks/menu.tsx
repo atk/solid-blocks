@@ -15,12 +15,13 @@ import {
 import { Button, ButtonProps } from "./button";
 import { getElements } from "./tools";
 
+import "./base.css";
 import "./menu.css";
 
 export type MenuProps = JSX.HTMLAttributes<HTMLDivElement> & {
   open?: boolean;
   ontoggle?: (open?: boolean) => void;
-  align?: 'left' | 'center' | 'right';
+  align?: "left" | "center" | "right";
 };
 
 const getFirstMenuButton = (open: Accessor<boolean>) => {
@@ -56,7 +57,12 @@ const getMenuItems = () => {
 
 export const Menu: Component<MenuProps> = (props) => {
   const [open, setOpen] = createSignal(props.open);
-  const [local, divProps] = splitProps(props, ["open", "children", "ontoggle", "align"]);
+  const [local, divProps] = splitProps(props, [
+    "open",
+    "children",
+    "ontoggle",
+    "align",
+  ]);
   const opener = createMemo(
     () => getElements(props.children, getFirstMenuButton(open), [open()])[0]
   );
@@ -164,7 +170,9 @@ export const Menu: Component<MenuProps> = (props) => {
     <div
       ref={menuRef}
       {...divProps}
-      class={`sb-menu${divProps.class ? ' ' + divProps.class : ''}${local.align ? ' ' + local.align : ''}`}
+      class={`sb-menu${divProps.class ? " " + divProps.class : ""}${
+        local.align ? " " + local.align : ""
+      }`}
       onkeydown={keyHandler}
     >
       {opener()}

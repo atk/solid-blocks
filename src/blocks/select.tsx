@@ -1,5 +1,6 @@
 import { Component, JSX, splitProps, onMount } from "solid-js";
 
+import "./base.css";
 import "./select.css";
 
 export type SelectProps = Omit<

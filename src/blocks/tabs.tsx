@@ -7,6 +7,7 @@ import {
   mergeProps,
 } from "solid-js";
 import { getElements, getNearestNode } from "./tools";
+import "./base.css";
 import "./tabs.css";
 
 export type TabsProps = JSX.HTMLAttributes<HTMLElement> & {
