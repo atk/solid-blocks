@@ -1,4 +1,3 @@
-import "./base.css";
 export * from "./accordion";
 export * from "./avatar";
 export * from "./bar";
