@@ -56,21 +56,21 @@ const getMenuItems = () => {
 };
 
 export const Menu: Component<MenuProps> = (props) => {
-  const [open, setOpen] = createSignal(props.open);
+  const [open, setOpen] = createSignal(!!props.open);
   const [local, divProps] = splitProps(props, [
     "open",
     "children",
     "ontoggle",
     "align",
   ]);
-  const opener = createMemo(
-    () => getElements(props.children, getFirstMenuButton(open), [open()])[0]
+  const opener = createMemo<HTMLElement | undefined>(
+    () => (getElements(props.children, getFirstMenuButton(open), [open()]) ?? [])[0]
   );
   const menuItems = createMemo(() =>
-    getElements(props.children, getMenuItems(), [open()])
+    getElements(props.children, getMenuItems(), [open()]) ?? []
   );
 
-  let menuRef;
+  let menuRef!: HTMLDivElement;
 
   createEffect(() => {
     const visible = open();
@@ -104,12 +104,12 @@ export const Menu: Component<MenuProps> = (props) => {
   );
   onCleanup(() => document.removeEventListener("click", clickHandler));
 
-  let focusItem;
+  let focusItem: HTMLElement | undefined;
   const overHandler = (ev: MouseEvent) => {
     const target = ev.target as HTMLElement;
     if (
       ["menuitem", "menuitemradio", "menuitemcheckbox"].includes(
-        target?.getAttribute("role")
+        target?.getAttribute("role") ?? ''
       ) &&
       target?.tabIndex !== -1 &&
       target?.getAttribute("aria-disabled") !== "true"
@@ -120,7 +120,7 @@ export const Menu: Component<MenuProps> = (props) => {
   };
 
   const moveFocus = (step: 1 | -1) => {
-    const menuItems = menuRef.querySelectorAll(
+    const menuItems = menuRef.querySelectorAll<HTMLElement>(
       '[role^=menuitem]:not([aria-disabled], [tabIndex="-1"])'
     );
     const currentPos = focusItem
@@ -138,22 +138,22 @@ export const Menu: Component<MenuProps> = (props) => {
     const target = ev.target as HTMLElement;
     if (ev.key === "Escape" && open()) {
       setOpen(false);
-      opener().focus();
+      opener()?.focus();
     }
     const role = target?.getAttribute("role");
     if (
       ev.key === " " &&
-      ["menuitem", "menuitemradio", "menuitemcheckbox"].includes(role)
+      ["menuitem", "menuitemradio", "menuitemcheckbox"].includes(role ?? '')
     ) {
       target.click();
       if (role === "menuitemradio") {
-        const radios = target.parentNode.querySelectorAll(
+        const radios = target.parentNode?.querySelectorAll<HTMLElement>(
           '[role="menuitemradio"]:not([aria-disabled], [tabIndex="-1"]'
-        );
+        ) ?? [];
         const currentPos = Array.prototype.indexOf.call(radios, target);
         const newPos = (radios.length + 1 + currentPos) % radios.length;
         focusItem = radios[newPos];
-        focusItem.focus();
+        focusItem?.focus();
       }
       ev.preventDefault();
     }

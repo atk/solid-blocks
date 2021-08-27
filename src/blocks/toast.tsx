@@ -25,13 +25,11 @@ const toastPositions = [
 
 export type ToastPosition = typeof toastPositions[number];
 
-const toastMountPoints: Partial<
-  Record<ToastPosition, HTMLElement | undefined>
-> = {};
 // load previously created containers
-toastPositions.forEach((pos) => {
-  toastMountPoints[pos] = document.getElementById(`sb-toast-${pos}`);
-});
+const toastMountPoints = toastPositions.reduce((nodes, pos) => {
+  nodes[pos] = document.getElementById(`sb-toast-${pos}`);
+  return nodes;
+}, {} as Partial<Record<ToastPosition, HTMLElement | null>>);
 
 export type WrappedToastContentProps = {
   update: Setter<JSX.Element | WrappedElement<WrappedToastContentProps>>;
@@ -57,10 +55,11 @@ export type ToastProps = Omit<
 const div = document.createElement("div");
 
 const addMountPoint = (position: ToastPosition = "top-right") => {
-  toastMountPoints[position] = div.cloneNode() as HTMLDivElement;
-  toastMountPoints[position].id = `sb-toast-${position}`;
-  document.body.appendChild(toastMountPoints[position]);
-  return toastMountPoints[position];
+  const mountPoint = div.cloneNode() as HTMLDivElement;
+  mountPoint.id = `sb-toast-${position}`;
+  toastMountPoints[position] = mountPoint;
+  document.body.appendChild(mountPoint);
+  return mountPoint;
 };
 
 export const Toast = (props: ToastProps): JSX.Element => {
@@ -96,7 +95,7 @@ export const Toast = (props: ToastProps): JSX.Element => {
       setChildren(getElements(newChildren(), () => true, [{ update, hide }]));
   });
 
-  createEffect(() => !visible() && props.onhide());
+  createEffect(() => !visible() && props.onhide?.());
 
   createEffect(() => {
     const container = mountPoint();

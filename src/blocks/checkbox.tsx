@@ -46,8 +46,7 @@ export const Checkbox: Component<CheckboxProps> = (props) => {
     ["align", "children", "onchange", "switch"]
   );
 
-  let input;
-  const changeHandler = () => content.onchange?.(input?.checked);
+  const changeHandler = (ev: Event) => content.onchange?.((ev.target as HTMLInputElement)?.checked);
 
   return (
     <label
@@ -58,7 +57,6 @@ export const Checkbox: Component<CheckboxProps> = (props) => {
     >
       <Show when={content.align === "right"}>{content.children}</Show>
       <input
-        ref={input}
         type="checkbox"
         role={content.switch ? "switch" : undefined}
         {...inputProps}

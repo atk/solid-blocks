@@ -14,14 +14,17 @@ export const toStyleObject = (style: string | JSX.CSSProperties) => {
   return styleObject;
 };
 
-export const composeStyles = (...styles) =>
+export const composeStyles = (...styles: (JSX.CSSProperties | string)[]) =>
   Object.assign({}, ...styles.map(toStyleObject));
 
 export const getNearestNode = (
-  target: EventTarget,
+  target: EventTarget | null | undefined,
   name: string
-): Node | undefined => {
-  let nearest = target as Node;
+): Node | null | undefined => {
+  if (!target) {
+    return;
+  }
+  let nearest: Node & ParentNode | null = target as Node & ParentNode;
   while (nearest && nearest.nodeName !== name) {
     nearest = nearest.parentNode;
   }
@@ -73,24 +76,23 @@ export const useMediaQuery = (query: MediaQueryString): Accessor<boolean> => {
   return matches
 }
 
-const parseStorage = (data, useJson) => useJson ? data ? JSON.parse(data) : undefined : data;
+const parseStorage = <T extends any | string>(data: string | null | undefined, useJson: boolean): T | undefined =>
+  useJson ? (data ? JSON.parse(data) : undefined) : data ?? undefined;
 
-export function createLocalStorageSignal(key, initialValue?: string, useJson?: false): [Accessor<string>, Setter<string>];
-export function createLocalStorageSignal<T extends unknown>(
-  key,
-  initialValue: T | undefined,
-  useJson: true
-): [Accessor<T>, Setter<T>];
-export function createLocalStorageSignal(key, initialValue, useJson = false) {
+const putStorage = <T extends any | string>(key: string, data: T): void =>
+  localStorage.setItem(key, typeof data === 'string' ? data : JSON.stringify(data))
+
+export function createLocalStorageSignal<T extends any | string>(key: string, initialValue?: T, useJson = false):
+  [Accessor<T | undefined>, Setter<T | undefined>] {
   if (localStorage.getItem(key) === null && initialValue !== undefined) {
-    localStorage.setItem(key, useJson ? JSON.stringify(initialValue) : initialValue);
+    putStorage(key, initialValue);
   }
-  const [value, setValue] = createSignal(parseStorage(localStorage.getItem(key), useJson));
+  const [value, setValue] = createSignal(parseStorage<T>(localStorage.getItem(key), useJson));
   
   createEffect(() =>
     useJson && value() === undefined
     ? localStorage.removeItem(key)
-    : localStorage.setItem(key, useJson ? JSON.stringify(value()) : value())
+    : putStorage(key, value())
   );
   
   return [value, setValue];
@@ -111,13 +113,13 @@ export const useDarkMode = (localStorageKey = "COLOR_SCHEME") => {
 export type NodeName = string;
 
 export const getElements = (
-  children: JSX.Element | ((...args: unknown[]) => JSX.Element),
-  filter: NodeName | ((node: HTMLElement) => boolean),
+  children: JSX.Element | ((...args: any[]) => JSX.Element),
+  filter?: NodeName | ((node: HTMLElement) => boolean),
   /** if the children contains a callback, you may add an array of props */
   props: any = [],
   /** you can add prepended results if you want */
   result = []
-): HTMLElement[] => {
+): HTMLElement[] | undefined => {
   if (!children) {
     return;
   }
@@ -125,14 +127,12 @@ export const getElements = (
     children.forEach((child) => getElements(child, filter, props, result));
   } else if (typeof children === "function") {
     getElements(children.apply(null, props), filter, props, result);
-  } else if (!filter) {
-    result.push(children);
   } else {
     const node = children as HTMLElement;
     if (
-      typeof filter === "function" ? filter(node) : node.nodeName === filter
+      !filter || (typeof filter === "function" ? filter(node) : node.nodeName === filter)
     ) {
-      result.push(children);
+      (result as HTMLElement[]).push(node);
     }
   }
   return result;

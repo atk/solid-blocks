@@ -69,8 +69,8 @@
   cursor: not-allowed;
   color: var(--border-color);
 }
-.sb-menu [role="menuitemradio"][tabIndex="-1"]),
-.sb-menu [role="menuitemcheckbox"][tabIndex="-1"]) {
+.sb-menu [role="menuitemradio"][tabIndex="-1"],
+.sb-menu [role="menuitemcheckbox"][tabIndex="-1"] {
   cursor: text;  
 }
 .sb-menu [role="menuitemradio"][aria-selected="true"]:before,

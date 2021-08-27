@@ -1,13 +1,14 @@
-import { createMemo, createSignal } from "solid-js"
+import { createSignal } from "solid-js"
 import { Checkbox } from "./checkbox";
 import { Radio, RadioGroup } from "./radio";
 import { Select } from "./select";
-import { Tooltip, TooltipPosition, TooltipProps } from "./tooltip";
+import { Tooltip, TooltipPosition, TooltipTrigger } from "./tooltip";
 
 export const TooltipDocs = () => {
   const [arrow, setArrow] = createSignal(true);
   const [nowrap, setNowrap] = createSignal(false);
   const [pos, setPos] = createSignal('s');
+  const triggers: [undefined, ...TooltipTrigger[]] = [undefined, true, false, ['focus'], 'hover'];
   const [trigger, setTrigger] = createSignal("0");
   return <>
     <h2 id="tooltip-docs">Tooltip</h2>
@@ -69,7 +70,7 @@ trigger?: SingularOrArray<TooltipTrigger>;
         arrow={arrow()}
         nowrap={nowrap()}
         position={pos() as TooltipPosition}
-        trigger={[undefined, true, false, ['focus'], 'hover'][trigger()]}
+        trigger={triggers[+trigger()]}
       >
         trigger text
       </Tooltip>

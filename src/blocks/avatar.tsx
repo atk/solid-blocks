@@ -88,7 +88,7 @@ export const AvatarBadge: Component<AvatarBadgeProps> = (props) => {
     "background",
     "style",
   ]);
-  const composedStyle = composeStyles(local.style, {
+  const composedStyle = composeStyles(local.style ?? {}, {
     "border-color": local.borderColor,
     background: local.background,
   });

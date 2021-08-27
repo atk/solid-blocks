@@ -10,10 +10,10 @@ import { getElements, getNearestNode } from "./tools";
 import "./base.css";
 import "./tabs.css";
 
-export type TabsProps = JSX.HTMLAttributes<HTMLElement> & {
+export type TabsProps = Omit<JSX.HTMLAttributes<HTMLElement>, 'onchange'> & {
   index?: number;
   vertical?: boolean;
-  onchange?: (index: number) => void;
+  onchange?: (index?: number) => void;
 };
 
 const setTabState = (tab: HTMLElement, nr: number, index: number) => {
@@ -27,7 +27,7 @@ const setTabState = (tab: HTMLElement, nr: number, index: number) => {
   }
 };
 
-const setPanelState = (panel: HTMLElement, nr, index) => {
+const setPanelState = (panel: HTMLElement, nr: number, index: number) => {
   if (panel?.hasAttribute && panel.hasAttribute("hidden") === (nr === index)) {
     panel[nr === index ? "removeAttribute" : "setAttribute"](
       "hidden",
@@ -38,8 +38,8 @@ const setPanelState = (panel: HTMLElement, nr, index) => {
 
 export const Tabs: Component<TabsProps> = (props) => {
   const [selected, setSelected] = createSignal(props.index ?? 0);
-  const tabs = createMemo(() => getElements(props.children, "LI"));
-  const panels = createMemo(() => getElements(props.children, "DIV"));
+  const tabs = createMemo(() => getElements(props.children, "LI") || []);
+  const panels = createMemo(() => getElements(props.children, "DIV") || []);
 
   createEffect(() => {
     if (tabs().length !== panels().length) {
@@ -66,14 +66,14 @@ export const Tabs: Component<TabsProps> = (props) => {
     if (!tab) {
       return;
     }
-    const index = Array.prototype.indexOf.call(tab.parentNode.childNodes, tab);
+    const index = Array.prototype.indexOf.call(tab.parentNode?.childNodes, tab);
     if (index !== -1) {
       setSelected(Number(index));
     }
   };
   const keyupHandler = (ev: KeyboardEvent) => {
     const tab = getNearestNode(ev.target, "LI") as HTMLLIElement | undefined;
-    const tabs = tab.parentElement.childNodes;
+    const tabs = tab?.parentElement?.childNodes ?? [];
     const index = Array.prototype.indexOf.call(tabs, tab);
     if (index !== -1) {
       if (ev.key === " ") {

@@ -14,8 +14,6 @@ export const Select: Component<SelectProps> = (props) => {
     "onchange",
     "aria-orientation",
   ]);
-  let field;
-
   return (
     <label
       classList={{ "sb-select": true, disabled: props.disabled }}
@@ -23,9 +21,8 @@ export const Select: Component<SelectProps> = (props) => {
     >
       <span class="sb-select-label">{local.label}</span>
       <select
-        ref={field}
         {...fieldProps}
-        onchange={() => local.onchange?.(field.value)}
+        onchange={(ev) => local.onchange?.((ev.target as HTMLSelectElement).value)}
       />
     </label>
   );

@@ -54,7 +54,7 @@ export const Modal = (props: ModalProps): JSX.Element => {
       local.children,
       (node) => node.className.indexOf("sb-modal-content") !== -1,
       [{ open, toggle }]
-    )
+    ) ?? []
   );
   const otherChildren = createMemo(() =>
     getElements(
@@ -64,7 +64,7 @@ export const Modal = (props: ModalProps): JSX.Element => {
     )
   );
 
-  let modalRef;
+  let modalRef!: HTMLDivElement;
   createEffect(() => open() && (modalRef?.focus(), modalRef?.scrollIntoView()));
 
   modalCount++;

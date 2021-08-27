@@ -1,4 +1,5 @@
-import { Component, JSX, splitProps, Show, mergeProps } from "solid-js";
+import { Component, createMemo, JSX, splitProps, mergeProps } from "solid-js";
+import { Dynamic } from "solid-js/web";
 
 import "./base.css";
 import "./textfield.css";
@@ -25,7 +26,7 @@ type TextFieldProps = {
   multiline?: boolean;
   label: JSX.Element;
   type?: TextFieldType;
-  onchange?: (value?: string) => void;
+  onchange?: (value: string) => void;
 } & Omit<
   JSX.InputHTMLAttributes<HTMLInputElement> &
     JSX.TextareaHTMLAttributes<HTMLTextAreaElement>,
@@ -41,8 +42,8 @@ export const TextField: Component<TextFieldProps> = (props) => {
     "onchange",
     "children",
   ]);
-  let field;
-  const changeHandler = () => local.onchange?.(field?.value);
+  const changeHandler = createMemo(() => (ev: InputEvent) => 
+    local.onchange?.((ev.target as HTMLInputElement | HTMLTextAreaElement).value));
 
   return (
     <label
@@ -50,19 +51,12 @@ export const TextField: Component<TextFieldProps> = (props) => {
       aria-orientation={props["aria-orientation"]}
     >
       <span class="sb-textfield-label">{local.label}</span>
-      <Show
-        when={props.multiline}
-        fallback={
-          <input
-            ref={field}
-            onchange={changeHandler}
-            {...fieldProps}
-            type={fieldProps.type ?? "text"}
-          />
-        }
-      >
-        <textarea ref={field} onchange={changeHandler} {...fieldProps} />
-      </Show>
+      <Dynamic
+        component={props.multiline ? 'textarea' : 'input'}
+        onchange={changeHandler()}
+        {...fieldProps}
+        type={!props.multiline ? fieldProps.type ?? 'text' : undefined}
+      />      
       {local.children}
     </label>
   );

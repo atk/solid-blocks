@@ -30,7 +30,7 @@ export const Message: Component<MessageProps> = (props) => {
   return (
     <p
       class={className()}
-      role={messageProps.type === "error" ? "alert" : null}
+      role={messageProps.type === "error" ? "alert" : undefined}
       {...divProps}
     />
   );

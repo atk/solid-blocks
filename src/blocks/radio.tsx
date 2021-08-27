@@ -69,7 +69,7 @@ export type RadioGroupProps = Omit<
   JSX.HTMLAttributes<HTMLDivElement>,
   "onchange"
 > & {
-  onchange?: (value?: string) => void;
+  onchange?: (value: string) => void;
   value?: string;
 };
 
@@ -82,7 +82,7 @@ export const RadioGroup: Component<RadioGroupProps> = (props) => {
     "children",
   ]);
 
-  let group;
+  let group!: HTMLDivElement;
   onMount(() => {
     const items = group.querySelectorAll('input[type="radio"]');
     if (
@@ -109,8 +109,8 @@ export const RadioGroup: Component<RadioGroupProps> = (props) => {
 
   let value = local.value;
   const changeHandler = () => {
-    const newValue = group?.querySelector('input[type="radio"]:checked')?.value;
-    if (value !== newValue) {
+    const newValue = group?.querySelector<HTMLInputElement>('input[type="radio"]:checked')?.value;
+    if (newValue && value !== newValue) {
       local.onchange?.(newValue);
       value = newValue;
     }

@@ -10,7 +10,7 @@ import type { JSX } from "solid-js";
 import "./base.css";
 import "./tooltip.css";
 
-type TooltipTrigger =
+export type TooltipTrigger =
   | boolean
   | "focus"
   | "hover"
@@ -35,8 +35,6 @@ declare module "solid-js" {
     }
   }
 }
-
-const wrapLog = (c) => (console.log(c), c);
 
 const computeVisible = (
   trigger: TooltipTrigger | undefined,
@@ -67,14 +65,14 @@ const wrapText = (children: JSX.Element): JSX.Element => {
     return wrapText(children());
   }
   if (typeof children === "string") {
-    return <span tabIndex="0">{children}</span>;
+    return (<span tabIndex="0">{children}</span>);
   }
   if (Array.isArray(children)) {
     const result = children.map((child) =>
       typeof child === "function" ? child() : child
     );
     if (result.every((child) => typeof child === "string")) {
-      return <span tabIndex="0">{result}</span>;
+      return (<span tabIndex="0">{result}</span>);
     }
     return result;
   }
@@ -82,6 +80,8 @@ const wrapText = (children: JSX.Element): JSX.Element => {
 };
 
 export const Tooltip: Component<TooltipProps> = (props) => {
+  let wrapperRef!: HTMLSpanElement;
+
   const [local, spanProps] = splitProps(props, [
     "children",
     "position",
@@ -102,14 +102,12 @@ export const Tooltip: Component<TooltipProps> = (props) => {
 
   const [positionStyle, setPositionStyle] = createSignal<JSX.CSSProperties>();
 
-  let wrapperRef;
-
   const focusHandler = createMemo(
     () => (ev: FocusEvent) => useFocus() && setVisible(ev.type === "focus")
   );
   const hoverHandler = createMemo(
     () => (ev: MouseEvent & { toElement?: HTMLElement }) =>
-      useHover() && setVisible(wrapperRef.contains(ev.toElement ?? ev.target))
+      useHover() && setVisible(wrapperRef.contains((ev.toElement ?? ev.target) as Node | null))
   );
 
   createEffect(() => {

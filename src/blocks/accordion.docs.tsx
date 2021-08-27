@@ -11,7 +11,7 @@ export const AccordionDocs = () => {
   const [allowToggle, setAllowToggle] = createSignal(false);
   const children = createMemo(() => 
     useWrappedChilds() 
-      ? (open) => <><AccordionHeader>{open ? 'Open' : 'Closed'}</AccordionHeader><p>Rest</p></>
+      ? (open: boolean) => <><AccordionHeader>{open ? 'Open' : 'Closed'}</AccordionHeader><p>Rest</p></>
       : <><AccordionHeader>Static header</AccordionHeader><p>static content</p></>
   );
 
@@ -51,7 +51,7 @@ AccordionProps {
     </dl>
     <h4>Effect</h4>
     <Checkbox onChange={() => setExampleOpen(open => !open)}> open: boolean</Checkbox>{" "}
-    <Checkbox onChange={() => setUseWrappedChilds(use => !use)}> use wrapped children: (open: boolean) => ...</Checkbox>
+    <Checkbox onChange={() => setUseWrappedChilds(use => !use)}> use wrapped children: (open: boolean) =&gt; ...</Checkbox>
     <pre data-title="ontoggle-calls" style={{"max-height": "6em", "overflow": "auto"}}>
       {events()}
     </pre>
@@ -60,7 +60,7 @@ AccordionProps {
         children={children()}
         component={Accordion}
         open={exampleOpen()}
-        ontoggle={(open) => setEvents((e) => `ontoggle(${open})\n${e}`)}
+        ontoggle={(open: boolean) => setEvents((e) => `ontoggle(${open})\n${e}`)}
       />
     </div>
     <hr/>

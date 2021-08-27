@@ -19,13 +19,13 @@ export type AccordionProps = Omit<
 > & {
   children: WrappedElement<boolean> | JSX.Element;
   open?: boolean;
-  ontoggle?: (open?: boolean) => void;
+  ontoggle?: (open: boolean) => void;
 };
 
 export const Accordion: Component<AccordionProps> = (props) => {
   const [local, detailsProps] = splitProps(props, ["children", "ontoggle"]);
   const [open, setOpen] = createSignal(!!props.open);
-  let detailsRef;
+  let detailsRef!: HTMLDetailsElement;
   const children = createMemo(() =>
     typeof props.children === "function"
       ? props.children(open())
@@ -33,8 +33,10 @@ export const Accordion: Component<AccordionProps> = (props) => {
   );
 
   const toggleHandler = () => {
-    setOpen(detailsRef.open);
-    local.ontoggle?.(detailsRef.open);
+    if (detailsRef) {
+      setOpen(detailsRef.open);
+      local.ontoggle?.(detailsRef.open);
+    }
   };
 
   onMount(() => detailsRef?.addEventListener("toggle", toggleHandler));
@@ -72,15 +74,18 @@ export type AccordionGroupProps = JSX.HTMLAttributes<HTMLElement> & {
 export const AccordionGroup: Component<AccordionGroupProps> = (props) => {
   const [local, divProps] = splitProps(props, ["allowMultiple", "allowToggle"]);
   const clickHandler = createMemo(() => (ev: MouseEvent) => {
+    if (!ev.target) {
+      return;
+    }
     const details = getNearestNode(ev.target, "DETAILS") as
       | HTMLDetailsElement
       | undefined;
     if (!details) {
       return;
     }
-    const open = details.parentNode.querySelectorAll(
+    const open = details.parentNode?.querySelectorAll(
       "details.sb-accordion[open]"
-    );
+    ) ?? [];
     if (open.length === 0) {
       return;
     }
@@ -98,7 +103,7 @@ export const AccordionGroup: Component<AccordionGroupProps> = (props) => {
   });
   const keyupHandler = createMemo(() => (ev: KeyboardEvent) => {
     const details = getNearestNode(ev.target, "DETAILS");
-    if (!details) {
+    if (!details || !details.parentNode) {
       return;
     }
     const grouped: NodeListOf<HTMLDetailsElement> =
@@ -110,14 +115,14 @@ export const AccordionGroup: Component<AccordionGroupProps> = (props) => {
     if (ev.key === "ArrowLeft" && index !== 0) {
       const detail = grouped[index - 1];
       const summary = detail.querySelector("summary");
-      summary.focus();
-      !detail.open && summary.click();
+      summary?.focus();
+      !detail.open && summary?.click();
     }
     if (ev.key === "ArrowRight" && index + 1 < grouped.length) {
       const detail = grouped[index + 1];
       const summary = detail.querySelector("summary");
-      summary.focus();
-      !detail.open && summary.click();
+      summary?.focus();
+      !detail.open && summary?.click();
     }
   });
   return (
