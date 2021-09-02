@@ -8,7 +8,7 @@ import {
   splitProps,
   createMemo,
 } from "solid-js";
-import { Portal } from "solid-js/web";
+import { isServer, Portal } from "solid-js/web";
 import { getElements, WrappedElement } from "./tools";
 
 import "./base.css";
@@ -27,7 +27,7 @@ export type ToastPosition = typeof toastPositions[number];
 
 // load previously created containers
 const toastMountPoints = toastPositions.reduce((nodes, pos) => {
-  nodes[pos] = document.getElementById(`sb-toast-${pos}`);
+  nodes[pos] = isServer ? null : document.getElementById(`sb-toast-${pos}`);
   return nodes;
 }, {} as Partial<Record<ToastPosition, HTMLElement | null>>);
 

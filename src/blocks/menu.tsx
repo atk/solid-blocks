@@ -17,6 +17,7 @@ import { getElements } from "./tools";
 
 import "./base.css";
 import "./menu.css";
+import { isServer } from "solid-js/web";
 
 export type MenuProps = JSX.HTMLAttributes<HTMLDivElement> & {
   open?: boolean;
@@ -99,10 +100,8 @@ export const Menu: Component<MenuProps> = (props) => {
     }
   };
 
-  onMount(() =>
-    document.addEventListener("click", clickHandler, { capture: false })
-  );
-  onCleanup(() => document.removeEventListener("click", clickHandler));
+  onMount(() => !isServer && document.addEventListener("click", clickHandler, { capture: false }));
+  onCleanup(() => !isServer && document.removeEventListener("click", clickHandler));
 
   let focusItem: HTMLElement | undefined;
   const overHandler = (ev: MouseEvent) => {

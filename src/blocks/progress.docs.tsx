@@ -5,11 +5,11 @@ export const ProgressDocs = () => {
   const [value, setValue] = createSignal(0);
   let interval: number;
   onMount(() => {
-    interval = setInterval(() => {
+    interval = window.setInterval(() => {
       setValue(v => (v + 1) % 101);
     }, 120);
   })
-  onCleanup(() => clearInterval(interval));
+  onCleanup(() => window.clearInterval(interval));
   return <>
     <h2 id="progress-docs">Progress</h2>
     <p>The progress component shows a quantitative progress that can should only increase, unlike <a href="#meter-docs">meter</a>, which can go both ways.</p>
