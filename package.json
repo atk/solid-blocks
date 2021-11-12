@@ -27,15 +27,18 @@
     "build:vite": "vite build",
     "build:lib": "vite -c vite.config.lib.ts build",
     "build:types": "tsc --declaration --emitDeclarationOnly",
-    "build": "yarn build:vite; yarn build:lib; yarn build:types"
+    "build": "vite build; vite -c vite.config.lib.ts build; tsc --declaration --emitDeclarationOnly"
   },
   "license": "MIT",
   "devDependencies": {
-    "vite": "^2.6.2",
-    "vite-plugin-solid": "^2.1.0",
-    "typescript": "^4.4.3"
+    "vite": "^2.6.14",
+    "vite-plugin-solid": "^2.1.2",
+    "typescript": "^4.4.4"
   },
   "dependencies": {
-    "solid-js": "^1.1.5"
+    "solid-js": "^1.2.3"
+  },
+  "peerDependencies": {
+    "solid-js": "^1.2.3"
   }
 }
