@@ -13,7 +13,7 @@ export declare function createLocalStorageSignal<T extends any | string>(key: st
     Accessor<T | undefined>,
     Setter<T | undefined>
 ];
-export declare const useDarkMode: (localStorageKey?: string) => (Accessor<boolean> | (<U extends boolean | undefined>(v?: (U extends Function ? never : U) | ((prev?: U | undefined) => U) | undefined) => U))[];
+export declare const useDarkMode: (localStorageKey?: string) => (Accessor<boolean> | (<U extends boolean | undefined>(v?: (U extends Function ? never : U) | ((prev?: boolean | undefined) => U) | undefined) => U))[];
 export declare type NodeName = string;
 export declare const getElements: (children: JSX.Element | ((...args: any[]) => JSX.Element), filter?: string | ((node: HTMLElement) => boolean) | undefined, props?: any, result?: never[]) => HTMLElement[] | undefined;
 export {};
