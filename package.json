@@ -27,7 +27,8 @@
     "build:vite": "vite build",
     "build:lib": "vite -c vite.config.lib.ts build",
     "build:types": "tsc --declaration --emitDeclarationOnly",
-    "build": "vite build; vite -c vite.config.lib.ts build; tsc --declaration --emitDeclarationOnly"
+    "build": "vite build; vite -c vite.config.lib.ts build; tsc --declaration --emitDeclarationOnly",
+    "prepare": "npm run build"
   },
   "license": "MIT",
   "devDependencies": {
