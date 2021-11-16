@@ -7,38 +7,12 @@
     "name": "Alex Lohr",
     "email": "alex.lohr@logmein.com"
   },
-  "files": [
-    "dist"
-  ],
-  "main": "dist/solid-blocks.cjs.js",
-  "module": "dist/solid-blocks.es.js",
-  "types": "dist/types/index.d.ts",
-  "exports": {
-    ".": {
-      "import": "./dist/solid-blocks.es.js",
-      "require": "./dist/solid-blocks.cjs.js"
-    }
-  },
+  "type": "module",
+  "module": "src/index.js",
+  "types": "src/index.d.ts",
   "sideEffects": false,
-  "scripts": {
-    "start": "vite",
-    "dev": "vite",
-    "typecheck": "tsc --no-emit",
-    "build:vite": "vite build",
-    "build:lib": "vite -c vite.config.lib.ts build",
-    "build:types": "tsc --declaration --emitDeclarationOnly",
-    "build": "vite build; vite -c vite.config.lib.ts build; tsc --declaration --emitDeclarationOnly"
-  },
   "license": "MIT",
-  "devDependencies": {
-    "vite": "^2.6.14",
-    "vite-plugin-solid": "^2.1.2",
-    "typescript": "^4.4.4"
-  },
-  "dependencies": {
-    "solid-js": "^1.2.3"
-  },
   "peerDependencies": {
-    "solid-js": "^1.2.3"
+    "solid-js": "*"
   }
 }
