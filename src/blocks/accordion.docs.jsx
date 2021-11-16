@@ -2,20 +2,16 @@ import { createMemo, createSignal } from 'solid-js';
 import { Dynamic } from 'solid-js/web';
 import { Accordion, AccordionGroup, AccordionHeader } from './accordion';
 import { Checkbox } from './checkbox';
-
 export const AccordionDocs = () => {
-  const [exampleOpen, setExampleOpen] = createSignal(false);
-  const [events, setEvents] = createSignal('');
-  const [useWrappedChilds, setUseWrappedChilds] = createSignal(false);
-  const [allowMultiple, setAllowMultiple] = createSignal(false);
-  const [allowToggle, setAllowToggle] = createSignal(false);
-  const children = createMemo(() => 
-    useWrappedChilds() 
-      ? (open: boolean) => <><AccordionHeader>{open ? 'Open' : 'Closed'}</AccordionHeader><p>Rest</p></>
-      : <><AccordionHeader>Static header</AccordionHeader><p>static content</p></>
-  );
-
-  return <>
+    const [exampleOpen, setExampleOpen] = createSignal(false);
+    const [events, setEvents] = createSignal('');
+    const [useWrappedChilds, setUseWrappedChilds] = createSignal(false);
+    const [allowMultiple, setAllowMultiple] = createSignal(false);
+    const [allowToggle, setAllowToggle] = createSignal(false);
+    const children = createMemo(() => useWrappedChilds()
+        ? (open) => <><AccordionHeader>{open ? 'Open' : 'Closed'}</AccordionHeader><p>Rest</p></>
+        : <><AccordionHeader>Static header</AccordionHeader><p>static content</p></>);
+    return <>
     <h2 id="accordion-docs">Accordion</h2>
     <p>The &lt;Accordion&gt; component is meant to present a summary and disclose details on toggle interaction.</p>
     <h3>Simple example</h3>
@@ -26,7 +22,7 @@ export const AccordionDocs = () => {
   <p>Arbitrary content</p>
 </Accordion>`}
     </pre>
-    <div class="example" style={{"min-height": "6em"}}>
+    <div class="example" style={{ "min-height": "6em" }}>
       <Accordion open>
         <AccordionHeader>Header</AccordionHeader>
         <p>Arbitrary content</p>
@@ -52,18 +48,13 @@ AccordionProps {
     <h4>Effect</h4>
     <Checkbox onChange={() => setExampleOpen(open => !open)}> open: boolean</Checkbox>{" "}
     <Checkbox onChange={() => setUseWrappedChilds(use => !use)}> use wrapped children: (open: boolean) =&gt; ...</Checkbox>
-    <pre data-title="ontoggle-calls" style={{"max-height": "6em", "overflow": "auto"}}>
+    <pre data-title="ontoggle-calls" style={{ "max-height": "6em", "overflow": "auto" }}>
       {events()}
     </pre>
-    <div class="example" style={{"min-height": "6em"}}>
-      <Dynamic
-        children={children()}
-        component={Accordion}
-        open={exampleOpen()}
-        ontoggle={(open: boolean) => setEvents((e) => `ontoggle(${open})\n${e}`)}
-      />
+    <div class="example" style={{ "min-height": "6em" }}>
+      <Dynamic children={children()} component={Accordion} open={exampleOpen()} ontoggle={(open) => setEvents((e) => `ontoggle(${open})\n${e}`)}/>
     </div>
-    <hr/>
+    <hr />
     <h2 id="accordiongroup-docs">AccordionGroup</h2>
     <p>The &lt;AccordionGroup&gt; allows grouping multiple accordions to enforce certain behavior, i.e. if multiple accordions may be toggled or if the last accordion may be closed again.</p>
     <h3>Properties</h3>
@@ -82,8 +73,8 @@ AccordionGroupProps {
     </dl>
     <h4>Effect</h4>
     <Checkbox checked={allowMultiple()} onchange={() => setAllowMultiple(a => !a)}> allowMultiple</Checkbox>{" "}
-    <Checkbox checked={allowToggle()} onchange={() => setAllowToggle(a => !a)}> allowToggle</Checkbox><br/><br/>
-    <div class="example" style={{ "min-height": "9em"}}>
+    <Checkbox checked={allowToggle()} onchange={() => setAllowToggle(a => !a)}> allowToggle</Checkbox><br /><br />
+    <div class="example" style={{ "min-height": "9em" }}>
       <AccordionGroup allowMultiple={allowMultiple()} allowToggle={allowToggle()}>
         <Accordion>
           <AccordionHeader><b>First Accordion</b></AccordionHeader>
@@ -99,6 +90,6 @@ AccordionGroupProps {
         </Accordion>
       </AccordionGroup>
     </div>
-    <hr/>
-  </>
-}
+    <hr />
+  </>;
+};

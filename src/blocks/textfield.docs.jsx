@@ -1,15 +1,14 @@
-import { createSignal } from "solid-js"
-import { Checkbox } from "./checkbox"
+import { createSignal } from "solid-js";
+import { Checkbox } from "./checkbox";
 import { Select } from "./select";
-import { TextField, TextFieldType } from "./textfield";
-
+import { TextField } from "./textfield";
 export const TextfieldDocs = () => {
-  const [vertical, setVertical] = createSignal(false);
-  const [multiline, setMultiline] = createSignal(false);
-  const [value, setValue] = createSignal('');
-  const [type, setType] = createSignal('text');
-  const [events, setEvents] = createSignal('');
-  return <>
+    const [vertical, setVertical] = createSignal(false);
+    const [multiline, setMultiline] = createSignal(false);
+    const [value, setValue] = createSignal('');
+    const [type, setType] = createSignal('text');
+    const [events, setEvents] = createSignal('');
+    return <>
     <h2 id="textfield-docs">Textfield</h2>
     <p>The textfield component is a simple text field form control.</p>
     <h3>Properties</h3>
@@ -55,20 +54,13 @@ TextfieldProps {
       <option value="url">url</option>
       <option value="week">week</option>
     </Select>
-    <pre data-title="onchange-events" style={{"max-height": "9em"}}>{events()}</pre>
+    <pre data-title="onchange-events" style={{ "max-height": "9em" }}>{events()}</pre>
     <div class="example">
-      <TextField
-        aria-orientation={vertical() ? 'vertical' : undefined}
-        multiline={multiline()}
-        type={multiline() ? undefined : type() as TextFieldType}
-        label="Textfield"
-        onchange={(v) => {
-          setValue(v);
-          setEvents(e => `onchange("${v}")\n${e}`);
-        }}
-        value={value()}
-      />
+      <TextField aria-orientation={vertical() ? 'vertical' : undefined} multiline={multiline()} type={multiline() ? undefined : type()} label="Textfield" onchange={(v) => {
+            setValue(v);
+            setEvents(e => `onchange("${v}")\n${e}`);
+        }} value={value()}/>
     </div>
-    <hr/>
-  </>
-}
+    <hr />
+  </>;
+};

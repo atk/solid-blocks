@@ -1,8 +1,6 @@
 import { Message } from "./message";
-
 export const MessageDocs = () => {
-  return (
-    <>
+    return (<>
       <h2 id="message-docs">Message</h2>
       <p>
         The message component is meant as a simple messaging container, to be
@@ -29,6 +27,5 @@ MessageProps {
 <Message type="error">Error Message</Message>`}
       </pre>
       <hr />
-    </>
-  );
+    </>);
 };

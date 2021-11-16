@@ -1,16 +1,15 @@
-import { createEffect, createSignal, Show } from "solid-js"
+import { createSignal, Show } from "solid-js";
 import { Button } from "./button";
 import { Message } from "./message";
 import { Select } from "./select";
 import { TextField } from "./textfield";
-import { Toast, ToastPosition } from "./toast";
-
+import { Toast } from "./toast";
 export const ToastDocs = () => {
-  const [shown, setShown] = createSignal(false);
-  const [pos, setPos] = createSignal<ToastPosition>('bottom-left');
-  const [timeout, setTimeout] = createSignal(0);
-  const [content, setContent] = createSignal('Toast content');
-  return <>
+    const [shown, setShown] = createSignal(false);
+    const [pos, setPos] = createSignal('bottom-left');
+    const [timeout, setTimeout] = createSignal(0);
+    const [content, setContent] = createSignal('Toast content');
+    return <>
     <h2 id="toast-docs">Toast</h2>
     <p>The toast component is meant to present live messages to the user without interrupting interactions.</p>
     <h3>Properties</h3>
@@ -36,7 +35,7 @@ ToastProps {
       <dt>onhide</dt>
       <dd>convenience callback that allows to perform an operation once the toast is hidden</dd>
     </dl>
-    <Select label="position" onchange={(p) => setPos(p as ToastPosition)} value={pos()}>
+    <Select label="position" onchange={(p) => setPos(p)} value={pos()}>
       <option value="top">top</option>
       <option value="top-right">top-right</option>
       <option value="top-left">top-left</option>
@@ -44,21 +43,15 @@ ToastProps {
       <option value="bottom-right">bottom-right</option>
       <option value="bottom-left">bottom-left</option>
     </Select>{" "}
-    <TextField type="number" min="0" label="timeout" onchange={(t) => setTimeout(Number(t))} value={timeout()} />{" "}
-    <TextField label="content" onchange={setContent} value={content()} /><br/><br/>
+    <TextField type="number" min="0" label="timeout" onchange={(t) => setTimeout(Number(t))} value={timeout()}/>{" "}
+    <TextField label="content" onchange={setContent} value={content()}/><br /><br />
     <div class="example">
       <Button onclick={() => setShown(s => !s)}>Toggle toast</Button>
       <Show when={shown()}>
-        <Toast 
-          position={pos()}
-          timeout={timeout()}
-          onhide={() => setShown(false)}
-        >{({hide}) => 
-          <Message type="info">
-            <Button style={{float: "right"}} variant="icon" onclick={hide}>✕</Button>
+        <Toast position={pos()} timeout={timeout()} onhide={() => setShown(false)}>{({ hide }) => <Message type="info">
+            <Button style={{ float: "right" }} variant="icon" onclick={hide}>✕</Button>
             {content()}
-          </Message>
-        }</Toast>
+          </Message>}</Toast>
       </Show></div>
       <pre>
         {`<Toast 
@@ -71,6 +64,6 @@ ToastProps {
   </Message>
 }</Toast>`}
       </pre>
-    <hr/>
-  </>
-}
+    <hr />
+  </>;
+};

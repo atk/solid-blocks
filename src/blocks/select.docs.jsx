@@ -1,11 +1,10 @@
-import { createSignal } from "solid-js"
+import { createSignal } from "solid-js";
 import { Checkbox } from "./checkbox";
 import { Select } from "./select";
-
 export const SelectDocs = () => {
-  const [vertical, setVertical] = createSignal(false);
-  const [events, setEvents] = createSignal('');
-  return <>
+    const [vertical, setVertical] = createSignal(false);
+    const [events, setEvents] = createSignal('');
+    return <>
     <h2 id="select-docs">Select</h2>
     <p>The select component is a form select component. Since it hides its content most of the time, it should be used sparingly; consider using a radio group instead. It takes normal &lt;option&gt; tags as child elements.</p>
     <h3>Properties</h3>
@@ -29,11 +28,7 @@ SelectProps {
     <Checkbox onchange={setVertical}>aria-orientation="vertical"</Checkbox>
     <pre data-title="onchange-events">{events()}</pre>
     <div class="example">
-      <Select
-        label="framework"
-        aria-orientation={vertical() ? 'vertical' : 'horizontal'}
-        onchange={(value) => setEvents(e => `onchange("${value}")\n${e}`)}
-      >
+      <Select label="framework" aria-orientation={vertical() ? 'vertical' : 'horizontal'} onchange={(value) => setEvents(e => `onchange("${value}")\n${e}`)}>
         <option value="solid">SolidJS</option>
         <option value="react">React</option>
         <option value="vue">Vue</option>
@@ -41,6 +36,6 @@ SelectProps {
         <option value="svelte">Svelte</option>
       </Select>
     </div>
-    <hr/>
-  </>
-}
+    <hr />
+  </>;
+};

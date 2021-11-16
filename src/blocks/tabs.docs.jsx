@@ -1,11 +1,10 @@
-import { createSignal } from "solid-js"
+import { createSignal } from "solid-js";
 import { Checkbox } from "./checkbox";
 import { Tab, TabContainer, Tabs } from "./tabs";
-
 export const TabsDocs = () => {
-  const [events, setEvents] = createSignal('');
-  const [vertical, setVertical] = createSignal(false);
-  return <>
+    const [events, setEvents] = createSignal('');
+    const [vertical, setVertical] = createSignal(false);
+    return <>
     <h2 id="tabs-docs">Tabs / Tab / TabContainer</h2>
     <p>The tabs component can hide content inside tab containers and make one at a time selectable via a tab. Inside the tabs component, tab and tab container elements can be mixed freely, so you can either group tab and container or have all the tabs first and then all the containers.</p>
     <p>If the number of tabs and tab containers will mismatched, a warning is emitted on the console.</p>
@@ -38,6 +37,6 @@ TabsProps {
         <TabContainer>Third tab container</TabContainer>
       </Tabs>
     </div>
-    <hr/>
-  </>
-}
+    <hr />
+  </>;
+};

@@ -1,7 +1,6 @@
-import { Tag, TagGroup } from "./tag"
-
+import { Tag, TagGroup } from "./tag";
 export const TagDocs = () => {
-  return <>
+    return <>
     <h2 id="tag-docs">Tag / TagGroup</h2>
     <p>The tag component can show short items, like hash tags, either in a text or as part of a tag group. You can use it as if you would use a link or a span, depending on if you use a <code>href</code>. If you link to a <code>target</code>, rel noopener will be automatically added for security reasons, but you can overwrite the rel if need be.</p>
     <h3>Properties</h3>
@@ -33,6 +32,6 @@ TagProps {
   <Tag href="https://typescriptlang.org" target="_blank">TypeScript</Tag>
 </TagGroup>`}
     </pre>
-    <hr/>
-  </>
-}
+    <hr />
+  </>;
+};

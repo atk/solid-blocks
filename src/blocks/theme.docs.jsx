@@ -13,41 +13,41 @@ export const ThemeDocs = () => <>
   <p>The color theme consists of the following css variables:</p>
   <dl>
     <dt>--text</dt>
-    <dd><span class="color-example" style={{background: 'var(--text)'}}></span> textual content, background for inverted content</dd>
+    <dd><span class="color-example" style={{ background: 'var(--text)' }}></span> textual content, background for inverted content</dd>
     <dt>--negative-text</dt>
-    <dd><span class="color-example" style={{background: 'var(--negative-text)'}}></span> textual content for inverted background</dd>
+    <dd><span class="color-example" style={{ background: 'var(--negative-text)' }}></span> textual content for inverted background</dd>
     <dt>--background</dt>
-    <dd><span class="color-example" style={{background: 'var(--background)'}}></span> default background</dd>
+    <dd><span class="color-example" style={{ background: 'var(--background)' }}></span> default background</dd>
     <dt>--primary</dt>
-    <dd><span class="color-example" style={{background: 'var(--primary)'}}></span> color for action elements like buttons, check marks etc.</dd>
+    <dd><span class="color-example" style={{ background: 'var(--primary)' }}></span> color for action elements like buttons, check marks etc.</dd>
     <dt>--primary-text</dt>
-    <dd><span class="color-example" style={{background: 'var(--primary-text)'}}></span> textual content within a primary background</dd>
+    <dd><span class="color-example" style={{ background: 'var(--primary-text)' }}></span> textual content within a primary background</dd>
     <dt>--success</dt>
-    <dd><span class="color-example" style={{background: 'var(--success)'}}></span> background for success messages</dd>
+    <dd><span class="color-example" style={{ background: 'var(--success)' }}></span> background for success messages</dd>
     <dt>--success-text</dt>
-    <dd><span class="color-example" style={{background: 'var(--success-text)'}}></span> textual content for success messages without a background</dd>
+    <dd><span class="color-example" style={{ background: 'var(--success-text)' }}></span> textual content for success messages without a background</dd>
     <dt>--info</dt>
-    <dd><span class="color-example" style={{background: 'var(--info)'}}></span> background for informational messages</dd>
+    <dd><span class="color-example" style={{ background: 'var(--info)' }}></span> background for informational messages</dd>
     <dt>--info-text</dt>
-    <dd><span class="color-example" style={{background: 'var(--info-text)'}}></span> textual content for informational messages without a background</dd>
+    <dd><span class="color-example" style={{ background: 'var(--info-text)' }}></span> textual content for informational messages without a background</dd>
     <dt>--warning</dt>
-    <dd><span class="color-example" style={{background: 'var(--warning)'}}></span> background for warning messages</dd>
+    <dd><span class="color-example" style={{ background: 'var(--warning)' }}></span> background for warning messages</dd>
     <dt>--warning-text</dt>
-    <dd><span class="color-example" style={{background: 'var(--warning-text)'}}></span> textual content for warning messages without a background</dd>
+    <dd><span class="color-example" style={{ background: 'var(--warning-text)' }}></span> textual content for warning messages without a background</dd>
     <dt>--error</dt>
-    <dd><span class="color-example" style={{background: 'var(--error)'}}></span> background for error messages</dd>
+    <dd><span class="color-example" style={{ background: 'var(--error)' }}></span> background for error messages</dd>
     <dt>--error-text</dt>
-    <dd><span class="color-example" style={{background: 'var(--error-text)'}}></span> textual content for error messages without a background</dd>
+    <dd><span class="color-example" style={{ background: 'var(--error-text)' }}></span> textual content for error messages without a background</dd>
     <dt>--random-color[1-8]</dt>
     <dd>
-      <span class="color-example" style={{background: 'var(--random-color1)'}}></span>
-      <span class="color-example" style={{background: 'var(--random-color2)'}}></span>
-      <span class="color-example" style={{background: 'var(--random-color3)'}}></span>
-      <span class="color-example" style={{background: 'var(--random-color4)'}}></span>
-      <span class="color-example" style={{background: 'var(--random-color5)'}}></span>
-      <span class="color-example" style={{background: 'var(--random-color6)'}}></span>
-      <span class="color-example" style={{background: 'var(--random-color7)'}}></span>
-      <span class="color-example" style={{background: 'var(--random-color8)'}}></span>{" "}
+      <span class="color-example" style={{ background: 'var(--random-color1)' }}></span>
+      <span class="color-example" style={{ background: 'var(--random-color2)' }}></span>
+      <span class="color-example" style={{ background: 'var(--random-color3)' }}></span>
+      <span class="color-example" style={{ background: 'var(--random-color4)' }}></span>
+      <span class="color-example" style={{ background: 'var(--random-color5)' }}></span>
+      <span class="color-example" style={{ background: 'var(--random-color6)' }}></span>
+      <span class="color-example" style={{ background: 'var(--random-color7)' }}></span>
+      <span class="color-example" style={{ background: 'var(--random-color8)' }}></span>{" "}
       randomly colored content, like avatars and tags
     </dd>
   </dl>
@@ -96,4 +96,4 @@ export const ThemeDocs = () => <>
     <dt>--breadcrumb-icon</dt>
     <dd>the default icon delimiting breadcrumbs</dd>
   </dl>
-</>
+</>;

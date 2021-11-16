@@ -1,16 +1,15 @@
-import { createSignal } from "solid-js"
+import { createSignal } from "solid-js";
 import { Checkbox } from "./checkbox";
 import { Radio, RadioGroup } from "./radio";
 import { Select } from "./select";
-import { Tooltip, TooltipPosition, TooltipTrigger } from "./tooltip";
-
+import { Tooltip } from "./tooltip";
 export const TooltipDocs = () => {
-  const [arrow, setArrow] = createSignal(true);
-  const [nowrap, setNowrap] = createSignal(false);
-  const [pos, setPos] = createSignal('s');
-  const triggers: [undefined, ...TooltipTrigger[]] = [undefined, true, false, ['focus'], 'hover'];
-  const [trigger, setTrigger] = createSignal("0");
-  return <>
+    const [arrow, setArrow] = createSignal(true);
+    const [nowrap, setNowrap] = createSignal(false);
+    const [pos, setPos] = createSignal('s');
+    const triggers = [undefined, true, false, ['focus'], 'hover'];
+    const [trigger, setTrigger] = createSignal("0");
+    return <>
     <h2 id="tooltip-docs">Tooltip</h2>
     <p>The tooltip component shows a helpful text around other components, i.e. buttons, form fields, etc.</p>
     <p>If the tooltip encapsulates plain text and should support focus, it will be wrapped in a span with tabindex=0.</p>
@@ -47,7 +46,7 @@ trigger?: SingularOrArray<TooltipTrigger>;
     </dl>
     <Checkbox onchange={setArrow} checked={arrow()}>arrow</Checkbox>{" "}
     <Checkbox onchange={setNowrap} checked={nowrap()}>nowrap</Checkbox>{" "}
-    <Select label="position" onchange={(p) => setPos(p as TooltipPosition)} value={pos()}>
+    <Select label="position" onchange={(p) => setPos(p)} value={pos()}>
       <option value="n">n - North</option>
       <option value="ne">ne - North east</option>
       <option value="e">e - East</option>
@@ -63,18 +62,12 @@ trigger?: SingularOrArray<TooltipTrigger>;
       <Radio value="2"> Always off</Radio>{" "}
       <Radio value="3"> Focus only</Radio>{" "}
       <Radio value="4"> Hover only</Radio>
-    </RadioGroup><br/><br/>
-    <div class="example" style={{display: 'flex', "align-items": "center", "justify-content": "center", height: "8em"}}>
-      <Tooltip
-        content="Tooltip content that is slightly longer"
-        arrow={arrow()}
-        nowrap={nowrap()}
-        position={pos() as TooltipPosition}
-        trigger={triggers[+trigger()]}
-      >
+    </RadioGroup><br /><br />
+    <div class="example" style={{ display: 'flex', "align-items": "center", "justify-content": "center", height: "8em" }}>
+      <Tooltip content="Tooltip content that is slightly longer" arrow={arrow()} nowrap={nowrap()} position={pos()} trigger={triggers[+trigger()]}>
         trigger text
       </Tooltip>
     </div>
-    <hr/>
-  </>
-}
+    <hr />
+  </>;
+};

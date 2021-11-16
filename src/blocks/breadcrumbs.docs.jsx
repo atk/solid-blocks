@@ -1,8 +1,6 @@
 import { Breadcrumbs } from "./breadcrumbs";
-
 export const BreadcrumbsDocs = () => {
-  return (
-    <>
+    return (<>
       <h2 id="breadcrumbs-docs">Breadcrumbs</h2>
       <p>
         The breadcrumbs component is as a means of navigating through
@@ -26,6 +24,5 @@ export const BreadcrumbsDocs = () => {
         </Breadcrumbs>
       </div>
       <hr />
-    </>
-  );
+    </>);
 };

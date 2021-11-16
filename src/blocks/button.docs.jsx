@@ -1,8 +1,6 @@
-import { Button } from './button'
-
+import { Button } from './button';
 export const ButtonDocs = () => {
-  return (
-    <>
+    return (<>
       <h2 id="button-docs">Button</h2>
       <p>
         The button component is meant as a versatile form or standalone button.
@@ -20,6 +18,5 @@ ButtonProps {
       </pre>
       <p>The default variant is primary. Otherwise, all HTML attributes applying to the button element can be used here.</p>
       <hr />
-    </>
-  );
+    </>);
 };

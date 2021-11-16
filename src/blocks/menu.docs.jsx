@@ -1,20 +1,10 @@
 import { createSignal } from "solid-js";
-import {
-  Menu,
-  MenuButton,
-  MenuItem,
-  MenuItemGroup,
-  MenuOption,
-  MenuOptionGroup,
-  MenuProps,
-} from "./menu";
+import { Menu, MenuButton, MenuItem, MenuItemGroup, MenuOption, MenuOptionGroup, } from "./menu";
 import { Radio, RadioGroup } from "./radio";
-
 export const MenuDocs = () => {
-  const [align, setAlign] = createSignal('center');
-  const [events, setEvents] = createSignal("");
-  return (
-    <>
+    const [align, setAlign] = createSignal('center');
+    const [events, setEvents] = createSignal("");
+    return (<>
       <h2 id="menu-docs">
         Menu / MenuButton / MenuItem / MenuItemGroup / MenuOption / MenuOptionGroup
       </h2>
@@ -92,14 +82,11 @@ MenuOptionsGroupProps {
         <Radio value="center"> center</Radio>
         <Radio value="right"> right</Radio>
       </RadioGroup>
-      <pre
-        data-title="onchange-calls"
-        style={{ "max-height": "6em", overflow: "auto" }}
-      >
+      <pre data-title="onchange-calls" style={{ "max-height": "6em", overflow: "auto" }}>
         {events()}
       </pre>
       <div class="example" style={{ "text-align": align() }}>
-        <Menu align={align() as MenuProps['align']}>
+        <Menu align={align()}>
           <MenuButton variant="icon">☰</MenuButton>
           <MenuItem>Item outside MenuItemGroup</MenuItem>
           <hr />
@@ -111,24 +98,11 @@ MenuOptionsGroupProps {
           <MenuItemGroup title="Another MenuItemGroup">
             <MenuItem>with a title</MenuItem>
           </MenuItemGroup>
-          <MenuOptionGroup
-            title="MenuOptionGroup type=radio"
-            onchange={(value) =>
-              setEvents((e) => `radio: onchange(${value})\n${e}`)
-            }
-          >
+          <MenuOptionGroup title="MenuOptionGroup type=radio" onchange={(value) => setEvents((e) => `radio: onchange(${value})\n${e}`)}>
             <MenuOption value="first">First radio option</MenuOption>
             <MenuOption value="second">Second radio option</MenuOption>
           </MenuOptionGroup>
-          <MenuOptionGroup
-            title="MenuOptionGroup type=checkbox"
-            type="checkbox"
-            onchange={(value) =>
-              setEvents(
-                (e) => `checkbox: onchange([${value.join(", ")}])\n${e}`
-              )
-            }
-          >
+          <MenuOptionGroup title="MenuOptionGroup type=checkbox" type="checkbox" onchange={(value) => setEvents((e) => `checkbox: onchange([${value.join(", ")}])\n${e}`)}>
             <MenuOption value="first">First checkbox option</MenuOption>
             <MenuOption value="second">Second checkbox option</MenuOption>
           </MenuOptionGroup>
@@ -166,6 +140,5 @@ MenuOptionsGroupProps {
 </Menu>`}
       </pre>
       <hr />
-    </>
-  );
+    </>);
 };

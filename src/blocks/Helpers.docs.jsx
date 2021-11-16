@@ -16,7 +16,7 @@ createLocalStorageSignal<T>(
 ): [Accessor<T>, Setter<T>]`}
   </pre>
   <p>If the initial value is null or undefined, it will not be set to localStorage.</p>
-  <hr/>
+  <hr />
   <h2 id="useMediaQuery-docs">useMediaQuery</h2>
   <p>This allows to react on <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Media_Queries/Using_media_queries" target="_blank" rel="noopener">media query</a> changes.</p>
   <pre data-title="function signature">
@@ -28,5 +28,5 @@ createLocalStorageSignal<T>(
 const isMobile = useMediaQuery('(max-width: 40em)');
 return <Show when={isMobile()}>Only shown in mobile</Show>`}
   </pre>
-  <hr/>
-</>
+  <hr />
+</>;

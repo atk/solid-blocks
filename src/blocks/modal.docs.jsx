@@ -1,15 +1,7 @@
 import { Button } from "./button";
-import {
-  Modal,
-  ModalBody,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-} from "./modal";
-
+import { Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, } from "./modal";
 export const ModalDocs = () => {
-  return (
-    <>
+    return (<>
       <h2 id="modal-docs">
         Modal / ModalContent / ModalHeader / ModalBody / ModalFooter
       </h2>
@@ -61,23 +53,14 @@ ModalProps {
       </dl>
       <div class="example" style="display: flex">
         <Modal closeOnClickOutside closeOnEsc>
-          {({ open, toggle }) => (
-            <>
-              <Button
-                aria-disabled={open()}
-                style={{ margin: "auto" }}
-                onclick={toggle}
-              >
+          {({ open, toggle }) => (<>
+              <Button aria-disabled={open()} style={{ margin: "auto" }} onclick={toggle}>
                 Press to open
               </Button>
               <ModalContent>
                 <ModalHeader>
                   Header
-                  <Button
-                    variant="icon"
-                    onclick={toggle}
-                    style={{ float: "right" }}
-                  >
+                  <Button variant="icon" onclick={toggle} style={{ float: "right" }}>
                     ✕
                   </Button>
                 </ModalHeader>
@@ -90,8 +73,7 @@ ModalProps {
                   <Button onclick={toggle}>OK</Button>
                 </ModalFooter>
               </ModalContent>
-            </>
-          )}
+            </>)}
         </Modal>
       </div>
       <pre>{`
@@ -127,6 +109,5 @@ ModalProps {
 )}
 </Modal>`}</pre>
       <hr />
-    </>
-  );
+    </>);
 };
