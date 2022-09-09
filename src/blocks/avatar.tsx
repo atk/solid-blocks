@@ -109,7 +109,7 @@ export type AvatarGroupProps = JSX.HTMLAttributes<HTMLDivElement> & {
 export const AvatarGroup: Component<AvatarGroupProps> = (props) => (
   <div
     {...props}
-    classList={mergeProps(props.classList ?? {}, { "sb-badge": true })}
+    classList={mergeProps(props.classList ?? {}, { "sb-avatar": true })}
     role="group"
     aria-haspopup={Array.isArray(props.children) && props.children.length > 3}
   />

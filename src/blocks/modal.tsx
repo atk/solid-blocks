@@ -90,7 +90,7 @@ export const Modal = (props: ModalProps): JSX.Element => {
   });
 
   const divProps = mergeProps(containerProps, {
-    role: "dialog",
+    role: "dialog" as JSX.HTMLAttributes<HTMLDivElement>['role'],
     tabIndex: -1,
     class: props.class ? `sb-modal ${props.class}` : "sb-modal",
     children: modalContent(),

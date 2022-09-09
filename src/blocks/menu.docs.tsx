@@ -98,7 +98,7 @@ MenuOptionsGroupProps {
       >
         {events()}
       </pre>
-      <div class="example" style={{ "text-align": align() }}>
+      <div class="example" style={`text-align: ${align()}`}>
         <Menu align={align() as MenuProps['align']}>
           <MenuButton variant="icon">☰</MenuButton>
           <MenuItem>Item outside MenuItemGroup</MenuItem>

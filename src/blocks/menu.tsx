@@ -309,7 +309,7 @@ export const MenuOptionGroup = (props: MenuOptionGroupProps): JSX.Element => {
       : (value) => setValue((prev) => (prev[0] === value ? prev : [value]))
   );
 
-  createEffect((lastVal) => {
+  createEffect((lastVal?: string | string[] | [string]) => {
     if (lastVal !== local.value) {
       setValue(
         Array.isArray(local.value)
@@ -322,12 +322,12 @@ export const MenuOptionGroup = (props: MenuOptionGroupProps): JSX.Element => {
     return local.value;
   }, local.value);
 
-  createEffect((lastVal) => {
+  createEffect((lastVal?: string[]) => {
     const newVal = value();
     if (
       props.type === "checkbox"
-        ? newVal.length === lastVal.length
-        : newVal[0] === lastVal[0]
+        ? newVal.length === lastVal?.length
+        : newVal[0] === lastVal?.[0]
     ) {
       return lastVal;
     }

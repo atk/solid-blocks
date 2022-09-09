@@ -1,21 +1,25 @@
 {
   "compilerOptions": {
     "target": "ESNext",
-    "module": "commonjs",
+    "module": "ESNext",
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
+    "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "declaration": true,
     "declarationDir": "./dist/types",
-    "emitDeclarationOnly": true,
     "strict": true,
     "jsx": "preserve",
     "jsxImportSource": "solid-js",
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "outDir": "dist/solid",
+    "types": []
   },
   "include": [
     "src/blocks"
   ],
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "dist"
   ]
 }

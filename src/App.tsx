@@ -212,7 +212,7 @@ const App: Component = () => {
         <Tab>TODO</Tab>
         <TabContainer>
           <ul>
-            <li>Improved package structure</li>
+            <li>SSR support</li>
             <li>
               Styles
               <ul>
@@ -223,7 +223,8 @@ const App: Component = () => {
             <li>
               More components:
               <ul>
-                <li>Icons</li>
+                <li>Icons / Logo</li>
+                <li>Round(Icon)Button</li>
               </ul>
             </li>
             <li>Release + publish official package</li>

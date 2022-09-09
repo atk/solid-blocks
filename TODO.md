@@ -2,11 +2,11 @@
 
 Road to first official release:
 
-- Improved package structure
-  - SSR/hydration support
+- SSR/hydration support
 - Styles:
   - extend + improve theme
   - basic spacings + sizes
 - Components:
-  - Icons
+  - Icons / Logo
+  - Round(Icon)Button
 - Release + publish official package
