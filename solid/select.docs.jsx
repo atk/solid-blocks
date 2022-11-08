@@ -3,6 +3,7 @@ import { Checkbox } from "./checkbox";
 import { Select } from "./select";
 export const SelectDocs = () => {
     const [vertical, setVertical] = createSignal(false);
+    const [invalid, setInvalid] = createSignal(false);
     const [events, setEvents] = createSignal('');
     return <>
     <h2 id="select-docs">Select</h2>
@@ -12,6 +13,7 @@ export const SelectDocs = () => {
       {`
 SelectProps {
   aria-orientation?: 'horizontal' | 'vertical'
+  aria-invalid?: 'true'
   label: JSX.Element
   onchange?: (value: string) => void
   value?: string
@@ -25,10 +27,11 @@ SelectProps {
       <dt>onchange</dt>
       <dd>a convenience handler for changes that will receive the value of the selected option tag</dd>
     </dl>
-    <Checkbox onchange={setVertical}>aria-orientation="vertical"</Checkbox>
+    <Checkbox onchange={setVertical}>aria-orientation="vertical"</Checkbox>{" "}
+    <Checkbox onchange={setInvalid}>aria-invalid="true"</Checkbox>
     <pre data-title="onchange-events">{events()}</pre>
     <div class="example">
-      <Select label="framework" aria-orientation={vertical() ? 'vertical' : 'horizontal'} onchange={(value) => setEvents(e => `onchange("${value}")\n${e}`)}>
+      <Select label="framework" aria-invalid={invalid() ? 'true' : undefined} aria-orientation={vertical() ? 'vertical' : 'horizontal'} onchange={(value) => setEvents(e => `onchange("${value}")\n${e}`)}>
         <option value="solid">SolidJS</option>
         <option value="react">React</option>
         <option value="vue">Vue</option>

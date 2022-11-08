@@ -39,6 +39,7 @@ RadioGroupProps {
         <Radio value="1"> First</Radio>
         <Radio value="2"> Second</Radio>
         <Radio value="3" disabled> Third</Radio>
+        <Radio value="4" aria-invalid="true"> Fourth</Radio>
       </RadioGroup>
     </div>
     <hr />

@@ -5,6 +5,7 @@ export const CheckboxDocs = () => {
     const [asSwitch, setAsSwitch] = createSignal(false);
     const [checked, setChecked] = createSignal(false);
     const [disabled, setDisabled] = createSignal(false);
+    const [invalid, setInvalid] = createSignal(false);
     const [events, setEvents] = createSignal('');
     return <>
     <h2 id="checkbox-docs">Checkbox</h2>
@@ -32,12 +33,13 @@ CheckboxProps {
       <Checkbox onchange={() => setAsSwitch(s => !s)}>switch</Checkbox>{" "}
       <Checkbox onchange={() => setChecked(c => !c)}>checked</Checkbox>{" "}
       <Checkbox onchange={() => setDisabled(d => !d)}>disabled</Checkbox>{" "}
+      <Checkbox onchange={() => setInvalid(i => !i)}>invalid</Checkbox>
       <br /><br />
       <pre data-title="onchange-calls" style={{ "max-height": "6em", "overflow": "auto" }}>
         {events()}
       </pre>
       <div class="example">
-        <Checkbox align={alignRight() ? 'right' : 'left'} switch={asSwitch()} checked={checked()} disabled={disabled()} onchange={(checked) => setEvents((e) => `onchange(${checked})\n${e}`)}> Example Checkbox </Checkbox>
+        <Checkbox align={alignRight() ? 'right' : 'left'} switch={asSwitch()} checked={checked()} disabled={disabled()} aria-invalid={invalid() || undefined} onchange={(checked) => setEvents((e) => `onchange(${checked})\n${e}`)}> Example Checkbox </Checkbox>
       </div>
     <hr />
   </>;

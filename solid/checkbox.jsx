@@ -5,6 +5,7 @@ export const Checkbox = (props) => {
     const [inputProps, content, labelProps] = splitProps(props, [
         "accessKey",
         "aria-disabled",
+        "aria-invalid",
         "autofocus",
         "checked",
         "class",
