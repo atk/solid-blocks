@@ -33,6 +33,7 @@ export const Radio: Component<RadioProps> = (props) => {
       "accessKey",
       "align",
       "aria-disabled",
+      "aria-invalid",
       "autofocus",
       "checked",
       "class",

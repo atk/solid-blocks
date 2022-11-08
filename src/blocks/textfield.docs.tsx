@@ -8,6 +8,7 @@ export const TextfieldDocs = () => {
   const [multiline, setMultiline] = createSignal(false);
   const [value, setValue] = createSignal('');
   const [type, setType] = createSignal('text');
+  const [invalid, setInvalid] = createSignal(false);
   const [events, setEvents] = createSignal('');
   return <>
     <h2 id="textfield-docs">Textfield</h2>
@@ -17,6 +18,7 @@ export const TextfieldDocs = () => {
     <pre>
       {`
 TextfieldProps {
+  aria-invalid?: 'true'
   aria-orientation?: 'horizontal' | 'vertical'
   multiline?: boolean
   label: JSX.Element
@@ -25,6 +27,8 @@ TextfieldProps {
 }`}
     </pre>
     <dl>
+      <dt>aria-invalid</dt>
+      <dd>marks the field content as invalid</dd>
       <dt>aria-orientation</dt>
       <dd>if set to vertical, the label will be shown on the left of the field</dd>
       <dt>multiline</dt>
@@ -54,10 +58,12 @@ TextfieldProps {
       <option value="time">time</option>
       <option value="url">url</option>
       <option value="week">week</option>
-    </Select>
+    </Select>{" "}
+    <Checkbox onChange={() => setInvalid(i => !i)}>invalid</Checkbox>
     <pre data-title="onchange-events" style={{"max-height": "9em"}}>{events()}</pre>
     <div class="example">
       <TextField
+        aria-invalid={invalid() ? 'true' : undefined}
         aria-orientation={vertical() ? 'vertical' : undefined}
         multiline={multiline()}
         type={multiline() ? undefined : type() as TextFieldType}

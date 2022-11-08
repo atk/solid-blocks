@@ -15,6 +15,13 @@
   background: var(--background);
   color: var(--text);
 }
+.sb-select > select[aria-invalid] {
+  border-color: var(--error-text);
+  color: var(--error-text);
+}
+.sb-select:has(select[aria-invalid]) {
+  color: var(--error-text);
+}
 .sb-select:not([aria-orientation="vertical"]) .sb-select-label {
   display: inline-block;
   margin-right: 0.5em;

@@ -29,11 +29,13 @@ export const Checkbox: Component<CheckboxProps> = (props) => {
     [
       "accessKey",
       "aria-disabled",
+      "aria-invalid",
       "autofocus",
       "checked",
       "class",
       "disabled",
       "id",
+      "invalid",
       "name",
       "onclick",
       "onkeydown",

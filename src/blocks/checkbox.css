@@ -5,7 +5,7 @@
   display: inline-block;
   appearance: none;
   cursor: pointer;
-  border: var(--hair-line) solid var(--border-color);
+  border: var(--normal-line) solid var(--border-color);
   border-radius: var(--border-radius);
   width: 1.125em;
   height: 1.125em;
@@ -16,7 +16,7 @@
 .sb-checkbox input[type="checkbox"]:before {
   content: ' ';
   position: absolute;
-  line-height: 1.5em;
+  line-height: 1.25em;
   left: 50%;
   height: 50%;
   transform: translate(-50%, -50%);
@@ -34,7 +34,17 @@
 .sb-checkbox input[type="checkbox"]:disabled:before {
   color: var(--border-color);
 }
+.sb-checkbox input[type="checkbox"][aria-invalid] {
+  border-color: var(--error-text);
+}
+.sb-checkbox input[type="checkbox"][aria-invalid]:before {
+  color: var(--error-text);
+}
+.sb-checkbox:has(input[type="checkbox"][aria-invalid]) {
+  color: var(--error-text);
+}
 .sb-checkbox input[type="checkbox"][role="switch"] {
+  border-width: var(--hair-line);
   border-radius: 0.5125em;
   width: 2em;
   transition: background 0.1s linear;
@@ -63,4 +73,7 @@
 }
 .sb-checkbox input[type="checkbox"][role="switch"]:disabled:before {
   background: var(--border-color);
+}
+.sb-checkbox input[type="checkbox"][role="switch"][aria-invalid] {
+  background: var(--error-text);
 }

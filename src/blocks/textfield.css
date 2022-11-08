@@ -33,3 +33,11 @@
   height: 0;
   display: block;
 }
+.sb-textfield input[aria-invalid],
+.sb-textfield textarea[aria-invalid] {
+  border-color: var(--error-text);
+  color: var(--error-text);
+}
+.sb-textfield:has(input[aria-invalid], textarea[aria-invalid]) {
+  color: var(--error-text);
+}

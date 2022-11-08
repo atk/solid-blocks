@@ -30,6 +30,15 @@
 .sb-radio input[type="radio"]:disabled {
   background: var(--border-color);
 }
+.sb-radio input[type="radio"][aria-invalid] {
+  border-color: var(--error-text);
+}
+.sb-radio input[type="radio"][aria-invalid]:before {
+  color: var(--error-text);
+}
+.sb-radio:has(input[type="radio"][aria-invalid]) {
+  color: var(--error-text);
+}
 .sb-radiogroup[role="radiogroup"] {
   display: inline-block;
 }
