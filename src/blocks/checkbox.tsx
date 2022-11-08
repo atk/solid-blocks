@@ -35,7 +35,6 @@ export const Checkbox: Component<CheckboxProps> = (props) => {
       "class",
       "disabled",
       "id",
-      "invalid",
       "name",
       "onclick",
       "onkeydown",

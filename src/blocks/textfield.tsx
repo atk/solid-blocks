@@ -42,7 +42,7 @@ export const TextField: Component<TextFieldProps> = (props) => {
     "onchange",
     "children",
   ]);
-  const changeHandler = createMemo(() => (ev: InputEvent) => 
+  const changeHandler = createMemo(() => (ev: Event) => 
     local.onchange?.((ev.target as HTMLInputElement | HTMLTextAreaElement).value));
 
   return (

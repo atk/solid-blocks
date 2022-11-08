@@ -24,20 +24,20 @@
   "scripts": {
     "start": "vite",
     "dev": "vite",
-    "typecheck": "tsc --no-emit",
+    "typecheck": "tsc --noEmit",
     "build": "vite build; vite -c vite.config.lib.ts build; tsc",
     "prepare": "npm run build"
   },
   "license": "MIT",
   "devDependencies": {
-    "typescript": "^4.8.3",
-    "vite": "^3.0.1",
-    "vite-plugin-solid": "^2.3.0"
+    "typescript": "^4.8.4",
+    "vite": "^3.2.3",
+    "vite-plugin-solid": "^2.4.0"
   },
   "dependencies": {
-    "solid-js": "^1.5.4"
+    "solid-js": "^1.6.1"
   },
   "peerDependencies": {
-    "solid-js": "^1.5.4"
+    "solid-js": "^1.6.1"
   }
 }
