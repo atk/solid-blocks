@@ -2,7 +2,7 @@ import { Accessor, Component, JSX } from "solid-js";
 import "./base.css";
 import "./modal.css";
 import { WrappedElement } from "./tools";
-declare type WrappedModalContentProps = {
+export declare type WrappedModalContentProps = {
     open: Accessor<boolean>;
     /**
      * toggle
@@ -28,4 +28,3 @@ export declare type ModalBodyProps = JSX.HTMLAttributes<HTMLElement>;
 export declare const ModalBody: Component<ModalBodyProps>;
 export declare type ModalFooterProps = JSX.HTMLAttributes<HTMLElement>;
 export declare const ModalFooter: Component<ModalFooterProps>;
-export {};
