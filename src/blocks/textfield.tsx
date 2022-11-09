@@ -21,7 +21,7 @@ export type TextFieldType =
   | "url"
   | "week";
 
-type TextFieldProps = {
+export type TextFieldProps = {
   "aria-orientation"?: "horizontal" | "vertical";
   multiline?: boolean;
   label: JSX.Element;

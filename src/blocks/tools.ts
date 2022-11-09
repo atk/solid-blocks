@@ -40,7 +40,7 @@ export const getRandom = () => {
   return lastItem;
 };
 
-type MediaQueryItem = 
+export type MediaQueryItem = 
   |'all'
   | 'print'
   | 'screen' 
@@ -60,8 +60,8 @@ type MediaQueryItem =
     | 'scan'
     | 'width'
   }: ${string})`;
-type MediaQueryOperator = ' and ' | ' not ' | ' only ' | ', ';
-type MediaQueryString = 
+export type MediaQueryOperator = ' and ' | ' not ' | ' only ' | ', ';
+export type MediaQueryString = 
   | MediaQueryItem
   | `${MediaQueryItem}${MediaQueryOperator}${MediaQueryItem}`
 

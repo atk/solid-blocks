@@ -16,7 +16,7 @@ import "./base.css";
 import "./modal.css";
 import { getElements, WrappedElement } from "./tools";
 
-type WrappedModalContentProps = {
+export type WrappedModalContentProps = {
   open: Accessor<boolean>;
   /**
    * toggle

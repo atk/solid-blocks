@@ -114,5 +114,3 @@ export type TabContainerProps = JSX.HTMLAttributes<HTMLDivElement>;
 export const TabContainer: Component<TabContainerProps> = (props) => {
   return <div role="tabpanel" {...props} />;
 };
-
-type x = ReturnType<typeof TabContainer>;
