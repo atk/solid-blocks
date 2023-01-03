@@ -137,3 +137,17 @@ export const getElements = (
   }
   return result;
 };
+
+// TODO: types
+export const runEvent = <
+  E extends Event,
+  T extends HTMLElement,
+  EV = E & { currentTarget: T, target: Element },
+  EU = JSX.EventHandlerUnion<T, E>
+>(ev: EV, handler?: EU): void => {
+  if (Array.isArray(handler)) {
+    handler[1](handler[0], ev);
+  } else if (typeof handler === "function") {
+    handler(ev);
+  }
+}

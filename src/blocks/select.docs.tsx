@@ -28,15 +28,15 @@ SelectProps {
       <dt>onchange</dt>
       <dd>a convenience handler for changes that will receive the value of the selected option tag</dd>
     </dl>
-    <Checkbox onchange={setVertical}>aria-orientation="vertical"</Checkbox>{" "}
-    <Checkbox onchange={setInvalid}>aria-invalid="true"</Checkbox>
-    <pre data-title="onchange-events">{events()}</pre>
+    <Checkbox setChecked={setVertical}>aria-orientation="vertical"</Checkbox>{" "}
+    <Checkbox setChecked={setInvalid}>aria-invalid="true"</Checkbox>
+    <pre data-title="setValue-calls">{events()}</pre>
     <div class="example">
       <Select
         label="framework"
         aria-invalid={invalid() ? 'true' : undefined}
         aria-orientation={vertical() ? 'vertical' : 'horizontal'}
-        onchange={(value) => setEvents(e => `onchange("${value}")\n${e}`)}
+        setValue={(value) => setEvents(e => `setValue("${value}")\n${e}`)}
       >
         <option value="solid">SolidJS</option>
         <option value="react">React</option>

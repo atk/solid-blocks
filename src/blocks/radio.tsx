@@ -1,17 +1,25 @@
 import {
+  Accessor,
   Component,
+  createSelector,
+  createSignal,
   JSX,
-  splitProps,
+  on,
+  Setter,
+  splitProps,  
   Show,
+  createContext,
   createEffect,
-  onMount,
+  useContext
 } from "solid-js";
+import { runEvent } from "./tools";
 
 import "./base.css";
 import "./radio.css";
 
-export type RadioProps = JSX.HTMLAttributes<HTMLLabelElement> &
-  JSX.HTMLAttributes<HTMLInputElement> & {
+export const radioContext = createContext<[Accessor<string>, Setter<string>, (value: string) => boolean] | []>([]);
+
+export type RadioProps = JSX.HTMLAttributes<HTMLInputElement> & {
     /**
      * align the checkbox inside its label
      * can be 'left' or 'right; default is 'left'
@@ -19,9 +27,10 @@ export type RadioProps = JSX.HTMLAttributes<HTMLLabelElement> &
     align?: "left" | "right";
     autofocus?: boolean;
     checked?: boolean;
+    setChecked?: (checked?: boolean) => void;
     disabled?: boolean;
     name?: string;
-    oninvalid?: JSX.EventHandler<HTMLInputElement, Event>;
+    onInvalid?: JSX.EventHandler<HTMLInputElement, Event>;
     required?: boolean;
     value?: string;
   };
@@ -49,86 +58,64 @@ export const Radio: Component<RadioProps> = (props) => {
       "required",
       "value",
     ],
-    ["align", "children"]
+    ["align", "checked", "onChange", "setChecked", "children"]
   );
 
+  const [_value, setValue, isValueActive] = useContext(radioContext);
+  
   return (
     <label
       class={`${content.align || "left"} sb-radio${
         inputProps.disabled ? " disabled" : ""
       }`}
-      {...labelProps}
+      {...labelProps as JSX.HTMLAttributes<HTMLLabelElement>}
     >
       <Show when={content.align === "right"}>{content.children}</Show>
-      <input type="radio" {...inputProps} />
+      <input
+        type="radio"
+        ref={props.ref}
+        {...inputProps}
+        checked={isValueActive ? isValueActive(inputProps.value || "") : content.checked}
+        onChange={(ev: Event & { currentTarget: HTMLInputElement, target: Element }): void => {
+          runEvent(ev, content.onChange);
+          content.setChecked?.(ev.currentTarget.checked);
+          if (ev.currentTarget.checked) {
+            setValue?.(props.value || "");
+          }
+        }}
+      />
       <Show when={content.align !== "right"}>{content.children}</Show>
     </label>
   );
 };
 
-export type RadioGroupProps = Omit<
-  JSX.HTMLAttributes<HTMLDivElement>,
-  "onchange"
-> & {
-  onchange?: (value: string) => void;
-  value?: string;
+export type RadioGroupProps = JSX.HTMLAttributes<HTMLDivElement> & {
+  setValue?: (value: string) => void;
+  value?: Accessor<string>;
 };
 
-let radioGroups = 1;
-
-export const RadioGroup: Component<RadioGroupProps> = (props) => {
+export const RadioGroup: Component<RadioGroupProps> = (props) => {  
   const [local, divProps] = splitProps(props, [
-    "onchange",
+    "setValue",
     "value",
     "children",
   ]);
+  const [value, setValue] = createSignal(typeof props.value === 'function' ? props.value() : "");
 
-  let group!: HTMLDivElement;
-  onMount(() => {
-    const items = group.querySelectorAll('input[type="radio"]');
-    if (
-      Array.prototype.some.call(items, (item) => !item.hasAttribute("name"))
-    ) {
-      const name = (
-        Array.prototype.find.call(items, (item) =>
-          item.hasAttribute("name")
-        ) || { name: `sb-radio-group-${radioGroups++}` }
-      ).name;
-      Array.prototype.forEach.call(items, (item) => {
-        item.setAttribute("name", name);
-      });
-    }
-  });
-  createEffect(() => {
-    if (local.value) {
-      const items = group.querySelectorAll('input[type="radio"]');
-      Array.prototype.forEach.call(items, (item) => {
-        item.checked = item.value === local.value;
-      });
-    }
-  });
-
-  let value = local.value;
-  const changeHandler = () => {
-    const newValue = group?.querySelector<HTMLInputElement>('input[type="radio"]:checked')?.value;
-    if (newValue && value !== newValue) {
-      local.onchange?.(newValue);
-      value = newValue;
-    }
-  };
-
+  createEffect(() => setValue(typeof props.value === 'function' ? props.value() : ""));
+  createEffect(on([value], ([value]) => local.setValue?.(value), { defer: true }));
+  
   return (
-    <div
-      ref={group}
-      role="radiogroup"
-      onkeyup={changeHandler}
-      onclick={changeHandler}
-      {...divProps}
-      class={
-        divProps.class ? `sb-radiogroup ${divProps.class}` : "sb-radiogroup"
-      }
-    >
-      {local.children}
-    </div>
+    <radioContext.Provider value={[value, setValue, createSelector(value)]}>
+      <div
+        role="radiogroup"
+        {...divProps}
+        class={
+          divProps.class ? `sb-radiogroup ${divProps.class}` : "sb-radiogroup"
+        }
+      >
+        {local.children}
+      </div>
+    </radioContext.Provider>
   );
 };

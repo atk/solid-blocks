@@ -1,5 +1,6 @@
-import { Component, createMemo, JSX, splitProps, mergeProps } from "solid-js";
-import { Dynamic } from "solid-js/web";
+import { Component, JSX, splitProps, mergeProps } from "solid-js";
+import { Show } from "solid-js/web";
+import { runEvent } from "./tools";
 
 import "./base.css";
 import "./textfield.css";
@@ -21,17 +22,22 @@ export type TextFieldType =
   | "url"
   | "week";
 
-export type TextFieldProps = {
+export type SingleLineTextFieldProps = JSX.InputHTMLAttributes<HTMLInputElement> & {
   "aria-orientation"?: "horizontal" | "vertical";
-  multiline?: boolean;
+  multiline?: false;
   label: JSX.Element;
   type?: TextFieldType;
-  onchange?: (value: string) => void;
-} & Omit<
-  JSX.InputHTMLAttributes<HTMLInputElement> &
-    JSX.TextareaHTMLAttributes<HTMLTextAreaElement>,
-  "onchange"
->;
+  setValue?: (value: string) => void;
+};
+
+export type MultiLineTextFieldProps = JSX.TextareaHTMLAttributes<HTMLTextAreaElement> & {
+  "aria-orientation"?: "horizontal" | "vertical";
+  multiline: true;
+  label: JSX.Element;
+  setValue?: (value: string) => void;
+};
+
+export type TextFieldProps = SingleLineTextFieldProps | MultiLineTextFieldProps;
 
 export const TextField: Component<TextFieldProps> = (props) => {
   const [local, fieldProps] = splitProps(props, [
@@ -39,11 +45,10 @@ export const TextField: Component<TextFieldProps> = (props) => {
     "classList",
     "label",
     "multiline",
-    "onchange",
+    "onInput",
     "children",
+    "setValue"
   ]);
-  const changeHandler = createMemo(() => (ev: Event) => 
-    local.onchange?.((ev.target as HTMLInputElement | HTMLTextAreaElement).value));
 
   return (
     <label
@@ -51,12 +56,23 @@ export const TextField: Component<TextFieldProps> = (props) => {
       aria-orientation={props["aria-orientation"]}
     >
       <span class="sb-textfield-label">{local.label}</span>
-      <Dynamic
-        component={props.multiline ? 'textarea' : 'input'}
-        onchange={changeHandler()}
-        {...fieldProps}
-        type={!props.multiline ? fieldProps.type ?? 'text' : undefined}
-      />      
+      <Show when={local.multiline} fallback={
+        <input
+          {...fieldProps as JSX.HTMLAttributes<HTMLInputElement>}
+          onInput={(ev) => {
+            runEvent(ev, local.onInput);
+            local.setValue?.(ev.currentTarget.value);
+          }}
+        />
+      }>
+        <textarea
+          {...fieldProps as JSX.HTMLAttributes<HTMLTextAreaElement>}
+          onInput={(ev) => {
+            runEvent(ev, local.onInput);
+            local.setValue?.(ev.currentTarget.value); 
+          }}
+        />
+      </Show>
       {local.children}
     </label>
   );

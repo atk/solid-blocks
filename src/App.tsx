@@ -84,7 +84,7 @@ const App: Component = () => {
           </Button>
           <Checkbox
             switch
-            onchange={(on) => setDarkMode(on)}
+            setChecked={setDarkMode}
             checked={darkMode()}
             style={{ "white-space": "nowrap" }}
           >
@@ -212,6 +212,7 @@ const App: Component = () => {
         <Tab>TODO</Tab>
         <TabContainer>
           <ul>
+            <li>Rewrite components that overuse DOM events</li>
             <li>SSR support</li>
             <li>
               Styles
@@ -225,9 +226,9 @@ const App: Component = () => {
               <ul>
                 <li>Icons / Logo</li>
                 <li>Round(Icon)Button</li>
+                <li>Custom DropDown</li>
               </ul>
             </li>
-            <li>Release + publish official package</li>
           </ul>
         </TabContainer>
         <Tab>Concepts</Tab>

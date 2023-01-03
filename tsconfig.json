@@ -16,7 +16,7 @@
     "types": []
   },
   "include": [
-    "src/blocks"
+    "src"
   ],
   "exclude": [
     "node_modules",

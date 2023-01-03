@@ -45,9 +45,9 @@ trigger?: SingularOrArray<TooltipTrigger>;
         </ul>
       </dd>
     </dl>
-    <Checkbox onchange={setArrow} checked={arrow()}>arrow</Checkbox>{" "}
-    <Checkbox onchange={setNowrap} checked={nowrap()}>nowrap</Checkbox>{" "}
-    <Select label="position" onchange={(p) => setPos(p as TooltipPosition)} value={pos()}>
+    <Checkbox setChecked={setArrow} checked={arrow()}>arrow</Checkbox>{" "}
+    <Checkbox setChecked={setNowrap} checked={nowrap()}>nowrap</Checkbox>{" "}
+    <Select label="position" setValue={(p) => setPos(p as TooltipPosition)} value={pos()}>
       <option value="n">n - North</option>
       <option value="ne">ne - North east</option>
       <option value="e">e - East</option>
@@ -57,7 +57,7 @@ trigger?: SingularOrArray<TooltipTrigger>;
       <option value="w">w - West</option>
       <option value="nw">nw - North west</option>
     </Select>{" "}
-    <RadioGroup onchange={setTrigger} value={trigger()}>
+    <RadioGroup onchange={setTrigger} value={trigger}>
       <Radio value="0"> Default: Focus + Hover</Radio>{" "}
       <Radio value="1"> Always on</Radio>{" "}
       <Radio value="2"> Always off</Radio>{" "}

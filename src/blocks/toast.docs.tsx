@@ -1,4 +1,4 @@
-import { createEffect, createSignal, Show } from "solid-js"
+import { createSignal, Show } from "solid-js"
 import { Button } from "./button";
 import { Message } from "./message";
 import { Select } from "./select";
@@ -7,7 +7,7 @@ import { Toast, ToastPosition } from "./toast";
 
 export const ToastDocs = () => {
   const [shown, setShown] = createSignal(false);
-  const [pos, setPos] = createSignal<ToastPosition>('bottom-left');
+  const [pos, setPos] = createSignal('bottom-left');
   const [timeout, setTimeout] = createSignal(0);
   const [content, setContent] = createSignal('Toast content');
   return <>
@@ -36,7 +36,7 @@ ToastProps {
       <dt>onhide</dt>
       <dd>convenience callback that allows to perform an operation once the toast is hidden</dd>
     </dl>
-    <Select label="position" onchange={(p) => setPos(p as ToastPosition)} value={pos()}>
+    <Select label="position" setValue={setPos} value={pos()}>
       <option value="top">top</option>
       <option value="top-right">top-right</option>
       <option value="top-left">top-left</option>
@@ -50,7 +50,7 @@ ToastProps {
       <Button onclick={() => setShown(s => !s)}>Toggle toast</Button>
       <Show when={shown()}>
         <Toast 
-          position={pos()}
+          position={pos() as ToastPosition}
           timeout={timeout()}
           onhide={() => setShown(false)}
         >{({hide}) => 

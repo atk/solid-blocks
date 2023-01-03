@@ -2,6 +2,7 @@
 
 Road to first official release:
 
+- Rewrite components that overuse DOM events
 - SSR/hydration support
 - Styles:
   - extend + improve theme
@@ -9,4 +10,4 @@ Road to first official release:
 - Components:
   - Icons / Logo
   - Round(Icon)Button
-- Release + publish official package
+  - Custom DropDown

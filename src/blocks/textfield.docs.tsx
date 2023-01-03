@@ -40,9 +40,9 @@ TextfieldProps {
       <dt>onchange</dt>
       <dd>convenience handler to receive the value whenever it changes</dd>
     </dl>
-    <Checkbox onclick={() => setVertical(v => !v)}> aria-orientation="vertical"</Checkbox>{" "}
-    <Checkbox onclick={() => setMultiline(m => !m)}> multiline</Checkbox>{" "}
-    <Select onchange={setType} value={type()} label="type">
+    <Checkbox setChecked={setVertical} checked={vertical()}> aria-orientation="vertical"</Checkbox>{" "}
+    <Checkbox setChecked={setMultiline} checked={multiline()}> multiline</Checkbox>{" "}
+    <Select setValue={setType} value={type()} label="type">
       <option value="text">text</option>
       <option value="color">color</option>
       <option value="date">date</option>
@@ -59,8 +59,8 @@ TextfieldProps {
       <option value="url">url</option>
       <option value="week">week</option>
     </Select>{" "}
-    <Checkbox onChange={() => setInvalid(i => !i)}>invalid</Checkbox>
-    <pre data-title="onchange-events" style={{"max-height": "9em"}}>{events()}</pre>
+    <Checkbox setChecked={setInvalid}>invalid</Checkbox>
+    <pre data-title="setValue-calls" style={{"max-height": "9em"}}>{events()}</pre>
     <div class="example">
       <TextField
         aria-invalid={invalid() ? 'true' : undefined}
@@ -68,9 +68,9 @@ TextfieldProps {
         multiline={multiline()}
         type={multiline() ? undefined : type() as TextFieldType}
         label="Textfield"
-        onchange={(v) => {
+        setValue={(v) => {
           setValue(v);
-          setEvents(e => `onchange("${v}")\n${e}`);
+          setEvents(e => `setValue("${v}")\n${e}`);
         }}
         value={value()}
       />

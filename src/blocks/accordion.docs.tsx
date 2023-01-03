@@ -50,8 +50,8 @@ AccordionProps {
       <dd>An optional callback that will receive changes to the open state as a boolean argument</dd>
     </dl>
     <h4>Effect</h4>
-    <Checkbox onChange={() => setExampleOpen(open => !open)}> open: boolean</Checkbox>{" "}
-    <Checkbox onChange={() => setUseWrappedChilds(use => !use)}> use wrapped children: (open: boolean) =&gt; ...</Checkbox>
+    <Checkbox setChecked={setExampleOpen}> open: boolean</Checkbox>{" "}
+    <Checkbox setChecked={setUseWrappedChilds}> use wrapped children: (open: boolean) =&gt; ...</Checkbox>
     <pre data-title="ontoggle-calls" style={{"max-height": "6em", "overflow": "auto"}}>
       {events()}
     </pre>
@@ -81,8 +81,8 @@ AccordionGroupProps {
       <dd>if <code>true</code>, the last remaining accordion can be closed even though allowMultiple is set to <code>false</code></dd>
     </dl>
     <h4>Effect</h4>
-    <Checkbox checked={allowMultiple()} onchange={() => setAllowMultiple(a => !a)}> allowMultiple</Checkbox>{" "}
-    <Checkbox checked={allowToggle()} onchange={() => setAllowToggle(a => !a)}> allowToggle</Checkbox><br/><br/>
+    <Checkbox checked={allowMultiple()} setChecked={setAllowMultiple}> allowMultiple</Checkbox>{" "}
+    <Checkbox checked={allowToggle()} setChecked={setAllowToggle}> allowToggle</Checkbox><br/><br/>
     <div class="example" style={{ "min-height": "9em"}}>
       <AccordionGroup allowMultiple={allowMultiple()} allowToggle={allowToggle()}>
         <Accordion>

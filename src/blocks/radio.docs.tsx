@@ -3,7 +3,7 @@ import { Button } from "./button";
 import { Radio, RadioGroup } from "./radio"
 
 export const RadioDocs = () => {
-  const [value, setValue] = createSignal<"1" | "2">("2");
+  const [value, setValue] = createSignal("2");
   const [events, setEvents] = createSignal("");
   return <>
     <h2 id="radio-docs">Radio / RadioGroup</h2>
@@ -14,6 +14,7 @@ export const RadioDocs = () => {
 RadioProps {
   align?: 'left' | 'right';
   autofocus?: boolean;
+  setChecked?: (checked: boolean) => void;
   checked?: boolean;
   disabled?: boolean;
   name?: string;
@@ -21,8 +22,8 @@ RadioProps {
   value?: string;
 }
 RadioGroupProps {
-  onchange?: (value?: string) => void;
-  value?: string;
+  setValue?: (value?: string) => void;
+  value?: () => string;
 }`}
     </pre>
     <Button variant="secondary" onClick={() => setValue("1")}>
@@ -31,11 +32,11 @@ RadioGroupProps {
     <Button variant="secondary" onClick={() => setValue("2")}>
       Activate second
     </Button>
-    <pre data-title="onchange-events" style={{ "max-height": "9em" }}>{events()}</pre>
+    <pre data-title="setValue-calls" style={{ "max-height": "9em" }}>{events()}</pre>
     <div class="example">
-      <RadioGroup class="flex-row" value={value()} onchange={(value) => {
-        setEvents(e => `onchange(${value})\n${e}`)
-        setValue(value as "1" | "2");
+      <RadioGroup class="flex-row" value={value} setValue={(value) => {
+        setEvents(e => `setValue("${value}")\n${e}`);
+        setValue(value);
       }}>
         <Radio value="1"> First</Radio>
         <Radio value="2"> Second</Radio>

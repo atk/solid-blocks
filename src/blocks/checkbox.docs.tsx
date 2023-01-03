@@ -26,17 +26,17 @@ CheckboxProps {
         <dd>Whether the checkbox should be left or right from the content; default is left</dd>
         <dt>switch</dt>
         <dd>If the checkbox should be displayed as a switch instead</dd>
-        <dt>onchange</dt>
-        <dd>Instead of a normal event, this will call a function with the current checked state</dd>
+        <dt>setChecked</dt>
+        <dd>Fills a setter with a boolean checked state</dd>
       </dl>
       <h4>Effect</h4>
-      <label for="checkbox-alignment">left </label><Checkbox id="checkbox-alignment" switch onchange={() => setAlignRight(a => !a)}> right</Checkbox>{" "}
-      <Checkbox onchange={() => setAsSwitch(s => !s)}>switch</Checkbox>{" "}
-      <Checkbox onchange={() => setChecked(c => !c)}>checked</Checkbox>{" "}
-      <Checkbox onchange={() => setDisabled(d => !d)}>disabled</Checkbox>{" "}
-      <Checkbox onchange={() => setInvalid(i => !i)}>invalid</Checkbox>
+      <label for="checkbox-alignment">left </label><Checkbox id="checkbox-alignment" switch setChecked={setAlignRight}> right</Checkbox>{" "}
+      <Checkbox setChecked={setAsSwitch}>switch</Checkbox>{" "}
+      <Checkbox setChecked={setChecked}>checked</Checkbox>{" "}
+      <Checkbox setChecked={setDisabled}>disabled</Checkbox>{" "}
+      <Checkbox setChecked={setInvalid}>invalid</Checkbox>
       <br/><br/>
-      <pre data-title="onchange-calls" style={{"max-height": "6em", "overflow": "auto"}}>
+      <pre data-title="setChecked-calls" style={{"max-height": "6em", "overflow": "auto"}}>
         {events()}
       </pre>
       <div class="example">
@@ -46,7 +46,7 @@ CheckboxProps {
           checked={checked()}
           disabled={disabled()}
           aria-invalid={invalid() || undefined}
-          onchange={(checked) => setEvents((e) => `onchange(${checked})\n${e}`)}
+          setChecked={(checked) => setEvents((e) => `setChecked(${checked})\n${e}`)}
         > Example Checkbox </Checkbox>
       </div>
     <hr/>

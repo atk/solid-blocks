@@ -1,18 +1,22 @@
-import { Component, JSX, splitProps, onMount } from "solid-js";
+import { Component, JSX, splitProps, Accessor } from "solid-js";
+
+import { runEvent } from "./tools";
 
 import "./base.css";
 import "./select.css";
 
-export type SelectProps = Omit<
-  JSX.SelectHTMLAttributes<HTMLSelectElement>,
-  "onchange"
-> & { label: JSX.Element; onchange?: (value: string) => void };
+export type SelectProps = JSX.SelectHTMLAttributes<HTMLSelectElement> & {
+  label: JSX.Element;
+  setValue?: (value: string) => void;
+};
 
 export const Select: Component<SelectProps> = (props) => {
   const [local, fieldProps] = splitProps(props, [
-    "label",
-    "onchange",
     "aria-orientation",
+    "label",
+    "onChange",
+    "setValue",
+    "value"
   ]);
   return (
     <label
@@ -22,7 +26,10 @@ export const Select: Component<SelectProps> = (props) => {
       <span class="sb-select-label">{local.label}</span>
       <select
         {...fieldProps}
-        onchange={(ev) => local.onchange?.((ev.target as HTMLSelectElement).value)}
+        onChange={(ev: Event & { currentTarget: HTMLSelectElement, target: Element }): void => {
+          runEvent(ev, local.onChange);
+          local.setValue?.(ev.currentTarget.value);
+        }}
       />
     </label>
   );

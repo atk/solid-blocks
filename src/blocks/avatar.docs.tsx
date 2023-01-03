@@ -38,7 +38,7 @@ AvatarGroupProps {
     </pre>
     <h4>Effect</h4>
     <p>An avatargroup allows a condensed view of 2 or more avatars that can be extended with the <code>aria-expanded</code>-Attribute.</p>
-    <Checkbox onchange={() => setExpanded(e => !e)}> aria-expanded</Checkbox><br/><br/>
+    <Checkbox setChecked={setExpanded}> aria-expanded</Checkbox><br/><br/>
     <div class="example">
       <AvatarGroup aria-expanded={expanded()}>
         <Avatar img="https://avatars.githubusercontent.com/u/220405?s=60&v=4" name="Alex Lohr" />

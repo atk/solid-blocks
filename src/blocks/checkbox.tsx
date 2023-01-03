@@ -1,12 +1,11 @@
 import { Component, JSX, splitProps, Show } from "solid-js";
 
+import { runEvent } from "./tools";
+
 import "./base.css";
 import "./checkbox.css";
 
-export type CheckboxProps = Omit<
-  JSX.HTMLAttributes<HTMLLabelElement> & JSX.HTMLAttributes<HTMLInputElement>,
-  "onchange"
-> & {
+export type CheckboxProps = JSX.HTMLAttributes<HTMLInputElement> & {
   /**
    * align the checkbox inside its label
    * can be 'left' or 'right; default is 'left'
@@ -16,7 +15,7 @@ export type CheckboxProps = Omit<
   checked?: boolean;
   disabled?: boolean;
   name?: string;
-  onchange?: (checked: boolean) => void;
+  setChecked?: (checked: boolean) => void;
   oninvalid?: JSX.EventHandler<HTMLInputElement, Event>;
   required?: boolean;
   switch?: boolean;
@@ -44,24 +43,26 @@ export const Checkbox: Component<CheckboxProps> = (props) => {
       "required",
       "value",
     ],
-    ["align", "children", "onchange", "switch"]
+    ["align", "children", "onChange", "setChecked", "switch"]
   );
-
-  const changeHandler = (ev: Event) => content.onchange?.((ev.target as HTMLInputElement)?.checked);
-
+  
   return (
     <label
       class={`${content.align || "left"} ${
         content.switch ? " switch" : ""
       } sb-checkbox`}
-      {...labelProps}
+      {...labelProps as JSX.HTMLAttributes<HTMLLabelElement>}
     >
       <Show when={content.align === "right"}>{content.children}</Show>
       <input
+        ref={props.ref}
         type="checkbox"
         role={content.switch ? "switch" : undefined}
         {...inputProps}
-        onchange={changeHandler}
+        onChange={(ev: Event & { currentTarget: HTMLInputElement, target: Element }): void => {
+          runEvent(ev, content.onChange);
+          content.setChecked?.(ev.currentTarget.checked);
+        }}
       />
       <Show when={content.align !== "right"}>{content.children}</Show>
     </label>

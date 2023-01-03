@@ -87,7 +87,7 @@ MenuOptionsGroupProps {
           multiple selected checkboxes
         </dd>
       </dl>
-      <RadioGroup onchange={setAlign} value={align()}>
+      <RadioGroup onchange={setAlign} value={align}>
         <Radio value="left"> left</Radio>
         <Radio value="center"> center</Radio>
         <Radio value="right"> right</Radio>
