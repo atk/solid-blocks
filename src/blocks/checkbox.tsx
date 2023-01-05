@@ -59,7 +59,7 @@ export const Checkbox: Component<CheckboxProps> = (props) => {
         type="checkbox"
         role={content.switch ? "switch" : undefined}
         {...inputProps}
-        onChange={(ev: Event & { currentTarget: HTMLInputElement, target: Element }): void => {
+        onChange={(ev): void => {
           runEvent(ev, content.onChange);
           content.setChecked?.(ev.currentTarget.checked);
         }}

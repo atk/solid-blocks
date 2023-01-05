@@ -67,7 +67,8 @@ const App: Component = () => {
           <Button
             variant="icon"
             onClick={() =>
-              window.open("https://github.com/atk/solid-blocks", "_blank")
+              window.open("https://github.com/atk/solid-blocks", "_blank", "noopener,noreferrer") ||
+                location.assign("https://github.com/atk/solid-blocks")
             }
           >
             <svg

@@ -26,7 +26,7 @@ export const Select: Component<SelectProps> = (props) => {
       <span class="sb-select-label">{local.label}</span>
       <select
         {...fieldProps}
-        onChange={(ev: Event & { currentTarget: HTMLSelectElement, target: Element }): void => {
+        onChange={(ev): void => {
           runEvent(ev, local.onChange);
           local.setValue?.(ev.currentTarget.value);
         }}

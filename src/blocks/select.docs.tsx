@@ -25,7 +25,7 @@ SelectProps {
       <dd>if set to 'vertical', the label will be above the select field instead of to its left</dd>
       <dt>label</dt>
       <dd>the description of the select field</dd>
-      <dt>onchange</dt>
+      <dt>setValue</dt>
       <dd>a convenience handler for changes that will receive the value of the selected option tag</dd>
     </dl>
     <Checkbox setChecked={setVertical}>aria-orientation="vertical"</Checkbox>{" "}

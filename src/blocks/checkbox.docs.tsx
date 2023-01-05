@@ -18,7 +18,7 @@ export const CheckboxDocs = () => {
 CheckboxProps {
   align?: 'left' | 'right';
   switch?: boolean;
-  onchange?: (checked: boolean) => void;
+  setChecked?: (checked: boolean) => void;
 }`}
       </pre>
       <dl>
