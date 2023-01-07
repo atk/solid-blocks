@@ -1,77 +1,49 @@
-import { createSignal, createEffect, createMemo, mergeProps, } from "solid-js";
-import { getElements, getNearestNode } from "./tools";
+import { createContext, createEffect, createSignal, createSelector, createUniqueId, mergeProps, on, useContext } from "solid-js";
 import "./base.css";
 import "./tabs.css";
-const setTabState = (tab, nr, index) => {
-    const selected = nr === index;
-    if (tab?.getAttribute &&
-        (tab.getAttribute("aria-selected") === "true") !== selected) {
-        tab.setAttribute("aria-selected", selected ? "true" : "false");
-        tab.setAttribute("tabIndex", selected ? "-1" : "0");
-    }
-};
-const setPanelState = (panel, nr, index) => {
-    if (panel?.hasAttribute && panel.hasAttribute("hidden") === (nr === index)) {
-        panel[nr === index ? "removeAttribute" : "setAttribute"]("hidden", "hidden");
-    }
-};
+export const tabsContext = createContext([]);
 export const Tabs = (props) => {
-    const [selected, setSelected] = createSignal(props.index ?? 0);
-    const tabs = createMemo(() => getElements(props.children, "LI") || []);
-    const panels = createMemo(() => getElements(props.children, "DIV") || []);
-    createEffect(() => {
-        if (tabs().length !== panels().length) {
-            console.warn(`solid-blocks tabs: items count mismatch: ${tabs().length} tabs and ${panels().length}`);
-        }
-        const index = selected() % tabs().length;
-        props.onchange?.(index);
-        tabs().forEach((tab, nr) => {
-            const elem = tab;
-            setTabState(elem, nr, index);
-        });
-        panels().forEach((panel, nr) => {
-            const elem = panel;
-            setPanelState(elem, nr, index);
-        });
-    });
-    const clickHandler = (ev) => {
-        const tab = getNearestNode(ev.target, "LI");
-        if (!tab) {
-            return;
-        }
-        const index = Array.prototype.indexOf.call(tab.parentNode?.childNodes, tab);
-        if (index !== -1) {
-            setSelected(Number(index));
-        }
-    };
-    const keyupHandler = (ev) => {
-        const tab = getNearestNode(ev.target, "LI");
-        const tabs = tab?.parentElement?.childNodes ?? [];
-        const index = Array.prototype.indexOf.call(tabs, tab);
-        if (index !== -1) {
-            if (ev.key === " ") {
-                setSelected(index);
-            }
-            else if (ev.key === "ArrowLeft" && index !== 0) {
-                setSelected(index - 1);
-                tabs[index - 1].focus();
-            }
-            else if (ev.key === "ArrowRight" && index + 1 < tabs.length) {
-                setSelected(index + 1);
-                tabs[index + 1].focus();
-            }
-        }
-    };
-    return (<section classList={mergeProps(props.classList ?? {}, { "sb-tabs": true })}>
-      <ul role="tablist" aria-orientation={!props.vertical ? "horizontal" : "vertical"} onClick={clickHandler} onKeyUp={keyupHandler}>
-        {tabs()}
-      </ul>
-      {panels()}
-    </section>);
+    const [index, setIndex] = createSignal(props.index || 0);
+    const isActive = createSelector(index);
+    const indices = { tabs: -1, container: -1 };
+    const id = props.id || createUniqueId();
+    createEffect(on(index, (index) => props.setIndex?.(index), { defer: true }));
+    return (<tabsContext.Provider value={[
+            index,
+            (index) => index > indices.tabs
+                ? setIndex(indices.tabs)
+                : index >= 0
+                    ? setIndex(index)
+                    : setIndex(0),
+            isActive,
+            (isContainer) => isContainer ? ++indices.container : ++indices.tabs,
+            id
+        ]}>
+      <div classList={mergeProps(props.classList ?? {}, { "sb-tabs": true })}>
+        {props.children}
+      </div>
+    </tabsContext.Provider>);
 };
+export const tabListContext = createContext('');
+export const TabList = (props) => (<div role="tablist" {...props} aria-orientation={props["aria-orientation"]}/>);
 export const Tab = (props) => {
-    return <li role="tab" tabindex="0" {...props}/>;
+    const [_index, setIndex, isActive, getIndex, id] = useContext(tabsContext);
+    const [ref, setRef] = createSignal();
+    const index = getIndex ? getIndex(false) : -1;
+    const active = () => isActive && isActive(index);
+    createEffect(on(() => isActive && isActive(index), (active) => active && ref()?.focus(), { defer: true }));
+    return <button ref={setRef} role="tab" type="button" aria-selected={active()} tabIndex={!active() ? -1 : undefined} aria-controls={`${id}-container${index}`} id={`${id}-tab${index}`} onClick={setIndex && [(index) => setIndex(index), index]} onKeyDown={setIndex && [(index, ev) => ev.key === "Home"
+                ? (ev.preventDefault(), ev.stopPropagation(), setIndex(0))
+                : ev.key === "End"
+                    ? (ev.preventDefault(), ev.stopPropagation(), setIndex(Infinity))
+                    : ev.key === "ArrowLeft"
+                        ? setIndex(index - 1)
+                        : ev.key === "ArrowRight"
+                            ? setIndex(index + 1)
+                            : 0, index]} {...(active() ? {} : { tabIndex: -1 })} {...props}/>;
 };
 export const TabContainer = (props) => {
-    return <div role="tabpanel" {...props}/>;
+    const [_index, _setIndex, isActive, getIndex, id] = useContext(tabsContext);
+    const index = getIndex ? getIndex(true) : -1;
+    return <div role="tabpanel" id={`${id}-container${index}`} aria-labelledby={`${id}-tab${index}`} tabIndex={isActive && isActive(index) ? 0 : undefined} hidden={!isActive || isActive(index) ? undefined : true} {...props}/>;
 };

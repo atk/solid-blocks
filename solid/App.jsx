@@ -1,5 +1,5 @@
 import { Show } from "solid-js";
-import { Bar, Checkbox, Tabs, Tab, TabContainer, Tooltip, useDarkMode, Button, } from "./blocks";
+import { Bar, Checkbox, Tabs, Tab, TabContainer, Tooltip, useDarkMode, Button, TabList, } from "./blocks";
 import "./app.css";
 import { AccordionDocs } from "./blocks/accordion.docs";
 import { AvatarDocs } from "./blocks/avatar.docs";
@@ -61,7 +61,11 @@ const App = () => {
         </div>
       </Bar>
       <Tabs>
-        <Tab>Documentation</Tab>
+        <TabList>
+          <Tab>Documentation</Tab>
+          <Tab>TODO</Tab>
+          <Tab>Concepts</Tab>
+        </TabList>
         <TabContainer>
           <span class="to-top-wrapper">
             <Tooltip content="Back to top" position="n" nowrap>
@@ -175,7 +179,6 @@ const App = () => {
           <HelpersDocs />
           <ThemeDocs />
         </TabContainer>
-        <Tab>TODO</Tab>
         <TabContainer>
           <ul>
             <li>Rewrite components that overuse DOM events</li>
@@ -197,7 +200,6 @@ const App = () => {
             </li>
           </ul>
         </TabContainer>
-        <Tab>Concepts</Tab>
         <TabContainer>
           <h2 style={{ "margin-top": "0.5em" }}>
             Valuable components instead of components without added value
