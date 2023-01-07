@@ -17,6 +17,5 @@ export default defineConfig({
     },
     sourcemap: true,
     target: "modules",
-    polyfillDynamicImport: false,
   },
 });

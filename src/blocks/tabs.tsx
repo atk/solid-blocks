@@ -1,116 +1,115 @@
 import {
-  createSignal,
-  createEffect,
   Component,
   JSX,
-  createMemo,
+  createContext,
+  createEffect,
+  createSignal,
+  createSelector,
+  createUniqueId,
   mergeProps,
+  on,
+  useContext
 } from "solid-js";
-import { getElements, getNearestNode } from "./tools";
+
 import "./base.css";
 import "./tabs.css";
 
 export type TabsProps = Omit<JSX.HTMLAttributes<HTMLElement>, 'onchange'> & {
   index?: number;
-  vertical?: boolean;
-  onchange?: (index?: number) => void;
+  setIndex?: (index?: number) => void;
 };
 
-const setTabState = (tab: HTMLElement, nr: number, index: number) => {
-  const selected = nr === index;
-  if (
-    tab?.getAttribute &&
-    (tab.getAttribute("aria-selected") === "true") !== selected
-  ) {
-    tab.setAttribute("aria-selected", selected ? "true" : "false");
-    tab.setAttribute("tabIndex", selected ? "-1" : "0");
-  }
-};
-
-const setPanelState = (panel: HTMLElement, nr: number, index: number) => {
-  if (panel?.hasAttribute && panel.hasAttribute("hidden") === (nr === index)) {
-    panel[nr === index ? "removeAttribute" : "setAttribute"](
-      "hidden",
-      "hidden"
-    );
-  }
-};
+export const tabsContext = createContext<[
+  index: () => number,
+  setIndex: (index: number) => void,
+  isActive: (index: number) => boolean,
+  getIndex: (isContainer: boolean) => number,
+  id: string
+] | []>([]);
 
 export const Tabs: Component<TabsProps> = (props) => {
-  const [selected, setSelected] = createSignal(props.index ?? 0);
-  const tabs = createMemo(() => getElements(props.children, "LI") || []);
-  const panels = createMemo(() => getElements(props.children, "DIV") || []);
-
-  createEffect(() => {
-    if (tabs().length !== panels().length) {
-      console.warn(
-        `solid-blocks tabs: items count mismatch: ${tabs().length} tabs and ${
-          panels().length
-        }`
-      );
-    }
-    const index = selected() % tabs().length;
-    props.onchange?.(index);
-    tabs().forEach((tab, nr) => {
-      const elem = tab as HTMLLIElement;
-      setTabState(elem, nr, index);
-    });
-    panels().forEach((panel, nr) => {
-      const elem = panel as HTMLDivElement;
-      setPanelState(elem, nr, index);
-    });
-  });
-
-  const clickHandler = (ev: MouseEvent) => {
-    const tab = getNearestNode(ev.target, "LI") as HTMLLIElement | undefined;
-    if (!tab) {
-      return;
-    }
-    const index = Array.prototype.indexOf.call(tab.parentNode?.childNodes, tab);
-    if (index !== -1) {
-      setSelected(Number(index));
-    }
-  };
-  const keyupHandler = (ev: KeyboardEvent) => {
-    const tab = getNearestNode(ev.target, "LI") as HTMLLIElement | undefined;
-    const tabs = tab?.parentElement?.childNodes ?? [];
-    const index = Array.prototype.indexOf.call(tabs, tab);
-    if (index !== -1) {
-      if (ev.key === " ") {
-        setSelected(index);
-      } else if (ev.key === "ArrowLeft" && index !== 0) {
-        setSelected(index - 1);
-        (tabs[index - 1] as HTMLLIElement).focus();
-      } else if (ev.key === "ArrowRight" && index + 1 < tabs.length) {
-        setSelected(index + 1);
-        (tabs[index + 1] as HTMLLIElement).focus();
-      }
-    }
-  };
-
+  const [index, setIndex] = createSignal(props.index || 0);
+  const isActive = createSelector(index);
+  const indices = { tabs: -1, container: -1 };
+  const id = props.id || createUniqueId();
+  createEffect(on(index, (index) => props.setIndex?.(index), { defer: true }));
   return (
-    <section classList={mergeProps(props.classList ?? {}, { "sb-tabs": true })}>
-      <ul
-        role="tablist"
-        aria-orientation={!props.vertical ? "horizontal" : "vertical"}
-        onClick={clickHandler}
-        onKeyUp={keyupHandler}
-      >
-        {tabs()}
-      </ul>
-      {panels()}
-    </section>
+    <tabsContext.Provider value={[
+      index,
+      (index: number) => index > indices.tabs
+        ? setIndex(indices.tabs)
+        : index >= 0
+        ? setIndex(index)
+        : setIndex(0),
+      isActive,
+      (isContainer) => isContainer ? ++indices.container : ++indices.tabs,
+      id
+    ]}>
+      <div classList={mergeProps(props.classList ?? {}, { "sb-tabs": true })}>
+        {props.children}
+      </div>
+    </tabsContext.Provider>
   );
 };
 
-export type TabProps = JSX.HTMLAttributes<HTMLLIElement>;
+export type TabListProps = JSX.HTMLAttributes<HTMLDivElement>;
+
+export const tabListContext = createContext('');
+
+export const TabList: Component<TabListProps> = (props) => (
+  <div
+    role="tablist"
+    {...props}
+    aria-orientation={props["aria-orientation"]}
+  />
+);
+
+export type TabProps = JSX.HTMLAttributes<HTMLButtonElement>;
 
 export const Tab: Component<TabProps> = (props) => {
-  return <li role="tab" tabindex="0" {...props} />;
+  const [_index, setIndex, isActive, getIndex, id] = useContext(tabsContext);
+  const [ref, setRef] = createSignal<HTMLButtonElement>();
+  const index = getIndex ? getIndex(false) : -1;
+  const active = () => isActive && isActive(index);
+  createEffect(on(
+    () => isActive && isActive(index),
+    (active) => active && ref()?.focus(),
+    { defer: true }
+  ));
+  return <button
+    ref={setRef}
+    role="tab"
+    type="button"
+    aria-selected={active()}
+    tabIndex={!active() ? -1 : undefined}
+    aria-controls={`${id}-container${index}`}
+    id={`${id}-tab${index}`}
+    onClick={setIndex && [(index) => setIndex(index), index]}
+    onKeyDown={setIndex && [(index, ev) => ev.key === "Home"
+      ? (ev.preventDefault(), ev.stopPropagation(), setIndex(0))
+      : ev.key === "End"
+      ? (ev.preventDefault(), ev.stopPropagation(), setIndex(Infinity))
+      : ev.key === "ArrowLeft"
+      ? setIndex(index - 1)
+      : ev.key === "ArrowRight"
+      ? setIndex(index + 1)
+      : 0, index]}
+    {...(active() ? {} : { tabIndex: -1 })}
+    {...props}
+  />;
 };
 
 export type TabContainerProps = JSX.HTMLAttributes<HTMLDivElement>;
 
 export const TabContainer: Component<TabContainerProps> = (props) => {
-  return <div role="tabpanel" {...props} />;
+  const [_index, _setIndex, isActive, getIndex, id] = useContext(tabsContext);
+  const index = getIndex ? getIndex(true) : -1;
+  return <div
+    role="tabpanel"
+    id={`${id}-container${index}`}
+    aria-labelledby={`${id}-tab${index}`}
+    tabIndex={isActive && isActive(index) ? 0 : undefined}
+    hidden={!isActive || isActive(index) ? undefined : true }
+    {...props}
+  />;
 };

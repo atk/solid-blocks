@@ -1,6 +1,6 @@
 import { createSignal } from "solid-js"
 import { Checkbox } from "./checkbox";
-import { Tab, TabContainer, Tabs } from "./tabs";
+import { Tab, TabList, TabContainer, Tabs } from "./tabs";
 
 export const TabsDocs = () => {
   const [events, setEvents] = createSignal('');
@@ -9,32 +9,45 @@ export const TabsDocs = () => {
     <h2 id="tabs-docs">Tabs / Tab / TabContainer</h2>
     <p>The tabs component can hide content inside tab containers and make one at a time selectable via a tab. Inside the tabs component, tab and tab container elements can be mixed freely, so you can either group tab and container or have all the tabs first and then all the containers.</p>
     <p>If the number of tabs and tab containers will mismatched, a warning is emitted on the console.</p>
-    <h3>Properties</h3>
+    <h3>Structure and Properties</h3>
     <pre>
       {`
+<Tabs>
+  <TabList>
+    <Tab>…</Tab>
+    ⋮
+  </TabList>
+  <TabContainer>…</TabContainer>
+  ⋮
+</Tabs>
+
 TabsProps {
   index?: number
-  vertical?: boolean
-  onchange?: (index: number) => void
+  setIndex?: (index: number) => void
+}
+TabsListProps {
+  aria-orientation?: "horizontal" | "vertical"
 }`}
     </pre>
     <dl>
       <dt>index</dt>
       <dd>the number of the tab that should be opened</dd>
-      <dt>vertical</dt>
-      <dd>show the tabs on the left instead of the top</dd>
-      <dt>onchange</dt>
+      <dt>setIndex</dt>
       <dd>convenient handler that is called with the index of a selected tab</dd>
+      <dt>aria-orientation</dt>
+      <dd>if "vertical", show the tabs on the left instead of the top</dd>
     </dl>
-    <Checkbox onchange={() => setVertical(v => !v)}>vertical</Checkbox>
-    <pre data-title="onchange-events" style={{ "max-height": "9em" }}>{events()}</pre>
+    <Checkbox setChecked={setVertical}>vertical</Checkbox>
+    <pre data-title="setIndex-calls" style={{ "max-height": "9em" }}>{events()}</pre>
     <div class="example">
-      <Tabs vertical={vertical()} onchange={i => setEvents(e => `onchange(${i})\n${e}`)}>
-        <Tab>First tab</Tab>
+      <Tabs setIndex={i => setEvents(e => `setIndex(${i})\n${e}`)}>
+        <TabList aria-orientation={vertical() ? "vertical" : undefined}>
+          <Tab>First tab</Tab>
+          <Tab>Second tab</Tab>
+          <Tab>Third tab</Tab>
+        </TabList>
         <TabContainer>First tab container</TabContainer>
-        <Tab>Second tab</Tab>
         <TabContainer>Second tab container</TabContainer>
-        <Tab>Third tab</Tab>
         <TabContainer>Third tab container</TabContainer>
       </Tabs>
     </div>
