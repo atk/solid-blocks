@@ -1,19 +1,12 @@
-import { createMemo, createSignal } from 'solid-js';
-import { Dynamic } from 'solid-js/web';
+import { createSignal } from 'solid-js';
 import { Accordion, AccordionGroup, AccordionHeader } from './accordion';
 import { Checkbox } from './checkbox';
 
 export const AccordionDocs = () => {
   const [exampleOpen, setExampleOpen] = createSignal(false);
   const [events, setEvents] = createSignal('');
-  const [useWrappedChilds, setUseWrappedChilds] = createSignal(false);
   const [allowMultiple, setAllowMultiple] = createSignal(false);
   const [allowToggle, setAllowToggle] = createSignal(false);
-  const children = createMemo(() => 
-    useWrappedChilds() 
-      ? (open: boolean) => <><AccordionHeader>{open ? 'Open' : 'Closed'}</AccordionHeader><p>Rest</p></>
-      : <><AccordionHeader>Static header</AccordionHeader><p>static content</p></>
-  );
 
   return <>
     <h2 id="accordion-docs">Accordion</h2>
@@ -36,32 +29,29 @@ export const AccordionDocs = () => {
     <pre>
       {`
 AccordionProps {
-  children: JSX.Element | ((open: boolean) => JSX.Element);
   open?: boolean;
-  ontoggle?: (open?: boolean) => void;
+  setOpen?: (open?: boolean) => void;
 }`}
     </pre>
     <dl>
-      <dt>children</dt>
-      <dd>Can either be normal children or a function that receives the open state as a boolean and returns the children</dd>
       <dt>open</dt>
       <dd>Allows to set the open state from outside. If the outside state will not differ from the internal state, it will not change anything</dd>
-      <dt>ontoggle</dt>
+      <dt>setOpen</dt>
       <dd>An optional callback that will receive changes to the open state as a boolean argument</dd>
     </dl>
     <h4>Effect</h4>
     <Checkbox setChecked={setExampleOpen}> open: boolean</Checkbox>{" "}
-    <Checkbox setChecked={setUseWrappedChilds}> use wrapped children: (open: boolean) =&gt; ...</Checkbox>
     <pre data-title="ontoggle-calls" style={{"max-height": "6em", "overflow": "auto"}}>
       {events()}
     </pre>
     <div class="example" style={{"min-height": "6em"}}>
-      <Dynamic
-        children={children()}
-        component={Accordion}
+      <Accordion
         open={exampleOpen()}
-        ontoggle={(open: boolean) => setEvents((e) => `ontoggle(${open})\n${e}`)}
-      />
+        setOpen={(open: boolean) => setEvents((e) => `setOpen(${open})\n${e}`)}
+      >
+        <AccordionHeader>Static header</AccordionHeader>
+        <p>static content</p>
+      </Accordion>
     </div>
     <hr/>
     <h2 id="accordiongroup-docs">AccordionGroup</h2>
