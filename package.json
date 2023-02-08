@@ -10,13 +10,13 @@
   "files": [
     "dist"
   ],
-  "main": "dist/solid-blocks.cjs.js",
-  "module": "dist/solid-blocks.es.js",
+  "main": "dist/solid-blocks.js",
+  "module": "dist/solid-blocks.mjs",
   "types": "dist/types/index.d.ts",
   "exports": {
     ".": {
-      "import": "./dist/solid-blocks.es.js",
-      "require": "./dist/solid-blocks.cjs.js",
+      "import": "./dist/solid-blocks.mjs",
+      "require": "./dist/solid-blocks.js",
       "solid": "./dist/solid"
     }
   },
